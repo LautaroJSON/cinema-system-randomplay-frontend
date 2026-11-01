@@ -1,0 +1,41 @@
+.pagina {
+  display: grid;
+  gap: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+}
+
+.seccion {
+  display: grid;
+  gap: 0;
+}
+
+/* El estante: grilla regular sobre la trama, con las cintas paradas una al lado de la otra.
+   En el teléfono, dos por fila (las carátulas son verticales, 2:3). Desde 680 px, tarjetas de al
+   menos ~300 px: la etiqueta "RP-0002 · 155 MIN · +13" entra en una sola línea (2 columnas en
+   tablet, 3 en escritorio y 4 en pantallas de 1380 px o más). */
+.estante {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gutter);
+  padding: var(--gutter);
+  border-top: var(--borde) solid var(--line);
+}
+
+@media (min-width: 680px) {
+  .estante {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+@media (min-width: 980px) {
+  .estante {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 24px;
+  }
+}
+
+@media (min-width: 1380px) {
+  .estante {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

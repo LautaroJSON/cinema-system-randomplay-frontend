@@ -1,0 +1,64 @@
+.grupos {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.sucursal {
+  margin-bottom: 0.75rem;
+}
+
+/* Tira de contador: cada horario es una tecla de la videocasetera (DESIGN.md §6). */
+.tira {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  gap: 0.75rem;
+}
+
+.horario {
+  display: grid;
+  gap: 0.375rem;
+  min-height: 44px;
+  padding: 0.75rem 0.875rem;
+  border: var(--borde) solid var(--line-strong);
+  border-radius: var(--radio);
+  background: var(--surface);
+  color: var(--paper);
+  text-decoration: none;
+  box-shadow: 3px 3px 0 var(--ink);
+  transition:
+    background-color var(--transicion),
+    border-color var(--transicion),
+    transform var(--transicion),
+    box-shadow var(--transicion);
+}
+
+.horario:hover {
+  background: var(--surface-2);
+  border-color: var(--paper-muted);
+}
+
+.horario:hover .hora {
+  color: var(--oro);
+}
+
+.horario:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--ink);
+}
+
+.hora {
+  transition: color var(--transicion);
+}
+
+.precio {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-small);
+  color: var(--paper-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .horario:active {
+    transform: none;
+  }
+}

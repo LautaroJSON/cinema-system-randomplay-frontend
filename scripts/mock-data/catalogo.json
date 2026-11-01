@@ -1,0 +1,2097 @@
+{
+  "origen": [
+    "DevDataSeeder.cs (backend, commit 14be06b)",
+    "https://ghibliapi.vercel.app/films"
+  ],
+  "generado": "2026-11-01T11:18:08.875Z",
+  "peliculas": [
+    {
+      "id": "88888888-0000-0000-0000-000000000001",
+      "titulo": "Interstellar",
+      "duracionMinutos": 169,
+      "clasificacion": "ATP",
+      "imagenUrl": "https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "88888888-0000-0000-0000-000000000002",
+      "titulo": "Dune",
+      "duracionMinutos": 155,
+      "clasificacion": "Mas13",
+      "imagenUrl": "https://upload.wikimedia.org/wikipedia/en/8/8e/Dune_%282021_film%29.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "88888888-0000-0000-0000-000000000003",
+      "titulo": "Relatos salvajes",
+      "duracionMinutos": 122,
+      "clasificacion": "Mas16",
+      "imagenUrl": "https://upload.wikimedia.org/wikipedia/en/5/5e/Relatos_salvajes.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "88888888-0000-0000-0000-000000000004",
+      "titulo": "El secreto de sus ojos",
+      "duracionMinutos": 129,
+      "clasificacion": "Mas16",
+      "imagenUrl": "https://upload.wikimedia.org/wikipedia/en/9/91/Cartel-nuevo-de-el-secreto-de-sus-ojos.jpg",
+      "sinFuncionesDisponibles": true
+    },
+    {
+      "id": "2baf70d1-42bb-4437-b551-e5fed5a87abe",
+      "titulo": "Castle in the Sky",
+      "duracionMinutos": "124",
+      "clasificacion": "ATP",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/npOnzAbLh6VOIu3naU5QaEcTepo.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "12cfb892-aac0-4c5b-94af-521852e46d6a",
+      "titulo": "Grave of the Fireflies",
+      "duracionMinutos": "89",
+      "clasificacion": "Mas13",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/qG3RYlIVpTYclR9TYIsy8p7m7AT.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "58611129-2dbc-4a81-a72f-77ddfc1b1b49",
+      "titulo": "My Neighbor Totoro",
+      "duracionMinutos": "86",
+      "clasificacion": "ATP",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/rtGDOeG9LzoerkDGZF9dnVeLppL.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "ea660b10-85c4-4ae3-8a5f-41cea3648e3e",
+      "titulo": "Kiki's Delivery Service",
+      "duracionMinutos": "102",
+      "clasificacion": "Mas16",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/7nO5DUMnGUuXrA4r2h6ESOKQRrx.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "4e236f34-b981-41c3-8c65-f8c9000b94e7",
+      "titulo": "Only Yesterday",
+      "duracionMinutos": "118",
+      "clasificacion": "Mas13",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/xjJU6rwzLX7Jk8HFQfVW6H5guMC.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "ebbb6b7c-945c-41ee-a792-de0e43191bd8",
+      "titulo": "Porco Rosso",
+      "duracionMinutos": "93",
+      "clasificacion": "ATP",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/byKAndF6KQSDpGxp1mTr23jPbYp.jpg",
+      "sinFuncionesDisponibles": true
+    },
+    {
+      "id": "1b67aa9a-2e4a-45af-ac98-64d6ad15b16c",
+      "titulo": "Pom Poko",
+      "duracionMinutos": "119",
+      "clasificacion": "Mas18",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/kowo9E1e1JcWLXj9cCvAOFZcy5n.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "ff24da26-a969-4f0e-ba1e-a122ead6c6e3",
+      "titulo": "Whisper of the Heart",
+      "duracionMinutos": "111",
+      "clasificacion": "ATP",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/5E3Hvbu0bg38ouYf6chGftVGqZ7.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "0440483e-ca0e-4120-8c50-4c8cd9b965d6",
+      "titulo": "Princess Mononoke",
+      "duracionMinutos": "134",
+      "clasificacion": "Mas13",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/jHWmNr7m544fJ8eItsfNk8fs2Ed.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "45204234-adfd-45cb-a505-a8e7a676b114",
+      "titulo": "My Neighbors the Yamadas",
+      "duracionMinutos": "104",
+      "clasificacion": "ATP",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wTGuHmMIBBgKakY80J1D52VvQKI.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "dc2e6bd1-8156-4886-adff-b39e6043af0c",
+      "titulo": "Spirited Away",
+      "duracionMinutos": "124",
+      "clasificacion": "Mas16",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "90b72513-afd4-4570-84de-a56c312fdf81",
+      "titulo": "The Cat Returns",
+      "duracionMinutos": "75",
+      "clasificacion": "Mas13",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/avPMO5cnaGHgLaNiAIhy33WoQLm.jpg",
+      "sinFuncionesDisponibles": true
+    },
+    {
+      "id": "cd3d059c-09f4-4ff3-8d63-bc765a5184fa",
+      "titulo": "Howl's Moving Castle",
+      "duracionMinutos": "119",
+      "clasificacion": "ATP",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/TkTPELv4kC3u1lkloush8skOjE.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "112c1e67-726f-40b1-ac17-6974127bb9b9",
+      "titulo": "Tales from Earthsea",
+      "duracionMinutos": "116",
+      "clasificacion": "Mas18",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/67yYwCPq7NbxSF6BIIXCMD34sY0.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "758bf02e-3122-46e0-884e-67cf83df1786",
+      "titulo": "Ponyo",
+      "duracionMinutos": "100",
+      "clasificacion": "ATP",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/mikKSEdk5kLhflWXbp4S5mmHsDo.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "2de9426b-914a-4a06-a3a0-5e6d9d3886f6",
+      "titulo": "Arrietty",
+      "duracionMinutos": "94",
+      "clasificacion": "Mas13",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/oc2OB2KDmSRDMelKEAA1n4YRQL0.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "45db04e4-304a-4933-9823-33f389e8d74d",
+      "titulo": "From Up on Poppy Hill",
+      "duracionMinutos": "91",
+      "clasificacion": "ATP",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/rRLYX4RZIyloHSJwvZKAhphAjiB.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "67405111-37a5-438f-81cc-4666af60c800",
+      "titulo": "The Wind Rises",
+      "duracionMinutos": "126",
+      "clasificacion": "Mas16",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/jfwSexzlIzaOgxP9A8bTA6t8YYb.jpg",
+      "sinFuncionesDisponibles": true
+    },
+    {
+      "id": "578ae244-7750-4d9f-867b-f3cd3d6fecf4",
+      "titulo": "The Tale of the Princess Kaguya",
+      "duracionMinutos": "137",
+      "clasificacion": "Mas13",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/mWRQNlWXYYfd2z4FRm99MsgHgiA.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "5fdfb320-2a02-49a7-94ff-5ca418cae602",
+      "titulo": "When Marnie Was There",
+      "duracionMinutos": "103",
+      "clasificacion": "ATP",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/vug1dvDI1tSa60Z8qjCuUE7ntkO.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "d868e6ec-c44a-405b-8fa6-f7f0f8cfb500",
+      "titulo": "The Red Turtle",
+      "duracionMinutos": "80",
+      "clasificacion": "Mas18",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wOBU3SLjQ9358Km9YWYasPZyebp.jpg",
+      "sinFuncionesDisponibles": false
+    },
+    {
+      "id": "790e0028-a31c-4626-a694-86b7a8cada40",
+      "titulo": "Earwig and the Witch",
+      "duracionMinutos": "82",
+      "clasificacion": "ATP",
+      "imagenUrl": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/sJhFtY3eHuvvACaPpxpzdCLQqpQ.jpg",
+      "sinFuncionesDisponibles": false
+    }
+  ],
+  "detalles": {
+    "88888888-0000-0000-0000-000000000001": {
+      "id": "88888888-0000-0000-0000-000000000001",
+      "titulo": "Interstellar",
+      "duracionMinutos": 169,
+      "clasificacion": "ATP",
+      "imagenUrl": "https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "En un futuro en el que la Tierra se vuelve inhabitable, un grupo de astronautas viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad."
+    },
+    "88888888-0000-0000-0000-000000000002": {
+      "id": "88888888-0000-0000-0000-000000000002",
+      "titulo": "Dune",
+      "duracionMinutos": 155,
+      "clasificacion": "Mas13",
+      "imagenUrl": "https://upload.wikimedia.org/wikipedia/en/8/8e/Dune_%282021_film%29.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "Paul Atreides, heredero de una familia noble, llega con los suyos a Arrakis, el planeta desértico del que depende la sustancia más valiosa del universo."
+    },
+    "88888888-0000-0000-0000-000000000003": {
+      "id": "88888888-0000-0000-0000-000000000003",
+      "titulo": "Relatos salvajes",
+      "duracionMinutos": 122,
+      "clasificacion": "Mas16",
+      "imagenUrl": "https://upload.wikimedia.org/wikipedia/en/5/5e/Relatos_salvajes.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "Seis historias independientes de personas comunes que, empujadas al límite, pierden el control y se dejan llevar por el placer de la venganza."
+    },
+    "88888888-0000-0000-0000-000000000004": {
+      "id": "88888888-0000-0000-0000-000000000004",
+      "titulo": "El secreto de sus ojos",
+      "duracionMinutos": 129,
+      "clasificacion": "Mas16",
+      "imagenUrl": "https://upload.wikimedia.org/wikipedia/en/9/91/Cartel-nuevo-de-el-secreto-de-sus-ojos.jpg",
+      "sinFuncionesDisponibles": true,
+      "sinopsis": "Un empleado judicial retirado decide escribir una novela sobre un crimen que investigó veinticinco años atrás y que todavía no puede olvidar."
+    },
+    "2baf70d1-42bb-4437-b551-e5fed5a87abe": {
+      "id": "2baf70d1-42bb-4437-b551-e5fed5a87abe",
+      "titulo": "Castle in the Sky",
+      "duracionMinutos": "124",
+      "clasificacion": "ATP",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/npOnzAbLh6VOIu3naU5QaEcTepo.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "The orphan Sheeta inherited a mysterious crystal that links her to the mythical sky-kingdom of Laputa. With the help of resourceful Pazu and a rollicking band of sky pirates, she makes her way to the ruins of the once-great civilization. Sheeta and Pazu must outwit the evil Muska, who plans to use Laputa's science to make himself ruler of the world."
+    },
+    "12cfb892-aac0-4c5b-94af-521852e46d6a": {
+      "id": "12cfb892-aac0-4c5b-94af-521852e46d6a",
+      "titulo": "Grave of the Fireflies",
+      "duracionMinutos": "89",
+      "clasificacion": "Mas13",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/qG3RYlIVpTYclR9TYIsy8p7m7AT.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "In the latter part of World War II, a boy and his sister, orphaned when their mother is killed in the firebombing of Tokyo, are left to survive on their own in what remains of civilian life in Japan. The plot follows this boy and his sister as they do their best to survive in the Japanese countryside, battling hunger, prejudice, and pride in their own quiet, personal battle."
+    },
+    "58611129-2dbc-4a81-a72f-77ddfc1b1b49": {
+      "id": "58611129-2dbc-4a81-a72f-77ddfc1b1b49",
+      "titulo": "My Neighbor Totoro",
+      "duracionMinutos": "86",
+      "clasificacion": "ATP",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/rtGDOeG9LzoerkDGZF9dnVeLppL.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "Two sisters move to the country with their father in order to be closer to their hospitalized mother, and discover the surrounding trees are inhabited by Totoros, magical spirits of the forest. When the youngest runs away from home, the older sister seeks help from the spirits to find her."
+    },
+    "ea660b10-85c4-4ae3-8a5f-41cea3648e3e": {
+      "id": "ea660b10-85c4-4ae3-8a5f-41cea3648e3e",
+      "titulo": "Kiki's Delivery Service",
+      "duracionMinutos": "102",
+      "clasificacion": "Mas16",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/7nO5DUMnGUuXrA4r2h6ESOKQRrx.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "A young witch, on her mandatory year of independent life, finds fitting into a new community difficult while she supports herself by running an air courier service."
+    },
+    "4e236f34-b981-41c3-8c65-f8c9000b94e7": {
+      "id": "4e236f34-b981-41c3-8c65-f8c9000b94e7",
+      "titulo": "Only Yesterday",
+      "duracionMinutos": "118",
+      "clasificacion": "Mas13",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/xjJU6rwzLX7Jk8HFQfVW6H5guMC.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "It’s 1982, and Taeko is 27 years old, unmarried, and has lived her whole life in Tokyo. She decides to visit her family in the countryside, and as the train travels through the night, memories flood back of her younger years: the first immature stirrings of romance, the onset of puberty, and the frustrations of math and boys. At the station she is met by young farmer Toshio, and the encounters with him begin to reconnect her to forgotten longings. In lyrical switches between the present and the past, Taeko contemplates the arc of her life, and wonders if she has been true to the dreams of her childhood self."
+    },
+    "ebbb6b7c-945c-41ee-a792-de0e43191bd8": {
+      "id": "ebbb6b7c-945c-41ee-a792-de0e43191bd8",
+      "titulo": "Porco Rosso",
+      "duracionMinutos": "93",
+      "clasificacion": "ATP",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/byKAndF6KQSDpGxp1mTr23jPbYp.jpg",
+      "sinFuncionesDisponibles": true,
+      "sinopsis": "Porco Rosso, known in Japan as Crimson Pig (Kurenai no Buta) is the sixth animated film by Hayao Miyazaki and released in 1992. You're introduced to an Italian World War I fighter ace, now living as a freelance bounty hunter chasing 'air pirates' in the Adriatic Sea. He has been given a curse that changed his head to that of a pig. Once called Marco Pagot, he is now known to the world as 'Porco Rosso', Italian for 'Red Pig.'"
+    },
+    "1b67aa9a-2e4a-45af-ac98-64d6ad15b16c": {
+      "id": "1b67aa9a-2e4a-45af-ac98-64d6ad15b16c",
+      "titulo": "Pom Poko",
+      "duracionMinutos": "119",
+      "clasificacion": "Mas18",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/kowo9E1e1JcWLXj9cCvAOFZcy5n.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "As the human city development encroaches on the raccoon population's forest and meadow habitat, the raccoons find themselves faced with the very real possibility of extinction. In response, the raccoons engage in a desperate struggle to stop the construction and preserve their home."
+    },
+    "ff24da26-a969-4f0e-ba1e-a122ead6c6e3": {
+      "id": "ff24da26-a969-4f0e-ba1e-a122ead6c6e3",
+      "titulo": "Whisper of the Heart",
+      "duracionMinutos": "111",
+      "clasificacion": "ATP",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/5E3Hvbu0bg38ouYf6chGftVGqZ7.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "Shizuku lives a simple life, dominated by her love for stories and writing. One day she notices that all the library books she has have been previously checked out by the same person: 'Seiji Amasawa'. Curious as to who he is, Shizuku meets a boy her age whom she finds infuriating, but discovers to her shock that he is her 'Prince of Books'. As she grows closer to him, she realises that he merely read all those books to bring himself closer to her. The boy Seiji aspires to be a violin maker in Italy, and it is his dreams that make Shizuku realise that she has no clear path for her life. Knowing that her strength lies in writing, she tests her talents by writing a story about Baron, a cat statuette belonging to Seiji's grandfather."
+    },
+    "0440483e-ca0e-4120-8c50-4c8cd9b965d6": {
+      "id": "0440483e-ca0e-4120-8c50-4c8cd9b965d6",
+      "titulo": "Princess Mononoke",
+      "duracionMinutos": "134",
+      "clasificacion": "Mas13",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/jHWmNr7m544fJ8eItsfNk8fs2Ed.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "Ashitaka, a prince of the disappearing Ainu tribe, is cursed by a demonized boar god and must journey to the west to find a cure. Along the way, he encounters San, a young human woman fighting to protect the forest, and Lady Eboshi, who is trying to destroy it. Ashitaka must find a way to bring balance to this conflict."
+    },
+    "45204234-adfd-45cb-a505-a8e7a676b114": {
+      "id": "45204234-adfd-45cb-a505-a8e7a676b114",
+      "titulo": "My Neighbors the Yamadas",
+      "duracionMinutos": "104",
+      "clasificacion": "ATP",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wTGuHmMIBBgKakY80J1D52VvQKI.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "The Yamadas are a typical middle class Japanese family in urban Tokyo and this film shows us a variety of episodes of their lives. With tales that range from the humourous to the heartbreaking, we see this family cope with life's little conflicts, problems and joys in their own way."
+    },
+    "dc2e6bd1-8156-4886-adff-b39e6043af0c": {
+      "id": "dc2e6bd1-8156-4886-adff-b39e6043af0c",
+      "titulo": "Spirited Away",
+      "duracionMinutos": "124",
+      "clasificacion": "Mas16",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "Spirited Away is an Oscar winning Japanese animated film about a ten year old girl who wanders away from her parents along a path that leads to a world ruled by strange and unusual monster-like animals. Her parents have been changed into pigs along with others inside a bathhouse full of these creatures. Will she ever see the world how it once was?"
+    },
+    "90b72513-afd4-4570-84de-a56c312fdf81": {
+      "id": "90b72513-afd4-4570-84de-a56c312fdf81",
+      "titulo": "The Cat Returns",
+      "duracionMinutos": "75",
+      "clasificacion": "Mas13",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/avPMO5cnaGHgLaNiAIhy33WoQLm.jpg",
+      "sinFuncionesDisponibles": true,
+      "sinopsis": "Haru, a schoolgirl bored by her ordinary routine, saves the life of an unusual cat and suddenly her world is transformed beyond anything she ever imagined. The Cat King rewards her good deed with a flurry of presents, including a very shocking proposal of marriage to his son! Haru embarks on an unexpected journey to the Kingdom of Cats where her eyes are opened to a whole other world."
+    },
+    "cd3d059c-09f4-4ff3-8d63-bc765a5184fa": {
+      "id": "cd3d059c-09f4-4ff3-8d63-bc765a5184fa",
+      "titulo": "Howl's Moving Castle",
+      "duracionMinutos": "119",
+      "clasificacion": "ATP",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/TkTPELv4kC3u1lkloush8skOjE.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "When Sophie, a shy young woman, is cursed with an old body by a spiteful witch, her only chance of breaking the spell lies with a self-indulgent yet insecure young wizard and his companions in his legged, walking home."
+    },
+    "112c1e67-726f-40b1-ac17-6974127bb9b9": {
+      "id": "112c1e67-726f-40b1-ac17-6974127bb9b9",
+      "titulo": "Tales from Earthsea",
+      "duracionMinutos": "116",
+      "clasificacion": "Mas18",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/67yYwCPq7NbxSF6BIIXCMD34sY0.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "Something bizarre has come over the land. The kingdom is deteriorating. People are beginning to act strange... What's even more strange is that people are beginning to see dragons, which shouldn't enter the world of humans. Due to all these bizarre events, Ged, a wandering wizard, is investigating the cause. During his journey, he meets Prince Arren, a young distraught teenage boy. While Arren may look like a shy young teen, he has a severe dark side, which grants him strength, hatred, ruthlessness and has no mercy, especially when it comes to protecting Teru. For the witch Kumo this is a perfect opportunity. She can use the boy's 'fears' against the very one who would help him, Ged."
+    },
+    "758bf02e-3122-46e0-884e-67cf83df1786": {
+      "id": "758bf02e-3122-46e0-884e-67cf83df1786",
+      "titulo": "Ponyo",
+      "duracionMinutos": "100",
+      "clasificacion": "ATP",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/mikKSEdk5kLhflWXbp4S5mmHsDo.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "The son of a sailor, 5-year old Sosuke lives a quiet life on an oceanside cliff with his mother Lisa. One fateful day, he finds a beautiful goldfish trapped in a bottle on the beach and upon rescuing her, names her Ponyo. But she is no ordinary goldfish. The daughter of a masterful wizard and a sea goddess, Ponyo uses her father's magic to transform herself into a young girl and quickly falls in love with Sosuke, but the use of such powerful sorcery causes a dangerous imbalance in the world. As the moon steadily draws nearer to the earth and Ponyo's father sends the ocean's mighty waves to find his daughter, the two children embark on an adventure of a lifetime to save the world and fulfill Ponyo's dreams of becoming human."
+    },
+    "2de9426b-914a-4a06-a3a0-5e6d9d3886f6": {
+      "id": "2de9426b-914a-4a06-a3a0-5e6d9d3886f6",
+      "titulo": "Arrietty",
+      "duracionMinutos": "94",
+      "clasificacion": "Mas13",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/oc2OB2KDmSRDMelKEAA1n4YRQL0.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "14-year-old Arrietty and the rest of the Clock family live in peaceful anonymity as they make their own home from items 'borrowed' from the house's human inhabitants. However, life changes for the Clocks when a human boy discovers Arrietty."
+    },
+    "45db04e4-304a-4933-9823-33f389e8d74d": {
+      "id": "45db04e4-304a-4933-9823-33f389e8d74d",
+      "titulo": "From Up on Poppy Hill",
+      "duracionMinutos": "91",
+      "clasificacion": "ATP",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/rRLYX4RZIyloHSJwvZKAhphAjiB.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "The story is set in 1963 in Yokohama. Kokuriko Manor sits on a hill overlooking the harbour. A 16 year-old girl, Umi, lives in that house. Every morning she raises a signal flag facing the sea. The flag means “I pray for safe voyages”. A 17 year-old boy, Shun, always sees this flag from the sea as he rides a tugboat to school. Gradually the pair are drawn to each other but they are faced with a sudden trial. Even so, they keep going without running from facing the hardships of reality."
+    },
+    "67405111-37a5-438f-81cc-4666af60c800": {
+      "id": "67405111-37a5-438f-81cc-4666af60c800",
+      "titulo": "The Wind Rises",
+      "duracionMinutos": "126",
+      "clasificacion": "Mas16",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/jfwSexzlIzaOgxP9A8bTA6t8YYb.jpg",
+      "sinFuncionesDisponibles": true,
+      "sinopsis": "A lifelong love of flight inspires Japanese aviation engineer Jiro Horikoshi, whose storied career includes the creation of the A-6M World War II fighter plane."
+    },
+    "578ae244-7750-4d9f-867b-f3cd3d6fecf4": {
+      "id": "578ae244-7750-4d9f-867b-f3cd3d6fecf4",
+      "titulo": "The Tale of the Princess Kaguya",
+      "duracionMinutos": "137",
+      "clasificacion": "Mas13",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/mWRQNlWXYYfd2z4FRm99MsgHgiA.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "A bamboo cutter named Sanuki no Miyatsuko discovers a miniature girl inside a glowing bamboo shoot. Believing her to be a divine presence, he and his wife decide to raise her as their own, calling her 'Princess'."
+    },
+    "5fdfb320-2a02-49a7-94ff-5ca418cae602": {
+      "id": "5fdfb320-2a02-49a7-94ff-5ca418cae602",
+      "titulo": "When Marnie Was There",
+      "duracionMinutos": "103",
+      "clasificacion": "ATP",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/vug1dvDI1tSa60Z8qjCuUE7ntkO.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "The film follows Anna Sasaki living with her relatives in the seaside town. Anna comes across a nearby abandoned mansion, where she meets Marnie, a mysterious girl who asks her to promise to keep their secrets from everyone. As the summer progresses, Anna spends more time with Marnie, and eventually Anna learns the truth about her family and foster care."
+    },
+    "d868e6ec-c44a-405b-8fa6-f7f0f8cfb500": {
+      "id": "d868e6ec-c44a-405b-8fa6-f7f0f8cfb500",
+      "titulo": "The Red Turtle",
+      "duracionMinutos": "80",
+      "clasificacion": "Mas18",
+      "imagenUrl": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/wOBU3SLjQ9358Km9YWYasPZyebp.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "A man set adrift by a storm wakes up on a beach. He discovers that he is on a deserted island with plenty of fresh water, fruit and a dense bamboo forest. He builds a raft from bamboo and attempts to sail away, but his raft is destroyed by an unseen monster in the sea, forcing him back to the island. He tries again with another, larger raft, but is again foiled by the creature. A third attempt again ends with the raft destroyed, but this time he is confronted by a giant red turtle, which stares at him, and forces him back to the island."
+    },
+    "790e0028-a31c-4626-a694-86b7a8cada40": {
+      "id": "790e0028-a31c-4626-a694-86b7a8cada40",
+      "titulo": "Earwig and the Witch",
+      "duracionMinutos": "82",
+      "clasificacion": "ATP",
+      "imagenUrl": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/sJhFtY3eHuvvACaPpxpzdCLQqpQ.jpg",
+      "sinFuncionesDisponibles": false,
+      "sinopsis": "An orphan girl, Earwig, is adopted by a witch and comes home to a spooky house filled with mystery and magic."
+    }
+  },
+  "sucursales": {
+    "88888888-0000-0000-0000-000000000001": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000002",
+        "nombre": "Sucursal Norte"
+      }
+    ],
+    "88888888-0000-0000-0000-000000000002": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000002",
+        "nombre": "Sucursal Norte"
+      }
+    ],
+    "88888888-0000-0000-0000-000000000003": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      }
+    ],
+    "88888888-0000-0000-0000-000000000004": [],
+    "2baf70d1-42bb-4437-b551-e5fed5a87abe": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000002",
+        "nombre": "Sucursal Norte"
+      }
+    ],
+    "12cfb892-aac0-4c5b-94af-521852e46d6a": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000003",
+        "nombre": "Sucursal Sur"
+      }
+    ],
+    "58611129-2dbc-4a81-a72f-77ddfc1b1b49": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000002",
+        "nombre": "Sucursal Norte"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000003",
+        "nombre": "Sucursal Sur"
+      }
+    ],
+    "ea660b10-85c4-4ae3-8a5f-41cea3648e3e": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000002",
+        "nombre": "Sucursal Norte"
+      }
+    ],
+    "4e236f34-b981-41c3-8c65-f8c9000b94e7": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000003",
+        "nombre": "Sucursal Sur"
+      }
+    ],
+    "ebbb6b7c-945c-41ee-a792-de0e43191bd8": [],
+    "1b67aa9a-2e4a-45af-ac98-64d6ad15b16c": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000002",
+        "nombre": "Sucursal Norte"
+      }
+    ],
+    "ff24da26-a969-4f0e-ba1e-a122ead6c6e3": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000003",
+        "nombre": "Sucursal Sur"
+      }
+    ],
+    "0440483e-ca0e-4120-8c50-4c8cd9b965d6": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000002",
+        "nombre": "Sucursal Norte"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000003",
+        "nombre": "Sucursal Sur"
+      }
+    ],
+    "45204234-adfd-45cb-a505-a8e7a676b114": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000002",
+        "nombre": "Sucursal Norte"
+      }
+    ],
+    "dc2e6bd1-8156-4886-adff-b39e6043af0c": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000003",
+        "nombre": "Sucursal Sur"
+      }
+    ],
+    "90b72513-afd4-4570-84de-a56c312fdf81": [],
+    "cd3d059c-09f4-4ff3-8d63-bc765a5184fa": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000002",
+        "nombre": "Sucursal Norte"
+      }
+    ],
+    "112c1e67-726f-40b1-ac17-6974127bb9b9": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000003",
+        "nombre": "Sucursal Sur"
+      }
+    ],
+    "758bf02e-3122-46e0-884e-67cf83df1786": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000002",
+        "nombre": "Sucursal Norte"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000003",
+        "nombre": "Sucursal Sur"
+      }
+    ],
+    "2de9426b-914a-4a06-a3a0-5e6d9d3886f6": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000002",
+        "nombre": "Sucursal Norte"
+      }
+    ],
+    "45db04e4-304a-4933-9823-33f389e8d74d": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000003",
+        "nombre": "Sucursal Sur"
+      }
+    ],
+    "67405111-37a5-438f-81cc-4666af60c800": [],
+    "578ae244-7750-4d9f-867b-f3cd3d6fecf4": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000002",
+        "nombre": "Sucursal Norte"
+      }
+    ],
+    "5fdfb320-2a02-49a7-94ff-5ca418cae602": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000003",
+        "nombre": "Sucursal Sur"
+      }
+    ],
+    "d868e6ec-c44a-405b-8fa6-f7f0f8cfb500": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000002",
+        "nombre": "Sucursal Norte"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000003",
+        "nombre": "Sucursal Sur"
+      }
+    ],
+    "790e0028-a31c-4626-a694-86b7a8cada40": [
+      {
+        "id": "11111111-0000-0000-0000-000000000001",
+        "nombre": "Sucursal Centro"
+      },
+      {
+        "id": "11111111-0000-0000-0000-000000000002",
+        "nombre": "Sucursal Norte"
+      }
+    ]
+  },
+  "horarios": {
+    "88888888-0000-0000-0000-000000000001/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "c4bf5041-c4bf-4041-84bf-5041c4bf5041",
+        "offsetMinutos": 120,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "c3bf4eae-c3bf-4eae-83bf-4eaec3bf4eae",
+        "offsetMinutos": 240,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "7250.50",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "88888888-0000-0000-0000-000000000001/11111111-0000-0000-0000-000000000002": [
+      {
+        "funcionId": "ca85e34c-ca85-434c-8a85-e34cca85e34c",
+        "offsetMinutos": 60,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "6000.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "88888888-0000-0000-0000-000000000002/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "c5bc1fbe-c5bc-4fbe-85bc-1fbec5bc1fbe",
+        "offsetMinutos": 300,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "6500.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "88888888-0000-0000-0000-000000000002/11111111-0000-0000-0000-000000000002": [
+      {
+        "funcionId": "f4e5541f-f4e5-441f-84e5-541ff4e5541f",
+        "offsetMinutos": 240,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "6000.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "88888888-0000-0000-0000-000000000003/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "a1a985a3-a1a9-45a3-81a9-85a3a1a985a3",
+        "offsetMinutos": 60,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "5000.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "2baf70d1-42bb-4437-b551-e5fed5a87abe/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "6136f2e6-6136-42e6-8136-f2e66136f2e6",
+        "offsetMinutos": 45,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "6236f479-6236-4479-8236-f4796236f479",
+        "offsetMinutos": 195,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "2baf70d1-42bb-4437-b551-e5fed5a87abe/11111111-0000-0000-0000-000000000002": [
+      {
+        "funcionId": "b0b00b87-b0b0-4b87-80b0-0b87b0b00b87",
+        "offsetMinutos": 74,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "afb009f4-afb0-49f4-8fb0-09f4afb009f4",
+        "offsetMinutos": 224,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "b2b00ead-b2b0-4ead-82b0-0eadb2b00ead",
+        "offsetMinutos": 374,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "12cfb892-aac0-4c5b-94af-521852e46d6a/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "7bc77351-7bc7-4351-8bc7-73517bc77351",
+        "offsetMinutos": 62,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "7ac771be-7ac7-41be-8ac7-71be7ac771be",
+        "offsetMinutos": 212,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "79c7702b-79c7-402b-89c7-702b79c7702b",
+        "offsetMinutos": 362,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "12cfb892-aac0-4c5b-94af-521852e46d6a/11111111-0000-0000-0000-000000000003": [
+      {
+        "funcionId": "a579c687-a579-4687-8579-c687a579c687",
+        "offsetMinutos": 91,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "a479c4f4-a479-44f4-8479-c4f4a479c4f4",
+        "offsetMinutos": 241,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "a779c9ad-a779-49ad-8779-c9ada779c9ad",
+        "offsetMinutos": 391,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "a679c81a-a679-481a-8679-c81aa679c81a",
+        "offsetMinutos": 541,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "58611129-2dbc-4a81-a72f-77ddfc1b1b49/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "9183fa92-9183-4a92-8183-fa929183fa92",
+        "offsetMinutos": 79,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "9283fc25-9283-4c25-8283-fc259283fc25",
+        "offsetMinutos": 229,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "8f83f76c-8f83-476c-8f83-f76c8f83f76c",
+        "offsetMinutos": 379,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "9083f8ff-9083-48ff-8083-f8ff9083f8ff",
+        "offsetMinutos": 529,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "58611129-2dbc-4a81-a72f-77ddfc1b1b49/11111111-0000-0000-0000-000000000002": [
+      {
+        "funcionId": "c19ab193-c19a-4193-819a-b193c19ab193",
+        "offsetMinutos": 108,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "c09ab000-c09a-4000-809a-b000c09ab000",
+        "offsetMinutos": 258,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "58611129-2dbc-4a81-a72f-77ddfc1b1b49/11111111-0000-0000-0000-000000000003": [
+      {
+        "funcionId": "3c72b8c8-3c72-48c8-8c72-b8c83c72b8c8",
+        "offsetMinutos": 47,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "3d72ba5b-3d72-4a5b-8d72-ba5b3d72ba5b",
+        "offsetMinutos": 197,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "3e72bbee-3e72-4bee-8e72-bbee3e72bbee",
+        "offsetMinutos": 347,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "ea660b10-85c4-4ae3-8a5f-41cea3648e3e/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "9fb49b88-9fb4-4b88-8fb4-9b889fb49b88",
+        "offsetMinutos": 96,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "a0b49d1b-a0b4-4d1b-80b4-9d1ba0b49d1b",
+        "offsetMinutos": 246,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "ea660b10-85c4-4ae3-8a5f-41cea3648e3e/11111111-0000-0000-0000-000000000002": [
+      {
+        "funcionId": "99ee087d-99ee-487d-89ee-087d99ee087d",
+        "offsetMinutos": 125,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "98ee06ea-98ee-46ea-88ee-06ea98ee06ea",
+        "offsetMinutos": 275,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "97ee0557-97ee-4557-87ee-055797ee0557",
+        "offsetMinutos": 425,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "4e236f34-b981-41c3-8c65-f8c9000b94e7/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "cb81c74f-cb81-474f-8b81-c74fcb81c74f",
+        "offsetMinutos": 113,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "ca81c5bc-ca81-45bc-8a81-c5bcca81c5bc",
+        "offsetMinutos": 263,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "cd81ca75-cd81-4a75-8d81-ca75cd81ca75",
+        "offsetMinutos": 413,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "4e236f34-b981-41c3-8c65-f8c9000b94e7/11111111-0000-0000-0000-000000000003": [
+      {
+        "funcionId": "20930919-2093-4919-8093-091920930919",
+        "offsetMinutos": 52,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "1f930786-1f93-4786-8f93-07861f930786",
+        "offsetMinutos": 202,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "1e9305f3-1e93-45f3-8e93-05f31e9305f3",
+        "offsetMinutos": 352,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "1d930460-1d93-4460-8d93-04601d930460",
+        "offsetMinutos": 502,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "1b67aa9a-2e4a-45af-ac98-64d6ad15b16c/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "96662f28-9666-4f28-8666-2f2896662f28",
+        "offsetMinutos": 57,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "976630bb-9766-40bb-8766-30bb976630bb",
+        "offsetMinutos": 207,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "1b67aa9a-2e4a-45af-ac98-64d6ad15b16c/11111111-0000-0000-0000-000000000002": [
+      {
+        "funcionId": "11dc071d-11dc-471d-81dc-071d11dc071d",
+        "offsetMinutos": 86,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "10dc058a-10dc-458a-80dc-058a10dc058a",
+        "offsetMinutos": 236,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "0fdc03f7-0fdc-43f7-8fdc-03f70fdc03f7",
+        "offsetMinutos": 386,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "ff24da26-a969-4f0e-ba1e-a122ead6c6e3/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "bccadaa1-bcca-4aa1-8cca-daa1bccadaa1",
+        "offsetMinutos": 74,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "bbcad90e-bbca-490e-8bca-d90ebbcad90e",
+        "offsetMinutos": 224,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "bacad77b-baca-477b-8aca-d77bbacad77b",
+        "offsetMinutos": 374,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "ff24da26-a969-4f0e-ba1e-a122ead6c6e3/11111111-0000-0000-0000-000000000003": [
+      {
+        "funcionId": "667c6457-667c-4457-867c-6457667c6457",
+        "offsetMinutos": 103,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "657c62c4-657c-42c4-857c-62c4657c62c4",
+        "offsetMinutos": 253,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "687c677d-687c-477d-887c-677d687c677d",
+        "offsetMinutos": 403,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "677c65ea-677c-45ea-877c-65ea677c65ea",
+        "offsetMinutos": 553,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "0440483e-ca0e-4120-8c50-4c8cd9b965d6/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "b900803b-b900-403b-8900-803bb900803b",
+        "offsetMinutos": 91,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "b8007ea8-b800-4ea8-8800-7ea8b8007ea8",
+        "offsetMinutos": 241,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "bb008361-bb00-4361-8b00-8361bb008361",
+        "offsetMinutos": 391,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "ba0081ce-ba00-41ce-8a00-81ceba0081ce",
+        "offsetMinutos": 541,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "0440483e-ca0e-4120-8c50-4c8cd9b965d6/11111111-0000-0000-0000-000000000002": [
+      {
+        "funcionId": "89d74bda-89d7-4bda-89d7-4bda89d74bda",
+        "offsetMinutos": 120,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "8ad74d6d-8ad7-4d6d-8ad7-4d6d8ad74d6d",
+        "offsetMinutos": 270,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "0440483e-ca0e-4120-8c50-4c8cd9b965d6/11111111-0000-0000-0000-000000000003": [
+      {
+        "funcionId": "0eff44a5-0eff-44a5-8eff-44a50eff44a5",
+        "offsetMinutos": 59,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "0dff4312-0dff-4312-8dff-43120dff4312",
+        "offsetMinutos": 209,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "0cff417f-0cff-417f-8cff-417f0cff417f",
+        "offsetMinutos": 359,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "45204234-adfd-45cb-a505-a8e7a676b114/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "b9f7c849-b9f7-4849-89f7-c849b9f7c849",
+        "offsetMinutos": 108,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "b8f7c6b6-b8f7-46b6-88f7-c6b6b8f7c6b6",
+        "offsetMinutos": 258,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "45204234-adfd-45cb-a505-a8e7a676b114/11111111-0000-0000-0000-000000000002": [
+      {
+        "funcionId": "5f1ff374-5f1f-4374-8f1f-f3745f1ff374",
+        "offsetMinutos": 47,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "601ff507-601f-4507-801f-f507601ff507",
+        "offsetMinutos": 197,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "611ff69a-611f-469a-811f-f69a611ff69a",
+        "offsetMinutos": 347,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "dc2e6bd1-8156-4886-adff-b39e6043af0c/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "920f5d6a-920f-4d6a-820f-5d6a920f5d6a",
+        "offsetMinutos": 125,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "930f5efd-930f-4efd-830f-5efd930f5efd",
+        "offsetMinutos": 275,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "900f5a44-900f-4a44-800f-5a44900f5a44",
+        "offsetMinutos": 425,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "dc2e6bd1-8156-4886-adff-b39e6043af0c/11111111-0000-0000-0000-000000000003": [
+      {
+        "funcionId": "1c1066a0-1c10-46a0-8c10-66a01c1066a0",
+        "offsetMinutos": 64,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "1d106833-1d10-4833-8d10-68331d106833",
+        "offsetMinutos": 214,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "1e1069c6-1e10-49c6-8e10-69c61e1069c6",
+        "offsetMinutos": 364,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "1f106b59-1f10-4b59-8f10-6b591f106b59",
+        "offsetMinutos": 514,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "cd3d059c-09f4-4ff3-8d63-bc765a5184fa/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "0a0ac579-0a0a-4579-8a0a-c5790a0ac579",
+        "offsetMinutos": 69,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "090ac3e6-090a-43e6-890a-c3e6090ac3e6",
+        "offsetMinutos": 219,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "cd3d059c-09f4-4ff3-8d63-bc765a5184fa/11111111-0000-0000-0000-000000000002": [
+      {
+        "funcionId": "2e945664-2e94-4664-8e94-56642e945664",
+        "offsetMinutos": 98,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "2f9457f7-2f94-47f7-8f94-57f72f9457f7",
+        "offsetMinutos": 248,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "3094598a-3094-498a-8094-598a3094598a",
+        "offsetMinutos": 398,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "112c1e67-726f-40b1-ac17-6974127bb9b9/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "1473eeda-1473-4eda-8473-eeda1473eeda",
+        "offsetMinutos": 86,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "1573f06d-1573-406d-8573-f06d1573f06d",
+        "offsetMinutos": 236,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "1273ebb4-1273-4bb4-8273-ebb41273ebb4",
+        "offsetMinutos": 386,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "112c1e67-726f-40b1-ac17-6974127bb9b9/11111111-0000-0000-0000-000000000003": [
+      {
+        "funcionId": "1dd65dd0-1dd6-4dd0-8dd6-5dd01dd65dd0",
+        "offsetMinutos": 115,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "1ed65f63-1ed6-4f63-8ed6-5f631ed65f63",
+        "offsetMinutos": 265,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "1fd660f6-1fd6-40f6-8fd6-60f61fd660f6",
+        "offsetMinutos": 415,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "20d66289-20d6-4289-80d6-628920d66289",
+        "offsetMinutos": 565,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "758bf02e-3122-46e0-884e-67cf83df1786/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "c6102dc0-c610-4dc0-8610-2dc0c6102dc0",
+        "offsetMinutos": 103,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "c7102f53-c710-4f53-8710-2f53c7102f53",
+        "offsetMinutos": 253,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "c81030e6-c810-40e6-8810-30e6c81030e6",
+        "offsetMinutos": 403,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "c9103279-c910-4279-8910-3279c9103279",
+        "offsetMinutos": 553,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "758bf02e-3122-46e0-884e-67cf83df1786/11111111-0000-0000-0000-000000000002": [
+      {
+        "funcionId": "c1d68115-c1d6-4115-81d6-8115c1d68115",
+        "offsetMinutos": 132,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "c0d67f82-c0d6-4f82-80d6-7f82c0d67f82",
+        "offsetMinutos": 282,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "758bf02e-3122-46e0-884e-67cf83df1786/11111111-0000-0000-0000-000000000003": [
+      {
+        "funcionId": "3c0f248a-3c0f-448a-8c0f-248a3c0f248a",
+        "offsetMinutos": 71,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "3d0f261d-3d0f-461d-8d0f-261d3d0f261d",
+        "offsetMinutos": 221,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "3a0f2164-3a0f-4164-8a0f-21643a0f2164",
+        "offsetMinutos": 371,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "2de9426b-914a-4a06-a3a0-5e6d9d3886f6/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "ed807bb5-ed80-4bb5-8d80-7bb5ed807bb5",
+        "offsetMinutos": 120,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "ec807a22-ec80-4a22-8c80-7a22ec807a22",
+        "offsetMinutos": 270,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "2de9426b-914a-4a06-a3a0-5e6d9d3886f6/11111111-0000-0000-0000-000000000002": [
+      {
+        "funcionId": "72f82660-72f8-4660-82f8-266072f82660",
+        "offsetMinutos": 59,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "73f827f3-73f8-47f3-83f8-27f373f827f3",
+        "offsetMinutos": 209,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "74f82986-74f8-4986-84f8-298674f82986",
+        "offsetMinutos": 359,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "45db04e4-304a-4933-9823-33f389e8d74d/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "bddf5b47-bddf-4b47-8ddf-5b47bddf5b47",
+        "offsetMinutos": 47,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "bcdf59b4-bcdf-49b4-8cdf-59b4bcdf59b4",
+        "offsetMinutos": 197,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "bfdf5e6d-bfdf-4e6d-8fdf-5e6dbfdf5e6d",
+        "offsetMinutos": 347,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "45db04e4-304a-4933-9823-33f389e8d74d/11111111-0000-0000-0000-000000000003": [
+      {
+        "funcionId": "942d0811-942d-4811-842d-0811942d0811",
+        "offsetMinutos": 76,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "932d067e-932d-467e-832d-067e932d067e",
+        "offsetMinutos": 226,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "922d04eb-922d-44eb-822d-04eb922d04eb",
+        "offsetMinutos": 376,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "912d0358-912d-4358-812d-0358912d0358",
+        "offsetMinutos": 526,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "578ae244-7750-4d9f-867b-f3cd3d6fecf4/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "e5ee6b4e-e5ee-4b4e-85ee-6b4ee5ee6b4e",
+        "offsetMinutos": 81,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "e6ee6ce1-e6ee-4ce1-86ee-6ce1e6ee6ce1",
+        "offsetMinutos": 231,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "578ae244-7750-4d9f-867b-f3cd3d6fecf4/11111111-0000-0000-0000-000000000002": [
+      {
+        "funcionId": "15179faf-1517-4faf-8517-9faf15179faf",
+        "offsetMinutos": 110,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "14179e1c-1417-4e1c-8417-9e1c14179e1c",
+        "offsetMinutos": 260,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "1717a2d5-1717-42d5-8717-a2d51717a2d5",
+        "offsetMinutos": 410,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "5fdfb320-2a02-49a7-94ff-5ca418cae602/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "8194cd6c-8194-4d6c-8194-cd6c8194cd6c",
+        "offsetMinutos": 98,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "8294ceff-8294-4eff-8294-ceff8294ceff",
+        "offsetMinutos": 248,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "8394d092-8394-4092-8394-d0928394d092",
+        "offsetMinutos": 398,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "5fdfb320-2a02-49a7-94ff-5ca418cae602/11111111-0000-0000-0000-000000000003": [
+      {
+        "funcionId": "d7e343b6-d7e3-43b6-87e3-43b6d7e343b6",
+        "offsetMinutos": 127,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "d8e34549-d8e3-4549-88e3-4549d8e34549",
+        "offsetMinutos": 277,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "d5e34090-d5e3-4090-85e3-4090d5e34090",
+        "offsetMinutos": 427,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "d6e34223-d6e3-4223-86e3-4223d6e34223",
+        "offsetMinutos": 577,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "d868e6ec-c44a-405b-8fa6-f7f0f8cfb500/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "c8d0ed86-c8d0-4d86-88d0-ed86c8d0ed86",
+        "offsetMinutos": 115,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "c9d0ef19-c9d0-4f19-89d0-ef19c9d0ef19",
+        "offsetMinutos": 265,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "c6d0ea60-c6d0-4a60-86d0-ea60c6d0ea60",
+        "offsetMinutos": 415,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "c7d0ebf3-c7d0-4bf3-87d0-ebf3c7d0ebf3",
+        "offsetMinutos": 565,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "d868e6ec-c44a-405b-8fa6-f7f0f8cfb500/11111111-0000-0000-0000-000000000002": [
+      {
+        "funcionId": "98493ca7-9849-4ca7-8849-3ca798493ca7",
+        "offsetMinutos": 54,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "97493b14-9749-4b14-8749-3b1497493b14",
+        "offsetMinutos": 204,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "d868e6ec-c44a-405b-8fa6-f7f0f8cfb500/11111111-0000-0000-0000-000000000003": [
+      {
+        "funcionId": "7282773c-7282-473c-8282-773c7282773c",
+        "offsetMinutos": 83,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "738278cf-7382-48cf-8382-78cf738278cf",
+        "offsetMinutos": 233,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "74827a62-7482-4a62-8482-7a6274827a62",
+        "offsetMinutos": 383,
+        "salaId": "22222222-0000-0000-0000-000000000004",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "790e0028-a31c-4626-a694-86b7a8cada40/11111111-0000-0000-0000-000000000001": [
+      {
+        "funcionId": "6435f47e-6435-447e-8435-f47e6435f47e",
+        "offsetMinutos": 132,
+        "salaId": "22222222-0000-0000-0000-000000000002",
+        "salaNombre": "Sala 2",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "6535f611-6535-4611-8535-f6116535f611",
+        "offsetMinutos": 282,
+        "salaId": "22222222-0000-0000-0000-000000000001",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      }
+    ],
+    "790e0028-a31c-4626-a694-86b7a8cada40/11111111-0000-0000-0000-000000000002": [
+      {
+        "funcionId": "935f28df-935f-48df-835f-28df935f28df",
+        "offsetMinutos": 71,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4800.00",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "925f274c-925f-474c-825f-274c925f274c",
+        "offsetMinutos": 221,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "5200.50",
+          "moneda": "ARS"
+        }
+      },
+      {
+        "funcionId": "955f2c05-955f-4c05-855f-2c05955f2c05",
+        "offsetMinutos": 371,
+        "salaId": "22222222-0000-0000-0000-000000000003",
+        "salaNombre": "Sala 1",
+        "precioEntrada": {
+          "monto": "4500.00",
+          "moneda": "ARS"
+        }
+      }
+    ]
+  }
+}

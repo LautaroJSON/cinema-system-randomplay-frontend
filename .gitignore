@@ -7,3 +7,9 @@ build/
 *.log
 .DS_Store
 .claude/settings.local.json
+.next/
+next-env.d.ts
+*.tsbuildinfo
+coverage/
+test-results/
+playwright-report/

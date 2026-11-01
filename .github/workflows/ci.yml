@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  calidad:
+    runs-on: ubuntu-latest
+    # En local salen de .env.local, que no se versiona. Son las del mock de la API, no secretos.
+    env:
+      API_URL: http://127.0.0.1:4010
+      SITE_URL: http://localhost:3000
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+
+      - name: Tipos generados al día con openapi.json
+        run: npm run gen:api && git diff --exit-code src/api/schema.d.ts
+
+      - name: TypeScript strict
+        run: npm run typecheck
+
+      - name: ESLint (incluye jsx-a11y)
+        run: npm run lint
+
+      - name: Tests unitarios y de componentes
+        run: npm test
+
+      - name: Build y e2e (metadata y contenido en el HTML inicial)
+        run: |
+          npx playwright install --with-deps chromium
+          npm run test:e2e

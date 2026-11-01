@@ -184,7 +184,13 @@ Dos familias, servidas con `next/font` (sin requests de terceros que bloqueen el
 
 - Solo **hover, focus y press**, con transiciones de 120–160 ms `ease-out` sobre color,
   sombra y desplazamiento de 2 px.
-- **Sin** scroll-reveal, parallax, carruseles automáticos ni animaciones de entrada.
+- **Sin** scroll-reveal, parallax, carruseles automáticos ni animaciones de entrada, con una
+  excepción aprobada por el dueño el 2026-11-01:
+  - **Carrusel del hero de la cartelera**: pasa hasta 5 películas destacadas de derecha a
+    izquierda cada 6 s, con un deslizamiento de 700 ms, como una cinta que avanza. Tiene
+    botonera de videocasetera (Pausa/Play, anterior, contador `02 / 05` en `counter` dorado,
+    siguiente), se detiene con el mouse o el foco encima y, con `prefers-reduced-motion`, no
+    avanza solo (WCAG 2.2.2). Es el único elemento que se mueve sin que la persona lo pida.
 - La única animación "de marca" permitida es un barrido corto de líneas de tracking VHS
   (≤ 300 ms, una vez) al cambiar de página en el catálogo. Es opcional, y si no suma se quita.
 - `prefers-reduced-motion: reduce` elimina todo desplazamiento y deja solo cambios de color.

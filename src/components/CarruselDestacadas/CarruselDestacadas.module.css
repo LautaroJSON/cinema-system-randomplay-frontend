@@ -1,0 +1,85 @@
+.carrusel {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.ventana {
+  overflow: hidden;
+}
+
+.pista {
+  display: flex;
+  align-items: stretch;
+}
+
+/* Desliza de derecha a izquierda, con salida y llegada suaves, como una cinta que avanza. */
+.animada {
+  transition: transform 700ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* El margen derecho e inferior, dentro de cada diapositiva, deja ver la sombra dura de la
+   tarjeta sin que asome la siguiente. */
+.diapositiva {
+  flex: 0 0 100%;
+  min-width: 0;
+  padding: 0 6px 6px 0;
+}
+
+/* Botonera de videocasetera: Pausa/Play, anterior, contador y siguiente. */
+.controles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 0.75rem;
+  border: var(--borde) solid var(--line-strong);
+  border-radius: var(--radio);
+  background: var(--surface);
+  color: var(--paper);
+  box-shadow: 3px 3px 0 var(--ink);
+  transition:
+    background-color var(--transicion),
+    border-color var(--transicion),
+    transform var(--transicion),
+    box-shadow var(--transicion);
+}
+
+.boton:hover {
+  background: var(--surface-2);
+  border-color: var(--paper-muted);
+}
+
+/* Tecla de videocasetera: al presionar baja la sombra y se hunde 2 px. */
+.boton:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--ink);
+}
+
+.boton[data-pausado="true"] {
+  border-color: var(--oro);
+}
+
+.contador {
+  min-width: 6ch;
+  padding-inline: 0.5rem;
+  color: var(--oro);
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animada {
+    transition: none;
+  }
+
+  .boton:active {
+    transform: none;
+  }
+}

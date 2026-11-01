@@ -1,0 +1,62 @@
+.pagina {
+  display: grid;
+  gap: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+}
+
+.volver {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  min-height: 44px;
+  text-underline-offset: 4px;
+}
+
+/* Bloque 1: la ficha (carátula y sinopsis). Bloque 2: horarios por sucursal. */
+.ficha {
+  display: grid;
+  gap: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  border: var(--borde) solid var(--line);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.datos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  color: var(--paper-muted);
+}
+
+.sinopsis {
+  display: grid;
+  gap: 1rem;
+  padding: 0 clamp(1.25rem, 0.75rem + 2.5vw, 2.5rem) clamp(1.25rem, 0.75rem + 2.5vw, 2.5rem);
+}
+
+.sinopsis h2 {
+  justify-self: start;
+}
+
+.sinopsis p {
+  max-width: 68ch;
+}
+
+.horarios {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.horarios > h2 {
+  justify-self: start;
+}
+
+.aviso {
+  color: var(--paper-muted);
+}
+
+.error {
+  display: grid;
+  justify-items: start;
+  gap: 0.75rem;
+  color: var(--telon-ink);
+}

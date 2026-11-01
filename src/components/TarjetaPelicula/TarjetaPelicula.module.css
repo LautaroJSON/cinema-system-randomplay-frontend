@@ -1,0 +1,157 @@
+/* Una cinta en el estante: lomo de papel + carátula, levantada con sombra dura. */
+.tarjeta {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: minmax(0, 1fr);
+  height: 100%;
+  border-radius: var(--radio);
+  background: var(--surface);
+  border: var(--borde) solid var(--line);
+  box-shadow: 4px 4px 0 var(--ink);
+  transition:
+    transform var(--transicion),
+    box-shadow var(--transicion),
+    border-color var(--transicion);
+}
+
+.tarjeta:hover {
+  border-color: var(--line-strong);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.tarjeta:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--ink);
+}
+
+/* El enlace cubre la tarjeta entera; el foco se dibuja en la tarjeta. */
+.tarjeta:has(.enlace:focus-visible) {
+  outline: 2px solid var(--oro);
+  outline-offset: 2px;
+}
+
+.enlace {
+  text-decoration: none;
+}
+
+.enlace:focus-visible {
+  outline: none;
+}
+
+.enlace::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.tarjeta:hover .enlace {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* Lomo: horizontal arriba en móvil, vertical a la izquierda desde 600 px (DESIGN.md §6.1). */
+.lomo {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.375rem 0.75rem;
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.lomoTitulo {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cuerpo {
+  display: grid;
+  min-width: 0;
+  grid-template-rows: 1fr auto;
+}
+
+.titulo {
+  font-weight: 750;
+  font-stretch: 75%;
+  text-transform: uppercase;
+  line-height: 1.05;
+}
+
+.datos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  padding: 0.75rem 1rem 1rem;
+  color: var(--paper-muted);
+  font-size: var(--fs-small);
+}
+
+.datosTrama {
+  padding-top: 1rem;
+  border-top: var(--borde) solid var(--line);
+}
+
+/* Sinopsis de la destacada: texto completo en el HTML, recortado a pocas líneas en pantalla
+   para que la tarjeta no crezca. */
+.sinopsis {
+  display: -webkit-box;
+  max-width: 60ch;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  color: var(--paper);
+}
+
+@media (min-width: 600px) {
+  .sinopsis {
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
+  }
+}
+
+.accion {
+  margin-left: auto;
+  color: var(--oro);
+}
+
+@media (min-width: 600px) {
+  .tarjeta {
+    grid-template-rows: none;
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+  }
+
+  /* contain: size evita que el título vertical estire la tarjeta: el lomo toma el alto de la fila. */
+  .lomo {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    padding: 0.75rem 0.5rem;
+    contain: size;
+    overflow: hidden;
+  }
+}
+
+/* La destacada ocupa el ancho completo: la única ruptura del estante (DESIGN.md §6, RHYTHM 2). */
+.destacada .lomo {
+  font-size: var(--fs-small);
+}
+
+@media (min-width: 600px) {
+  .destacada {
+    grid-template-columns: 3rem minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta:hover,
+  .tarjeta:active {
+    transform: none;
+  }
+}

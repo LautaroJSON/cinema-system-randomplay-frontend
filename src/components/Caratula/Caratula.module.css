@@ -1,0 +1,103 @@
+/* Carátula de la cinta. Con póster: imagen 2:3 + texto impreso. Sin póster: carátula
+   tipográfica sobre trama, el placeholder honesto de DESIGN.md §9. */
+.caratula {
+  overflow-wrap: anywhere;
+}
+
+.texto {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.codigo {
+  color: var(--paper-muted);
+}
+
+/* En el estante la etiqueta impresa va en una sola línea: la grilla reserva el ancho. */
+.estante .codigo {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* En las tarjetas del teléfono (dos por fila) la etiqueta no entra en una línea y repite
+   duración y clasificación, que ya están debajo: se muestra desde 680 px, con tarjetas anchas. */
+@media (max-width: 679px) {
+  .estante .codigo {
+    display: none;
+  }
+}
+
+/* Póster: proporción reservada desde el primer render (sin CLS) y recorte sin deformar. */
+.poster {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+}
+
+.imagen {
+  object-fit: cover;
+}
+
+/* --- Sin póster --- */
+
+.tipografica .texto {
+  height: 100%;
+  padding: 1rem;
+}
+
+.tipografica.estante {
+  aspect-ratio: 2 / 3;
+}
+
+.tipografica.destacada {
+  min-height: 220px;
+}
+
+.tipografica.destacada .texto,
+.tipografica.ficha .texto {
+  padding: clamp(1.25rem, 0.75rem + 2.5vw, 2.5rem);
+}
+
+/* --- Con póster --- */
+
+.conPoster.estante .texto {
+  padding: 0.75rem 1rem 0;
+}
+
+/* Destacada y ficha: póster al costado del título, como el frente de la caja de la cinta. */
+.conPoster.destacada,
+.conPoster.ficha {
+  display: grid;
+  grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
+  background: var(--surface);
+}
+
+.conPoster.destacada .texto,
+.conPoster.ficha .texto {
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
+/* Al lado del póster el titular display se achica en el teléfono para no partir palabras. */
+.conPoster :global(.display) {
+  font-size: clamp(1.75rem, 0.9rem + 3.6vw, 4.5rem);
+}
+
+@media (min-width: 600px) {
+  .tipografica.destacada {
+    min-height: 320px;
+  }
+
+  .conPoster.destacada,
+  .conPoster.ficha {
+    grid-template-columns: 280px minmax(0, 1fr);
+  }
+
+  .conPoster.destacada .texto,
+  .conPoster.ficha .texto {
+    padding: clamp(1.25rem, 0.75rem + 2.5vw, 2.5rem);
+  }
+}

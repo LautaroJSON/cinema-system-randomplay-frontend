@@ -8,11 +8,13 @@ import estilos from "./TarjetaPelicula.module.css";
 type Props = {
   pelicula: PeliculaResumen;
   destacada?: boolean;
+  /** Solo en la destacada: completa el frente de la caja junto al título. */
+  sinopsis?: string | null;
   /** Pedir el póster primero: solo la primera película visible del carrusel. */
   prioridad?: boolean;
 };
 
-export function TarjetaPelicula({ pelicula, destacada = false, prioridad }: Props) {
+export function TarjetaPelicula({ pelicula, destacada = false, sinopsis, prioridad }: Props) {
   const { id, titulo, duracionMinutos, clasificacion, tieneFuncionesHoy } = pelicula;
   // Inclinación fija por película, para que cada etiqueta parezca pegada a mano sin cambiar entre renders.
   const inclinacion = ((id.charCodeAt(id.length - 1) % 5) - 2) * 0.6;
@@ -36,9 +38,13 @@ export function TarjetaPelicula({ pelicula, destacada = false, prioridad }: Prop
               {titulo}
             </Link>
           </h3>
+          {destacada && sinopsis && <p className={estilos.sinopsis}>{sinopsis}</p>}
         </Caratula>
 
-        <div className={estilos.datos}>
+        {/* En la destacada, la franja de datos lleva la trama del estante, como el pie de la caja. */}
+        <div
+          className={destacada ? `halftone ${estilos.datos} ${estilos.datosTrama}` : estilos.datos}
+        >
           {duracionMinutos && <span>{formatearDuracion(duracionMinutos)}</span>}
           <EtiquetaPegada titulo={clasificacion.descripcion} inclinacion={inclinacion}>
             {clasificacion.etiqueta}

@@ -93,6 +93,30 @@
   font-size: var(--fs-small);
 }
 
+.datosTrama {
+  padding-top: 1rem;
+  border-top: var(--borde) solid var(--line);
+}
+
+/* Sinopsis de la destacada: texto completo en el HTML, recortado a pocas líneas en pantalla
+   para que la tarjeta no crezca. */
+.sinopsis {
+  display: -webkit-box;
+  max-width: 60ch;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  color: var(--paper);
+}
+
+@media (min-width: 600px) {
+  .sinopsis {
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
+  }
+}
+
 .accion {
   margin-left: auto;
   color: var(--oro);

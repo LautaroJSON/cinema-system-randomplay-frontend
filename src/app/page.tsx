@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { listarPeliculas } from "@/api/catalogo";
+import { listarPeliculas, obtenerPelicula } from "@/api/catalogo";
 import { EstadoVacio } from "@/components/EstadoVacio/EstadoVacio";
 import { openGraphBase } from "@/config/metadata";
 import { CarruselDestacadas } from "@/components/CarruselDestacadas/CarruselDestacadas";
@@ -26,6 +26,15 @@ export const metadata: Metadata = {
 export default async function Cartelera() {
   const peliculas = await listarPeliculas();
   const { destacadas, resto } = elegirDestacadas(peliculas);
+  // El listado no trae la sinopsis: se pide el detalle de cada destacada (misma caché de 10 min).
+  // Si uno falla, esa tarjeta se muestra sin sinopsis en lugar de romper la cartelera.
+  const sinopsis = await Promise.all(
+    destacadas.map((p) =>
+      obtenerPelicula(p.id)
+        .then((detalle) => detalle?.sinopsis ?? null)
+        .catch(() => null),
+    ),
+  );
 
   return (
     <div className={`contenedor ${estilos.pagina}`}>
@@ -50,6 +59,7 @@ export default async function Cartelera() {
                     key={pelicula.id}
                     pelicula={pelicula}
                     destacada
+                    sinopsis={sinopsis[i]}
                     prioridad={i === 0}
                   />
                 ))}

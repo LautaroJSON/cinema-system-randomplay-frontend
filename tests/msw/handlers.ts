@@ -1,15 +1,20 @@
-import { http, HttpResponse } from "msw";
+import { http, HttpResponse, type DefaultBodyType, type StrictRequest } from "msw";
+import { multiplicar } from "../../src/domain/dinero";
 import {
   AHORA_TEST,
   carritoCreado,
+  carritosEstados,
   conHoraInicio,
   detalles,
   horarios,
+  ID_CARRITO,
   ID_FUNCION_COMENZADA,
   ID_HORARIOS_FALLAN,
   mapas,
   peliculas,
+  problemaCarrito,
   sucursales,
+  TOKEN_PRUEBA,
 } from "../fixtures";
 
 export const API = "http://api.test";
@@ -48,5 +53,50 @@ export const handlers = [
   http.post("*/api/funciones/:funcionId/carritos", () =>
     HttpResponse.json(carritoCreado, { status: 201 }),
   ),
-  http.post("*/api/carritos/:carritoId/abandono", () => HttpResponse.json(carritoCreado.carrito)),
+  http.get("*/api/carritos/:carritoId", ({ request, params }) =>
+    conCredencial(request, params, () => carritosEstados.activo),
+  ),
+  http.put("*/api/carritos/:carritoId/asientos", async ({ request, params }) => {
+    const { asientos } = (await request.clone().json()) as {
+      asientos: { fila: string; numero: number }[];
+    };
+    return conCredencial(request, params, () => ({
+      ...carritosEstados.activo,
+      asientos,
+      total:
+        multiplicar(carritosEstados.activo.precioUnitario, asientos.length) ??
+        carritosEstados.activo.total,
+    }));
+  }),
+  http.put("*/api/carritos/:carritoId/email-entrega", async ({ request, params }) => {
+    const { email } = (await request.clone().json()) as { email: string };
+    return conCredencial(request, params, () => ({
+      ...carritosEstados.activo,
+      emailEntrega: email,
+    }));
+  }),
+  http.post("*/api/carritos/:carritoId/abandono", ({ request, params }) =>
+    conCredencial(request, params, () => carritosEstados.abandonado),
+  ),
 ];
+
+/** Header `Date` con la hora actual (la simulada, si los timers son falsos). */
+export const conFecha = () => ({ Date: new Date().toUTCString() });
+
+/** Como la API: 401 sin el token de prueba y `carrito-no-encontrado` para otro carrito. */
+function conCredencial(
+  request: StrictRequest<DefaultBodyType>,
+  params: Record<string, string | readonly string[] | undefined>,
+  responder: () => unknown,
+) {
+  if (request.headers.get("Authorization") !== `Bearer ${TOKEN_PRUEBA}`) {
+    return new HttpResponse(null, { status: 401, headers: conFecha() });
+  }
+  if (params.carritoId !== ID_CARRITO) {
+    return HttpResponse.json(problemaCarrito(404, "carrito-no-encontrado"), {
+      status: 404,
+      headers: { "Content-Type": "application/problem+json", ...conFecha() },
+    });
+  }
+  return HttpResponse.json(responder() as Record<string, unknown>, { headers: conFecha() });
+}

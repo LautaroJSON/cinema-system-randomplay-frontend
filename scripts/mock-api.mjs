@@ -106,6 +106,12 @@ function multiplicarMonto(monto, cantidad) {
   return `${Math.floor(centavos / 100)}.${String(centavos % 100).padStart(2, "0")}`;
 }
 
+// Carritos creados en esta corrida, con su token. No restan butacas del mapa: los e2e corren en
+// paralelo contra un solo mock y chocarían por las mismas butacas.
+const carritos = new Map();
+const RETENCION_MS = 5 * 60 * 1000;
+let creados = 0;
+
 function crearCarrito(funcionId, cuerpo) {
   const mapa = buscarMapa(funcionId);
   if (!mapa)
@@ -113,29 +119,98 @@ function crearCarrito(funcionId, cuerpo) {
   const asientos = Array.isArray(cuerpo?.asientos) ? cuerpo.asientos : [];
   const { carrito } = carritoBase;
   const precio = mapa.precioEntrada;
-  return [
-    201,
-    {
-      ...carritoBase,
-      carrito: {
-        ...carrito,
-        id: randomUUID(),
-        asientos,
-        funcion: {
-          funcionId,
-          horaInicio: horaDeFuncion(funcionId) ?? mapa.horaInicio,
-          peliculaId: mapa.peliculaId,
-          peliculaTitulo: mapa.peliculaTitulo,
-          sucursalId: mapa.sucursalId,
-          sucursalNombre: mapa.sucursalNombre,
-          salaId: mapa.salaId,
-          salaNombre: mapa.salaNombre,
-        },
-        precioUnitario: precio,
-        total: { monto: multiplicarMonto(precio.monto, asientos.length), moneda: precio.moneda },
+  creados += 1;
+  const creado = {
+    ...carritoBase,
+    token: `${carritoBase.token}-${creados}`,
+    carrito: {
+      ...carrito,
+      id: randomUUID(),
+      venceEn: isoArgentina(new Date(Date.now() + RETENCION_MS)),
+      asientos,
+      funcion: {
+        funcionId,
+        horaInicio: horaDeFuncion(funcionId) ?? mapa.horaInicio,
+        peliculaId: mapa.peliculaId,
+        peliculaTitulo: mapa.peliculaTitulo,
+        sucursalId: mapa.sucursalId,
+        sucursalNombre: mapa.sucursalNombre,
+        salaId: mapa.salaId,
+        salaNombre: mapa.salaNombre,
       },
+      precioUnitario: precio,
+      total: { monto: multiplicarMonto(precio.monto, asientos.length), moneda: precio.moneda },
     },
-  ];
+  };
+  carritos.set(creado.carrito.id, { carrito: creado.carrito, token: creado.token });
+  return [201, creado];
+}
+
+/** Estado actual: un carrito activo con `venceEn` pasado figura como expirado. */
+function vigente(entrada) {
+  const { carrito } = entrada;
+  if (carrito.estado === "Activo" && Date.parse(carrito.venceEn) <= Date.now()) {
+    entrada.carrito = { ...carrito, estado: "Expirado" };
+  }
+  return entrada.carrito;
+}
+
+/** Operaciones con token: 401 sin el token del carrito, 404 si no existe o es de otro. */
+function operarCarrito(req, carritoId, operacion, cuerpo) {
+  const entrada = carritos.get(carritoId);
+  const autorizacion = req.headers.authorization ?? "";
+  const token = autorizacion.startsWith("Bearer ") ? autorizacion.slice(7) : "";
+  if (!token || ![...carritos.values()].some((c) => c.token === token)) return [401, undefined];
+  if (!entrada || entrada.token !== token) {
+    return [404, { ...problema(404, "Carrito no encontrado."), codigo: "carrito-no-encontrado" }];
+  }
+  const carrito = vigente(entrada);
+  if (operacion === "consultar") return [200, carrito];
+  if (carrito.estado !== "Activo") {
+    return [
+      409,
+      {
+        ...problema(409, "El carrito no está activo."),
+        codigo: "carrito-no-activo",
+        estadoActual: carrito.estado,
+      },
+    ];
+  }
+  if (operacion === "abandonar") {
+    entrada.carrito = { ...carrito, estado: "Abandonado", abandonadoEn: isoArgentina(new Date()) };
+  } else if (operacion === "asientos") {
+    const asientos = Array.isArray(cuerpo?.asientos) ? cuerpo.asientos : [];
+    if (asientos.length === 0) {
+      return [
+        400,
+        {
+          ...problema(400, "Pedido inválido."),
+          codigo: "pedido-invalido",
+          errors: { Asientos: ["Elegí al menos una butaca."] },
+        },
+      ];
+    }
+    const precio = carrito.precioUnitario;
+    entrada.carrito = {
+      ...carrito,
+      asientos,
+      total: { monto: multiplicarMonto(precio.monto, asientos.length), moneda: precio.moneda },
+    };
+  } else if (operacion === "email") {
+    const email = typeof cuerpo?.email === "string" ? cuerpo.email.trim() : "";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return [
+        400,
+        {
+          ...problema(400, "Pedido inválido."),
+          codigo: "pedido-invalido",
+          errors: { Email: ["El email no es válido."] },
+        },
+      ];
+    }
+    entrada.carrito = { ...carrito, emailEntrega: email };
+  }
+  return [200, entrada.carrito];
 }
 
 const ID_HORARIOS_FALLAN = "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a05";
@@ -158,7 +233,15 @@ function conHoraInicio(lista) {
 
 function responder(res, status, cuerpo) {
   const problema = status >= 400;
+  // Como la API real: un 401 sin cuerpo, y el header Date para medir el desfase del reloj.
+  const headers = { Date: new Date().toUTCString() };
+  if (cuerpo === undefined) {
+    res.writeHead(status, headers);
+    res.end();
+    return;
+  }
   res.writeHead(status, {
+    ...headers,
     "Content-Type": problema ? "application/problem+json" : "application/json",
   });
   res.end(JSON.stringify(cuerpo));
@@ -170,7 +253,7 @@ const problema = (status, title) => ({
   status,
 });
 
-function resolver(ruta) {
+function resolver(ruta, req) {
   if (fallarTodo) return [500, problema(500, "Error simulado.")];
 
   if (ruta === "/api/catalogo/peliculas") return [200, peliculas];
@@ -202,17 +285,29 @@ function resolver(ruta) {
     return [200, { ...mapa, horaInicio: horaDeFuncion(m[1]) ?? mapa.horaInicio }];
   }
 
+  m = ruta.match(/^\/api\/carritos\/([^/]+)$/);
+  if (m) return operarCarrito(req, m[1], "consultar");
+
   return [404, problema(404, "Ruta inexistente.")];
 }
 
-function resolverPost(ruta, cuerpo) {
+function resolverPost(ruta, cuerpo, req) {
   if (fallarTodo) return [500, problema(500, "Error simulado.")];
 
   let m = ruta.match(/^\/api\/funciones\/([^/]+)\/carritos$/);
   if (m) return crearCarrito(m[1], cuerpo);
 
   m = ruta.match(/^\/api\/carritos\/([^/]+)\/abandono$/);
-  if (m) return [200, { ...carritoBase.carrito, id: m[1], estado: "Abandonado" }];
+  if (m) return operarCarrito(req, m[1], "abandonar");
+
+  return [404, problema(404, "Ruta inexistente.")];
+}
+
+function resolverPut(ruta, cuerpo, req) {
+  if (fallarTodo) return [500, problema(500, "Error simulado.")];
+
+  const m = ruta.match(/^\/api\/carritos\/([^/]+)\/(asientos|email-entrega)$/);
+  if (m) return operarCarrito(req, m[1], m[2] === "asientos" ? "asientos" : "email", cuerpo);
 
   return [404, problema(404, "Ruta inexistente.")];
 }
@@ -236,10 +331,12 @@ createServer(async (req, res) => {
   // Solo se loguean método, ruta y status: nunca cuerpos ni headers (el token viaja en ellos).
   const [status, cuerpo] =
     req.method === "GET"
-      ? resolver(ruta)
+      ? resolver(ruta, req)
       : req.method === "POST"
-        ? resolverPost(ruta, await leerCuerpo(req))
-        : [405, problema(405, "Método no permitido.")];
+        ? resolverPost(ruta, await leerCuerpo(req), req)
+        : req.method === "PUT"
+          ? resolverPut(ruta, await leerCuerpo(req), req)
+          : [405, problema(405, "Método no permitido.")];
   console.log(`${req.method} ${ruta} ${status}`);
   responder(res, status, cuerpo);
 }).listen(puerto, "127.0.0.1", () => {

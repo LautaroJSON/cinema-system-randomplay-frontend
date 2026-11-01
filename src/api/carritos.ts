@@ -1,55 +1,62 @@
 import type { Dinero } from "@/domain/formato";
-import { pedirDesdeNavegador, type Resultado } from "./navegador";
+import { mapearResultado, pedirDesdeNavegador, type Resultado } from "./navegador";
 import type { Asiento } from "./problema";
-import type { paths } from "./schema";
+import type { components, paths } from "./schema";
 
-type CarritoCreadoApi =
-  paths["/api/funciones/{funcionId}/carritos"]["post"]["responses"][201]["content"]["application/json"];
+type CarritoApi = components["schemas"]["CarritoResponse"];
+type CarritoCreadoApi = components["schemas"]["CarritoCreadoResponse"];
 type CrearCarritoApi = NonNullable<
   paths["/api/funciones/{funcionId}/carritos"]["post"]["requestBody"]
 >["content"]["application/json"];
+type ReemplazarAsientosApi = components["schemas"]["ReemplazarAsientosRequest"];
+type EmailEntregaApi = components["schemas"]["EmailEntregaRequest"];
+
+export type Carrito = {
+  id: string;
+  /** `Activo`, `Abandonado` o `Expirado`; se traduce en `domain/carrito.ts`. */
+  estado: string;
+  venceEn: string;
+  abandonadoEn: string | null;
+  asientos: Asiento[];
+  funcion: {
+    funcionId: string;
+    horaInicio: string;
+    peliculaId: string;
+    peliculaTitulo: string;
+    sucursalNombre: string;
+    salaNombre: string;
+  };
+  precioUnitario: Dinero;
+  total: Dinero;
+  emailEntrega: string | null;
+};
 
 export type CarritoCreado = {
   /** Credencial privada (Principio III): solo para sessionStorage. */
   token: string;
   tokenVenceEn: string;
-  carrito: {
-    id: string;
-    estado: string;
-    venceEn: string;
-    asientos: Asiento[];
-    funcion: {
-      funcionId: string;
-      horaInicio: string;
-      peliculaId: string;
-      peliculaTitulo: string;
-      sucursalNombre: string;
-      salaNombre: string;
-    };
-    total: Dinero;
-  };
+  carrito: Carrito;
 };
 
-function mapearCarrito({ token, tokenVenceEn, carrito }: CarritoCreadoApi): CarritoCreado {
+export function mapearCarrito(carrito: CarritoApi): Carrito {
   const { funcion } = carrito;
   return {
-    token,
-    tokenVenceEn,
-    carrito: {
-      id: carrito.id,
-      estado: carrito.estado,
-      venceEn: carrito.venceEn,
-      asientos: carrito.asientos.map(({ fila, numero }) => ({ fila, numero: Number(numero) })),
-      funcion: {
-        funcionId: funcion.funcionId,
-        horaInicio: funcion.horaInicio,
-        peliculaId: funcion.peliculaId,
-        peliculaTitulo: funcion.peliculaTitulo,
-        sucursalNombre: funcion.sucursalNombre,
-        salaNombre: funcion.salaNombre,
-      },
-      total: { monto: carrito.total.monto, moneda: carrito.total.moneda },
+    id: carrito.id,
+    estado: carrito.estado,
+    venceEn: carrito.venceEn,
+    abandonadoEn: carrito.abandonadoEn ?? null,
+    asientos: carrito.asientos.map(({ fila, numero }) => ({ fila, numero: Number(numero) })),
+    funcion: {
+      funcionId: funcion.funcionId,
+      horaInicio: funcion.horaInicio,
+      peliculaId: funcion.peliculaId,
+      peliculaTitulo: funcion.peliculaTitulo,
+      sucursalNombre: funcion.sucursalNombre,
+      salaNombre: funcion.salaNombre,
     },
+    precioUnitario: { monto: carrito.precioUnitario.monto, moneda: carrito.precioUnitario.moneda },
+    total: { monto: carrito.total.monto, moneda: carrito.total.moneda },
+    emailEntrega: carrito.emailEntrega ?? null,
   };
 }
 
@@ -63,14 +70,72 @@ export async function crearCarrito(
     `/api/funciones/${encodeURIComponent(funcionId)}/carritos`,
     { metodo: "POST", cuerpo },
   );
-  return resultado.ok ? { ok: true, datos: mapearCarrito(resultado.datos) } : resultado;
+  return mapearResultado(resultado, ({ token, tokenVenceEn, carrito }) => ({
+    token,
+    tokenVenceEn,
+    carrito: mapearCarrito(carrito),
+  }));
 }
 
-/** Libera los asientos de un carrito. Se usa sin esperar su resultado (FR-032). */
-export function abandonarCarrito(carritoId: string, token: string): Promise<Resultado<unknown>> {
-  return pedirDesdeNavegador(`/api/carritos/${encodeURIComponent(carritoId)}/abandono`, {
-    metodo: "POST",
-    token,
-    timeoutMs: 3000,
-  });
+// Las operaciones con token arman la ruta con el id guardado junto al token, para que la
+// credencial no pueda viajar a otro carrito (Principio III).
+const rutaCarrito = (carritoId: string) => `/api/carritos/${encodeURIComponent(carritoId)}`;
+
+export async function obtenerCarrito(
+  carritoId: string,
+  token: string,
+): Promise<Resultado<Carrito>> {
+  return mapearResultado(
+    await pedirDesdeNavegador<CarritoApi>(rutaCarrito(carritoId), { token }),
+    mapearCarrito,
+  );
+}
+
+/** Envía siempre la selección completa: las butacas que no van se liberan (Principio IV). */
+export async function reemplazarAsientos(
+  carritoId: string,
+  token: string,
+  asientos: Asiento[],
+): Promise<Resultado<Carrito>> {
+  const cuerpo: ReemplazarAsientosApi = { asientos };
+  return mapearResultado(
+    await pedirDesdeNavegador<CarritoApi>(`${rutaCarrito(carritoId)}/asientos`, {
+      metodo: "PUT",
+      cuerpo,
+      token,
+    }),
+    mapearCarrito,
+  );
+}
+
+export async function indicarEmail(
+  carritoId: string,
+  token: string,
+  email: string,
+): Promise<Resultado<Carrito>> {
+  const cuerpo: EmailEntregaApi = { email };
+  return mapearResultado(
+    await pedirDesdeNavegador<CarritoApi>(`${rutaCarrito(carritoId)}/email-entrega`, {
+      metodo: "PUT",
+      cuerpo,
+      token,
+    }),
+    mapearCarrito,
+  );
+}
+
+/** Libera los asientos. El abandono previo de la 003 usa un timeout corto (FR-032). */
+export async function abandonarCarrito(
+  carritoId: string,
+  token: string,
+  timeoutMs?: number,
+): Promise<Resultado<Carrito>> {
+  return mapearResultado(
+    await pedirDesdeNavegador<CarritoApi>(`${rutaCarrito(carritoId)}/abandono`, {
+      metodo: "POST",
+      token,
+      timeoutMs,
+    }),
+    mapearCarrito,
+  );
 }

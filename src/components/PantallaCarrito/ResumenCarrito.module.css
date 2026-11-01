@@ -1,0 +1,53 @@
+/* Talón de la reserva: el mismo papel pegado que la cabecera de la función (sombra dura). */
+.talon {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.25rem;
+  margin: 0;
+  padding: 1.25rem;
+  border-radius: var(--radio);
+  background: var(--surface);
+}
+
+.talon dt {
+  margin-bottom: 0.25rem;
+  color: var(--paper-muted);
+}
+
+.talon dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.talon :global(.counter) {
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+
+.ancho {
+  grid-column: 1 / -1;
+}
+
+.fecha {
+  display: block;
+}
+
+.fecha::first-letter {
+  text-transform: uppercase;
+}
+
+/* Cada butaca como una etiqueta con borde dorado: el dorado es selección (DESIGN.md §4). */
+.butacas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.butacas li {
+  padding: 0.25rem 0.625rem;
+  border: var(--borde) solid var(--oro);
+  border-radius: var(--radio);
+}

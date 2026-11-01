@@ -1,5 +1,5 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 import {
   ID_CON_FUNCIONES,
   ID_FUNCION_8X12,
@@ -100,19 +100,46 @@ test.describe("accesibilidad y mobile-first", () => {
     await expect(tarjeta).toHaveCSS("transform", "none");
   });
 
-  test("el carrito creado no tiene violaciones de axe", async ({ page }) => {
+  const auditar = async (page: Page) => {
+    const { violations } = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
+      .analyze();
+    expect(violations.map((v) => v.id)).toEqual([]);
+  };
+
+  const crearCarrito = async (page: Page) => {
+    await page.goto(`/funciones/${ID_FUNCION_8X12}`);
+    await page.getByRole("button", { name: "Fila A, butaca 1, libre" }).click();
+    await page.getByRole("button", { name: "Confirmar 1 butaca" }).click();
+    await expect(page.getByRole("heading", { level: 1, name: "Tu carrito" })).toBeVisible();
+  };
+
+  test("el carrito activo, con qué sigue y el cambio de butacas no tienen violaciones de axe", async ({
+    page,
+  }) => {
     for (const viewport of anchos) {
       await page.setViewportSize(viewport);
-      await page.goto(`/funciones/${ID_FUNCION_8X12}`);
-      await page.getByRole("button", { name: "Fila A, butaca 1, libre" }).click();
-      await page.getByRole("button", { name: "Confirmar 1 butaca" }).click();
-      await expect(
-        page.getByRole("heading", { level: 1, name: "Tu carrito quedó creado" }),
-      ).toBeVisible();
-      const { violations } = await new AxeBuilder({ page })
-        .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
-        .analyze();
-      expect(violations.map((v) => v.id)).toEqual([]);
+      await crearCarrito(page);
+      await auditar(page);
+
+      await page.getByRole("textbox", { name: "Email para recibir las entradas" }).fill("a@b.co");
+      await page.getByRole("button", { name: "Guardar email" }).click();
+      await expect(page.getByRole("region", { name: "Qué sigue" })).toBeVisible();
+      await auditar(page);
+
+      await page.getByRole("link", { name: "Cambiar butacas" }).click();
+      await expect(page.getByRole("grid")).toBeVisible();
+      await auditar(page);
     }
+  });
+
+  test("el carrito vencido no tiene violaciones de axe", async ({ page }) => {
+    await page.clock.install();
+    await crearCarrito(page);
+    await page.clock.runFor(5 * 60_000 + 1000);
+    await expect(
+      page.getByRole("heading", { level: 1, name: "Se terminó el tiempo" }),
+    ).toBeVisible();
+    await auditar(page);
   });
 });

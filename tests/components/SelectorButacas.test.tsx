@@ -6,7 +6,14 @@ import { mapearMapa } from "@/api/asientos";
 import { SelectorButacas } from "@/components/SelectorButacas/SelectorButacas";
 import { formatearPrecio } from "@/domain/formato";
 import { guardarSesion, leerSesion } from "@/domain/sesion-carrito";
-import { carritoCreado, ID_FUNCION_8X12, mapas, problemaCarrito } from "../fixtures";
+import {
+  carritoCreado,
+  carritosEstados,
+  ID_FUNCION_8X12,
+  mapas,
+  problemaCarrito,
+  sesionDePrueba,
+} from "../fixtures";
 import { server } from "../msw/setup";
 
 const push = vi.fn();
@@ -93,13 +100,9 @@ describe("SelectorButacas: recorrido feliz", () => {
   });
 
   it("abandona el carrito anterior antes de crear el nuevo, aunque el abandono falle", async () => {
-    guardarSesion({
-      version: 1,
-      carritoId: "anterior",
-      token: "token-anterior",
-      tokenVenceEn: carritoCreado.tokenVenceEn,
-      carrito: { ...carritoCreado.carrito, id: "anterior", funcion: carritoCreado.carrito.funcion },
-    });
+    guardarSesion(
+      sesionDePrueba({ ...carritosEstados.activo, id: "anterior" }, { token: "token-anterior" }),
+    );
     const orden: string[] = [];
     server.use(
       http.post("*/api/carritos/:carritoId/abandono", ({ params, request }) => {
@@ -119,6 +122,27 @@ describe("SelectorButacas: recorrido feliz", () => {
     await waitFor(() => expect(push).toHaveBeenCalled());
     expect(orden).toEqual(["abandono:anterior:Bearer token-anterior", "creacion"]);
     expect(leerSesion()?.carritoId).toBe(carritoCreado.carrito.id);
+  });
+
+  it("una sesión cerrada se descarta sin pedir el abandono", async () => {
+    guardarSesion(
+      sesionDePrueba(carritosEstados.abandonado, { carritoId: "cerrado", token: null }),
+    );
+    let abandonos = 0;
+    server.use(
+      http.post("*/api/carritos/:carritoId/abandono", () => {
+        abandonos++;
+        return HttpResponse.json(carritosEstados.abandonado);
+      }),
+    );
+    const usuario = userEvent.setup();
+    render(<SelectorButacas mapa={mapa8x12()} />);
+    await usuario.click(butaca("Fila F, butaca 8, libre"));
+    await usuario.click(confirmar());
+
+    await waitFor(() => expect(push).toHaveBeenCalled());
+    expect(abandonos).toBe(0);
+    expect(leerSesion()).toMatchObject({ carritoId: carritoCreado.carrito.id, version: 2 });
   });
 
   it("si no se puede guardar en la pestaña, avisa y no crea el carrito", async () => {

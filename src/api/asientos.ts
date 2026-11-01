@@ -2,7 +2,7 @@
 // asientos-servidor.ts, para no arrastrar client.ts (process.env) al bundle del navegador.
 import { construirMapa, type Fila } from "@/domain/butacas";
 import { normalizarEntero, type Dinero } from "@/domain/formato";
-import { pedirDesdeNavegador, type Resultado } from "./navegador";
+import { mapearResultado, pedirDesdeNavegador, type Resultado } from "./navegador";
 import type { paths } from "./schema";
 
 export type MapaApi =
@@ -48,6 +48,5 @@ export function mapearMapa(api: MapaApi): MapaFuncion {
 export async function obtenerMapaDesdeNavegador(
   funcionId: string,
 ): Promise<Resultado<MapaFuncion>> {
-  const resultado = await pedirDesdeNavegador<MapaApi>(rutaMapa(funcionId));
-  return resultado.ok ? { ok: true, datos: mapearMapa(resultado.datos) } : resultado;
+  return mapearResultado(await pedirDesdeNavegador<MapaApi>(rutaMapa(funcionId)), mapearMapa);
 }

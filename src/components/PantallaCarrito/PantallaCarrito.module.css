@@ -1,0 +1,17 @@
+/* Flujo privado en una sola columna (DESIGN.md §6, dial 1/1/1): el contador arriba como foco,
+   el talón de la reserva y después las acciones. */
+.vista {
+  display: grid;
+  justify-items: start;
+  gap: 1.25rem;
+}
+
+.vista > :global(.sombra-dura),
+.vista > :global(.cinta-peligro) {
+  justify-self: stretch;
+}
+
+.texto {
+  max-width: 60ch;
+  color: var(--paper-muted);
+}

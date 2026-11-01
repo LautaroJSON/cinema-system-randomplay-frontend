@@ -1,0 +1,4 @@
+/* El mismo ancho que la página de la función: el mapa necesita lugar (DESIGN.md §6). */
+.pagina {
+  max-width: 64rem;
+}

@@ -1,11 +1,15 @@
 import { describe, expect, it } from "vitest";
 import {
+  buscarButaca,
   construirMapa,
   estadoInicial,
   etiquetaButaca,
   listarAsientos,
+  marcarPropias,
   maximoEfectivo,
+  mismaSeleccion,
   reducirSeleccion,
+  type Asiento,
   type EstadoSelector,
 } from "@/domain/butacas";
 
@@ -180,5 +184,35 @@ describe("reducirSeleccion: cambios del mapa", () => {
       { fila: "A", numero: 2 },
       { fila: "B", numero: 3 },
     ]);
+  });
+});
+
+describe("cambio de butacas de un carrito", () => {
+  // A3 está ocupada en el mapa: es la que retiene este mismo carrito.
+  const propias = [
+    { fila: "A", numero: 3 },
+    { fila: "B", numero: 1 },
+  ];
+
+  it("marcarPropias pasa a libres las butacas del carrito e ignora las inexistentes", () => {
+    const filas = marcarPropias(construirMapa(filasApi), [...propias, { fila: "Z", numero: 1 }]);
+    expect(buscarButaca(filas, { fila: "A", numero: 3 })?.libre).toBe(true);
+    expect(buscarButaca(filas, { fila: "B", numero: 1 })?.libre).toBe(true);
+    expect(filas).toHaveLength(2);
+  });
+
+  it("estadoInicial arranca con la selección del carrito, solo si está libre", () => {
+    const filas = marcarPropias(construirMapa(filasApi), propias);
+    expect(estadoInicial(filas, propias).seleccion).toEqual(propias);
+    expect(estadoInicial(construirMapa(filasApi), propias).seleccion).toEqual([
+      { fila: "B", numero: 1 },
+    ]);
+  });
+
+  it("mismaSeleccion compara sin importar el orden", () => {
+    const [a3, b1] = propias as [Asiento, Asiento];
+    expect(mismaSeleccion([a3, b1], [b1, a3])).toBe(true);
+    expect(mismaSeleccion([a3], [a3, b1])).toBe(false);
+    expect(mismaSeleccion([a3, b1], [a3, { fila: "B", numero: 2 }])).toBe(false);
   });
 });

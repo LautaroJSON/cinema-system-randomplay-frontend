@@ -8,6 +8,10 @@ on:
 jobs:
   calidad:
     runs-on: ubuntu-latest
+    # En local salen de .env.local, que no se versiona. Son las del mock de la API, no secretos.
+    env:
+      API_URL: http://127.0.0.1:4010
+      SITE_URL: http://localhost:3000
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

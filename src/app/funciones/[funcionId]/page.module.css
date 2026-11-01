@@ -1,0 +1,22 @@
+/* Flujo privado: una sola columna con ancho de lectura, sin rupturas (DESIGN.md §6). */
+.pagina {
+  display: grid;
+  gap: 1.25rem;
+  max-width: 64rem;
+}
+
+.volver {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  min-height: 44px;
+  text-underline-offset: 4px;
+}
+
+.sinScript {
+  padding: 0.875rem 1rem;
+  border: var(--borde) solid var(--telon-ink);
+  border-radius: var(--radio);
+  color: var(--telon-ink);
+  font-weight: 600;
+}

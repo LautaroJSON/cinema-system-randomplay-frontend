@@ -1,0 +1,28 @@
+{
+  "carrito": {
+    "id": "c4a7e2b1-3d5f-4c6e-9a8b-7f6e5d4c3b01",
+    "estado": "Activo",
+    "creadoEn": "2026-11-01T17:00:00-03:00",
+    "venceEn": "2026-11-01T17:05:00-03:00",
+    "abandonadoEn": null,
+    "asientos": [
+      { "fila": "F", "numero": 8 },
+      { "fila": "F", "numero": 9 }
+    ],
+    "funcion": {
+      "funcionId": "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b001",
+      "horaInicio": "2026-11-01T18:00:00-03:00",
+      "peliculaId": "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a01",
+      "peliculaTitulo": "La noche del videoclub",
+      "sucursalId": "7c1d2e3f-4a5b-4c6d-8e9f-0a1b2c3d4a01",
+      "sucursalNombre": "Sucursal Centro",
+      "salaId": "5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c01",
+      "salaNombre": "Sala 1"
+    },
+    "precioUnitario": { "monto": "4500.00", "moneda": "ARS" },
+    "total": { "monto": "9000.00", "moneda": "ARS" },
+    "emailEntrega": null
+  },
+  "token": "token-de-prueba-no-real",
+  "tokenVenceEn": "2026-11-01T18:00:00-03:00"
+}

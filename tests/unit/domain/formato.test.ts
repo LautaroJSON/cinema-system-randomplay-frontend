@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   duracionIso,
   formatearDuracion,
+  formatearFecha,
   formatearHora,
   formatearPrecio,
   normalizarEntero,
@@ -14,6 +15,16 @@ describe("formatearHora", () => {
 
   it("convierte a la zona horaria de Argentina", () => {
     expect(formatearHora("2026-11-02T00:30:00Z")).toBe("21:30");
+  });
+});
+
+describe("formatearFecha", () => {
+  it("muestra día de la semana, día y mes en la zona de Argentina", () => {
+    expect(formatearFecha("2026-11-01T23:30:00-03:00")).toBe("domingo, 1 de noviembre");
+  });
+
+  it("respeta el offset: la 01:30 UTC del 2 sigue siendo el 1 en Argentina", () => {
+    expect(formatearFecha("2026-11-02T01:30:00Z")).toBe("domingo, 1 de noviembre");
   });
 });
 

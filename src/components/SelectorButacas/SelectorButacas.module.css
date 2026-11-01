@@ -1,0 +1,89 @@
+/* Flujo privado en una sola columna (DESIGN.md §6, dial 1/1/1): el mapa es el foco y la
+   selección queda debajo, con el único botón rojo de la vista. */
+.selector {
+  display: grid;
+  gap: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+}
+
+.sala {
+  min-width: 0;
+}
+
+.panel {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-radius: var(--radio);
+  background: var(--surface);
+}
+
+.resumen {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.total {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 0.75rem;
+}
+
+.total .label {
+  color: var(--paper-muted);
+}
+
+.nota {
+  color: var(--oro);
+}
+
+/* Errores en el rojo legible (--telon-ink), con el texto siempre presente: nunca solo color. */
+.aviso {
+  display: grid;
+  justify-items: start;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border: var(--borde) solid var(--telon-ink);
+  border-radius: var(--radio);
+  color: var(--paper);
+}
+
+.aviso > p:first-child,
+.mensajes {
+  color: var(--telon-ink);
+  font-weight: 600;
+}
+
+.mensajes {
+  display: grid;
+  gap: 0.25rem;
+  padding-inline-start: 1.25rem;
+  list-style: square;
+}
+
+.detalle {
+  color: var(--paper-muted);
+}
+
+.acciones {
+  display: grid;
+  justify-items: stretch;
+  gap: 0.75rem;
+}
+
+.espera {
+  color: var(--paper-muted);
+}
+
+.completa {
+  display: grid;
+  justify-items: start;
+  gap: 0.75rem;
+  color: var(--paper-muted);
+}
+
+@media (min-width: 40rem) {
+  .acciones {
+    justify-items: start;
+  }
+}

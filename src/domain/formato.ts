@@ -11,11 +11,23 @@ const formatoHora = new Intl.DateTimeFormat("es-AR", {
   hourCycle: "h23",
 });
 
+const formatoFecha = new Intl.DateTimeFormat("es-AR", {
+  timeZone: ZONA_HORARIA,
+  weekday: "long",
+  day: "numeric",
+  month: "long",
+});
+
 const formatosPrecio = new Map<string, Intl.NumberFormat>();
 
 /** "21:30" en la zona horaria de Argentina, respetando el offset del ISO recibido. */
 export function formatearHora(iso: string): string {
   return formatoHora.format(new Date(iso));
+}
+
+/** "domingo, 1 de noviembre" en la zona horaria de Argentina. */
+export function formatearFecha(iso: string): string {
+  return formatoFecha.format(new Date(iso));
 }
 
 /** Formatea `monto` sin pasarlo por `number`, para no perder precisión. */

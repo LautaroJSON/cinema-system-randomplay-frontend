@@ -1,0 +1,49 @@
+/* Talón de la entrada: datos en dos columnas en el teléfono, en una fila en pantallas anchas. */
+.talon {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.25rem;
+  margin: 0;
+  padding: 1.25rem;
+  border-radius: var(--radio);
+  background: var(--surface);
+}
+
+.talon dt {
+  margin-bottom: 0.25rem;
+  color: var(--paper-muted);
+}
+
+.talon dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Un precio o una hora partidos en dos líneas se leen mal. */
+.talon :global(.counter) {
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+
+.pelicula {
+  grid-column: 1 / -1;
+}
+
+.fecha::first-letter {
+  text-transform: uppercase;
+}
+
+.fecha {
+  display: block;
+}
+
+@media (min-width: 48rem) {
+  .talon {
+    grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr)) auto;
+    align-items: start;
+  }
+
+  .pelicula {
+    grid-column: auto;
+  }
+}

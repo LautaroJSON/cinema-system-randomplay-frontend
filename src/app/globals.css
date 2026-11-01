@@ -244,6 +244,75 @@ button:disabled {
   color: var(--paper-muted);
 }
 
+/* Botón primario: relleno telón, una esquina cortada a 45° y sombra dura (DESIGN.md §7).
+   El corte y la sombra viven en pseudo-elementos: un clip-path en el botón recortaría el
+   anillo de foco. Uno solo por vista. */
+.boton-primario {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.75rem calc(1.25rem + var(--corte)) 0.75rem 1.25rem;
+  border: 0;
+  background: transparent;
+  color: var(--paper);
+  font: inherit;
+  font-weight: 700;
+  font-stretch: 85%;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition: transform var(--transicion);
+}
+
+.boton-primario::before,
+.boton-primario::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0 0, calc(100% - var(--corte)) 0, 100% var(--corte), 100% 100%, 0 100%);
+  transition:
+    background-color var(--transicion),
+    transform var(--transicion);
+}
+
+.boton-primario::before {
+  z-index: -1;
+  background: var(--telon);
+}
+
+.boton-primario::after {
+  z-index: -2;
+  background: var(--line);
+  transform: translate(4px, 4px);
+}
+
+.boton-primario:hover:not(:disabled)::before {
+  background: #9a1226;
+}
+
+/* Presionado: la sombra baja a 0 y el botón se hunde 2 px, como una tecla de videocasetera. */
+.boton-primario:active:not(:disabled) {
+  transform: translate(2px, 2px);
+}
+
+.boton-primario:active:not(:disabled)::after {
+  transform: translate(2px, 2px);
+}
+
+.boton-primario:disabled {
+  color: var(--paper-muted);
+}
+
+.boton-primario:disabled::before {
+  background: var(--surface-2);
+}
+
+.boton-primario:disabled::after {
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -253,7 +322,9 @@ button:disabled {
     scroll-behavior: auto !important;
   }
 
-  .boton-secundario:active {
+  .boton-secundario:active,
+  .boton-primario:active:not(:disabled),
+  .boton-primario:active:not(:disabled)::after {
     transform: none;
   }
 }

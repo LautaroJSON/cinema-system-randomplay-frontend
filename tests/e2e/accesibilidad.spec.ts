@@ -1,12 +1,21 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import { ID_CON_FUNCIONES, ID_TITULO_LARGO } from "../fixtures";
+import {
+  ID_CON_FUNCIONES,
+  ID_FUNCION_8X12,
+  ID_FUNCION_ANCHA,
+  ID_FUNCION_COMENZADA,
+  ID_TITULO_LARGO,
+} from "../fixtures";
 
 const rutas = [
   "/",
   `/peliculas/${ID_CON_FUNCIONES}`,
   `/peliculas/${ID_TITULO_LARGO}`,
   "/cualquier-cosa",
+  `/funciones/${ID_FUNCION_8X12}`,
+  `/funciones/${ID_FUNCION_ANCHA}`,
+  `/funciones/${ID_FUNCION_COMENZADA}`,
 ];
 const anchos = [
   { width: 360, height: 800 },
@@ -89,5 +98,21 @@ test.describe("accesibilidad y mobile-first", () => {
     const tarjeta = page.locator("article").first();
     await tarjeta.hover();
     await expect(tarjeta).toHaveCSS("transform", "none");
+  });
+
+  test("el carrito creado no tiene violaciones de axe", async ({ page }) => {
+    for (const viewport of anchos) {
+      await page.setViewportSize(viewport);
+      await page.goto(`/funciones/${ID_FUNCION_8X12}`);
+      await page.getByRole("button", { name: "Fila A, butaca 1, libre" }).click();
+      await page.getByRole("button", { name: "Confirmar 1 butaca" }).click();
+      await expect(
+        page.getByRole("heading", { level: 1, name: "Tu carrito quedó creado" }),
+      ).toBeVisible();
+      const { violations } = await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
+        .analyze();
+      expect(violations.map((v) => v.id)).toEqual([]);
+    }
   });
 });

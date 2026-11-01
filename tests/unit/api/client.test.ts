@@ -1,6 +1,6 @@
 import { delay, http, HttpResponse } from "msw";
-import { describe, expect, it } from "vitest";
-import { ApiError, pedir } from "@/api/client";
+import { describe, expect, it, vi } from "vitest";
+import { ApiError, pedir, pedirSinCache } from "@/api/client";
 import { API } from "../../msw/handlers";
 import { server } from "../../msw/setup";
 
@@ -57,5 +57,37 @@ describe("pedir", () => {
     )) as ApiError;
     expect(error).toBeInstanceOf(ApiError);
     expect(error.status).toBeUndefined();
+  });
+});
+
+describe("pedirSinCache", () => {
+  it("pide sin caché de datos de Next", async () => {
+    server.use(http.get(`${API}/api/x`, () => HttpResponse.json({ ok: true })));
+    const espia = vi.spyOn(globalThis, "fetch");
+    await expect(pedirSinCache<{ ok: boolean }>("/api/x")).resolves.toEqual({ ok: true });
+    const opciones = espia.mock.calls[0]?.[1];
+    espia.mockRestore();
+    expect(opciones?.cache).toBe("no-store");
+    expect(opciones).not.toHaveProperty("next");
+  });
+
+  it("devuelve null ante 404", async () => {
+    server.use(http.get(`${API}/api/x`, () => new HttpResponse(null, { status: 404 })));
+    await expect(pedirSinCache("/api/x")).resolves.toBeNull();
+  });
+
+  it("lanza ApiError con status 410 cuando la función ya comenzó", async () => {
+    server.use(
+      http.get(`${API}/api/x`, () =>
+        HttpResponse.json(
+          { status: 410, title: "Comenzó" },
+          { status: 410, headers: { "Content-Type": "application/problem+json" } },
+        ),
+      ),
+    );
+    const error = (await pedirSinCache("/api/x").catch((e: unknown) => e)) as ApiError;
+    expect(error).toBeInstanceOf(ApiError);
+    expect(error.status).toBe(410);
+    expect(error.codigo).toBeUndefined();
   });
 });

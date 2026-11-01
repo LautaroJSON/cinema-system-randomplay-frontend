@@ -11,11 +11,11 @@ desactivado (ver `quickstart.md`).
 | cualquier otra ruta desconocida | 404 | — | no | no | ídem |
 | `/sitemap.xml` | 200 | 600 s | — | — | — |
 | `/robots.txt` | 200 | estática | — | — | — |
-| `/funciones/{funcionId}` | (siguiente funcionalidad) | sin caché | **no** (`noindex`) | no | — |
+| `/funciones/{funcionId}` | 200 (404 si no existe) | dinámica, sin caché | **no** (`noindex, nofollow`) | no | "Elegí tus butacas" |
+| `/carritos/{carritoId}` | 200 | dinámica | **no** (`noindex, nofollow`) | no | "Tu carrito quedó creado" |
 
-`/funciones/{funcionId}` responde 404 hasta que se implemente la selección de butacas. Esta
-funcionalidad no se despliega en producción sin esa página (decisión de `/speckit-clarify`,
-2026-11-01).
+Las dos rutas del flujo privado las define la spec 003: ver
+[specs/003-mapa-butacas/contracts/routes.md](../../003-mapa-butacas/contracts/routes.md).
 
 ## Metadata por ruta
 

@@ -1,0 +1,418 @@
+{
+  "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b001": {
+    "funcionId": "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b001",
+    "horaInicio": "2026-11-01T18:00:00-03:00",
+    "peliculaId": "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a01",
+    "peliculaTitulo": "La noche del videoclub",
+    "sucursalId": "7c1d2e3f-4a5b-4c6d-8e9f-0a1b2c3d4a01",
+    "sucursalNombre": "Sucursal Centro",
+    "salaId": "5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c01",
+    "salaNombre": "Sala 1",
+    "totalAsientos": 96,
+    "cantidadDisponibles": 93,
+    "filas": [
+      {
+        "fila": "A",
+        "cantidadAsientos": 12,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        "fila": "B",
+        "cantidadAsientos": "12",
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        "fila": "C",
+        "cantidadAsientos": 12,
+        "asientosDisponibles": [1, 2, 3, 4, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        "fila": "D",
+        "cantidadAsientos": 12,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        "fila": "E",
+        "cantidadAsientos": "12",
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        "fila": "F",
+        "cantidadAsientos": 12,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12]
+      },
+      {
+        "fila": "G",
+        "cantidadAsientos": 12,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        "fila": "H",
+        "cantidadAsientos": "12",
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      }
+    ],
+    "precioEntrada": {
+      "monto": "4500.00",
+      "moneda": "ARS"
+    }
+  },
+  "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b002": {
+    "funcionId": "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b002",
+    "horaInicio": "2026-11-01T18:00:00-03:00",
+    "peliculaId": "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a01",
+    "peliculaTitulo": "La noche del videoclub",
+    "sucursalId": "7c1d2e3f-4a5b-4c6d-8e9f-0a1b2c3d4a01",
+    "sucursalNombre": "Sucursal Centro",
+    "salaId": "5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c02",
+    "salaNombre": "Sala 2",
+    "totalAsientos": 70,
+    "cantidadDisponibles": 68,
+    "filas": [
+      {
+        "fila": "A",
+        "cantidadAsientos": 8,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8]
+      },
+      {
+        "fila": "B",
+        "cantidadAsientos": "10",
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      {
+        "fila": "C",
+        "cantidadAsientos": 12,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        "fila": "D",
+        "cantidadAsientos": 12,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        "fila": "E",
+        "cantidadAsientos": "14",
+        "asientosDisponibles": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+      },
+      {
+        "fila": "F",
+        "cantidadAsientos": 14,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+      }
+    ],
+    "precioEntrada": {
+      "monto": "4500.00",
+      "moneda": "ARS"
+    }
+  },
+  "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b003": {
+    "funcionId": "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b003",
+    "horaInicio": "2026-11-01T18:00:00-03:00",
+    "peliculaId": "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a01",
+    "peliculaTitulo": "La noche del videoclub",
+    "sucursalId": "7c1d2e3f-4a5b-4c6d-8e9f-0a1b2c3d4a01",
+    "sucursalNombre": "Sucursal Centro",
+    "salaId": "5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c01",
+    "salaNombre": "Sala 1",
+    "totalAsientos": 96,
+    "cantidadDisponibles": 93,
+    "filas": [
+      {
+        "fila": "A",
+        "cantidadAsientos": 12,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        "fila": "B",
+        "cantidadAsientos": "12",
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        "fila": "C",
+        "cantidadAsientos": 12,
+        "asientosDisponibles": [1, 2, 3, 4, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        "fila": "D",
+        "cantidadAsientos": 12,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        "fila": "E",
+        "cantidadAsientos": "12",
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        "fila": "F",
+        "cantidadAsientos": 12,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12]
+      },
+      {
+        "fila": "G",
+        "cantidadAsientos": 12,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        "fila": "H",
+        "cantidadAsientos": "12",
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      }
+    ],
+    "precioEntrada": {
+      "monto": "5200.50",
+      "moneda": "ARS"
+    }
+  },
+  "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b004": {
+    "funcionId": "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b004",
+    "horaInicio": "2026-11-01T18:00:00-03:00",
+    "peliculaId": "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a01",
+    "peliculaTitulo": "La noche del videoclub",
+    "sucursalId": "7c1d2e3f-4a5b-4c6d-8e9f-0a1b2c3d4a02",
+    "sucursalNombre": "Sucursal Palermo",
+    "salaId": "5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c03",
+    "salaNombre": "Sala 3",
+    "totalAsientos": 100,
+    "cantidadDisponibles": 99,
+    "filas": [
+      {
+        "fila": "A",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": [2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      {
+        "fila": "B",
+        "cantidadAsientos": "10",
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      {
+        "fila": "C",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      {
+        "fila": "D",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      {
+        "fila": "E",
+        "cantidadAsientos": "10",
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      {
+        "fila": "F",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      {
+        "fila": "G",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      {
+        "fila": "H",
+        "cantidadAsientos": "10",
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      {
+        "fila": "I",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      {
+        "fila": "J",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      }
+    ],
+    "precioEntrada": {
+      "monto": "4800.00",
+      "moneda": "ARS"
+    }
+  },
+  "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b005": {
+    "funcionId": "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b005",
+    "horaInicio": "2026-11-01T18:00:00-03:00",
+    "peliculaId": "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a01",
+    "peliculaTitulo": "La noche del videoclub",
+    "sucursalId": "7c1d2e3f-4a5b-4c6d-8e9f-0a1b2c3d4a02",
+    "sucursalNombre": "Sucursal Palermo",
+    "salaId": "5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c03",
+    "salaNombre": "Sala 3",
+    "totalAsientos": 100,
+    "cantidadDisponibles": 0,
+    "filas": [
+      {
+        "fila": "A",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": []
+      },
+      {
+        "fila": "B",
+        "cantidadAsientos": "10",
+        "asientosDisponibles": []
+      },
+      {
+        "fila": "C",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": []
+      },
+      {
+        "fila": "D",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": []
+      },
+      {
+        "fila": "E",
+        "cantidadAsientos": "10",
+        "asientosDisponibles": []
+      },
+      {
+        "fila": "F",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": []
+      },
+      {
+        "fila": "G",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": []
+      },
+      {
+        "fila": "H",
+        "cantidadAsientos": "10",
+        "asientosDisponibles": []
+      },
+      {
+        "fila": "I",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": []
+      },
+      {
+        "fila": "J",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": []
+      }
+    ],
+    "precioEntrada": {
+      "monto": "4800.00",
+      "moneda": "ARS"
+    }
+  },
+  "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b006": {
+    "funcionId": "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b006",
+    "horaInicio": "2026-11-01T18:00:00-03:00",
+    "peliculaId": "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a03",
+    "peliculaTitulo": "Cinta perdida",
+    "sucursalId": "7c1d2e3f-4a5b-4c6d-8e9f-0a1b2c3d4a01",
+    "sucursalNombre": "Sucursal Centro",
+    "salaId": "5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c02",
+    "salaNombre": "Sala 2",
+    "totalAsientos": 70,
+    "cantidadDisponibles": 68,
+    "filas": [
+      {
+        "fila": "A",
+        "cantidadAsientos": 8,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8]
+      },
+      {
+        "fila": "B",
+        "cantidadAsientos": "10",
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      {
+        "fila": "C",
+        "cantidadAsientos": 12,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        "fila": "D",
+        "cantidadAsientos": 12,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        "fila": "E",
+        "cantidadAsientos": "14",
+        "asientosDisponibles": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+      },
+      {
+        "fila": "F",
+        "cantidadAsientos": 14,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+      }
+    ],
+    "precioEntrada": {
+      "monto": "4500.00",
+      "moneda": "ARS"
+    }
+  },
+  "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b007": {
+    "funcionId": "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b007",
+    "horaInicio": "2026-11-01T18:00:00-03:00",
+    "peliculaId": "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a04",
+    "peliculaTitulo": "Crónica de una persiana a medio bajar en la última noche del verano en el barrio",
+    "sucursalId": "7c1d2e3f-4a5b-4c6d-8e9f-0a1b2c3d4a02",
+    "sucursalNombre": "Sucursal Palermo",
+    "salaId": "5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c03",
+    "salaNombre": "Sala 3",
+    "totalAsientos": 100,
+    "cantidadDisponibles": 99,
+    "filas": [
+      {
+        "fila": "A",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": [2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      {
+        "fila": "B",
+        "cantidadAsientos": "10",
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      {
+        "fila": "C",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      {
+        "fila": "D",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      {
+        "fila": "E",
+        "cantidadAsientos": "10",
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      {
+        "fila": "F",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      {
+        "fila": "G",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      {
+        "fila": "H",
+        "cantidadAsientos": "10",
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      {
+        "fila": "I",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
+      {
+        "fila": "J",
+        "cantidadAsientos": 10,
+        "asientosDisponibles": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      }
+    ],
+    "precioEntrada": {
+      "monto": "4800.00",
+      "moneda": "ARS"
+    }
+  }
+}

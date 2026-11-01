@@ -5,8 +5,10 @@ Sitio de compra de entradas de cine en Next.js (App Router), React y TypeScript.
 [`.specify/memory/constitution.md`](.specify/memory/constitution.md) y la dirección visual en
 [`DESIGN.md`](DESIGN.md).
 
-Hoy incluye las páginas públicas e indexables: la cartelera (`/`) y la ficha de cada película con
-sus horarios del día por sucursal (`/peliculas/{id}`).
+Hoy incluye las páginas públicas e indexables (la cartelera en `/` y la ficha de cada película con
+sus horarios del día por sucursal en `/peliculas/{id}`) y el comienzo del flujo privado: la
+elección de butacas de una función (`/funciones/{funcionId}`), que retiene los asientos en un
+carrito.
 
 ## Requisitos
 
@@ -57,5 +59,8 @@ Ninguna lleva el prefijo `NEXT_PUBLIC_`: no llegan al navegador.
 
 - El build genera la cartelera y el sitemap, así que el entorno de build tiene que llegar a
   `API_URL`. Las fichas se generan al primer pedido y se revalidan cada 60 segundos.
-- Cada horario enlaza a `/funciones/{funcionId}`, la selección de butacas, que todavía no existe.
-  Esta parte no se publica en producción hasta que esa página esté lista.
+- Cada horario enlaza a `/funciones/{funcionId}`, la selección de butacas. Esa página pide el
+  mapa sin caché en cada visita y crea el carrito desde el navegador por el proxy `/api`, así
+  que el servidor de producción también tiene que llegar a `API_URL`. Después de confirmar, el
+  comprador pasa a `/carritos/{carritoId}`, que por ahora solo confirma que el carrito se creó
+  (la pantalla completa del carrito es la spec 004).

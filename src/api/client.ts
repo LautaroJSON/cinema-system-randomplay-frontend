@@ -1,5 +1,6 @@
 // Único punto de acceso a la API del backend (Principio I).
 import { entorno } from "@/config/entorno";
+import { leerProblema } from "./problema";
 
 export class ApiError extends Error {
   readonly status?: number;
@@ -24,16 +25,8 @@ type OpcionesPedido = {
 };
 
 async function leerCodigo(respuesta: Response): Promise<string | undefined> {
-  if (!respuesta.headers.get("Content-Type")?.includes("problem+json")) return undefined;
-  try {
-    const cuerpo: unknown = await respuesta.json();
-    if (cuerpo && typeof cuerpo === "object" && "codigo" in cuerpo) {
-      return typeof cuerpo.codigo === "string" ? cuerpo.codigo : undefined;
-    }
-  } catch {
-    // Un cuerpo ilegible no cambia la decisión: se decide por status.
-  }
-  return undefined;
+  const { tipo } = await leerProblema(respuesta);
+  return tipo === "desconocido" ? undefined : tipo;
 }
 
 /**
@@ -51,12 +44,33 @@ export async function pedir<T>(ruta: string, opciones: OpcionesPedido): Promise<
     }
   }
 
+  return pedirConFetch<T>(ruta, opciones.timeoutMs, {
+    next: { revalidate: opciones.revalidate, tags: opciones.tags },
+  });
+}
+
+/**
+ * GET contra la API sin caché de datos, para lo que nunca se cachea (disponibilidad de
+ * asientos, Principio IX). Mismo contrato que `pedir`: `null` ante 404, `ApiError` en el resto.
+ */
+export async function pedirSinCache<T>(
+  ruta: string,
+  opciones: { timeoutMs?: number } = {},
+): Promise<T | null> {
+  return pedirConFetch<T>(ruta, opciones.timeoutMs, { cache: "no-store" });
+}
+
+async function pedirConFetch<T>(
+  ruta: string,
+  timeoutMs: number | undefined,
+  cacheo: Pick<RequestInit, "cache" | "next">,
+): Promise<T | null> {
   let respuesta: Response;
   try {
     respuesta = await fetch(`${entorno.apiUrl}${ruta}`, {
       headers: { Accept: "application/json" },
-      next: { revalidate: opciones.revalidate, tags: opciones.tags },
-      signal: AbortSignal.timeout(opciones.timeoutMs ?? 5000),
+      ...cacheo,
+      signal: AbortSignal.timeout(timeoutMs ?? 5000),
     });
   } catch (causa) {
     throw new ApiError(`No se pudo conectar con la API (${ruta}).`, { cause: causa });

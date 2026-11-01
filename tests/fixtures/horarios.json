@@ -1,0 +1,60 @@
+{
+  "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a01/7c1d2e3f-4a5b-4c6d-8e9f-0a1b2c3d4a01": [
+    {
+      "funcionId": "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b001",
+      "offsetMinutos": 300,
+      "salaId": "5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c01",
+      "salaNombre": "Sala 1",
+      "precioEntrada": { "monto": "4500.00", "moneda": "ARS" }
+    },
+    {
+      "funcionId": "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b002",
+      "offsetMinutos": 60,
+      "salaId": "5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c02",
+      "salaNombre": "Sala 2",
+      "precioEntrada": { "monto": "4500.00", "moneda": "ARS" }
+    },
+    {
+      "funcionId": "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b003",
+      "offsetMinutos": 180,
+      "salaId": "5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c01",
+      "salaNombre": "Sala 1",
+      "precioEntrada": { "monto": "5200.50", "moneda": "ARS" }
+    }
+  ],
+  "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a01/7c1d2e3f-4a5b-4c6d-8e9f-0a1b2c3d4a02": [
+    {
+      "funcionId": "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b004",
+      "offsetMinutos": 240,
+      "salaId": "5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c03",
+      "salaNombre": "Sala 3",
+      "precioEntrada": { "monto": "4800.00", "moneda": "ARS" }
+    },
+    {
+      "funcionId": "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b005",
+      "offsetMinutos": 120,
+      "salaId": "5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c03",
+      "salaNombre": "Sala 3",
+      "precioEntrada": { "monto": "4800.00", "moneda": "ARS" }
+    }
+  ],
+  "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a01/7c1d2e3f-4a5b-4c6d-8e9f-0a1b2c3d4a03": [],
+  "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a03/7c1d2e3f-4a5b-4c6d-8e9f-0a1b2c3d4a01": [
+    {
+      "funcionId": "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b006",
+      "offsetMinutos": 90,
+      "salaId": "5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c02",
+      "salaNombre": "Sala 2",
+      "precioEntrada": { "monto": "4500.00", "moneda": "ARS" }
+    }
+  ],
+  "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a04/7c1d2e3f-4a5b-4c6d-8e9f-0a1b2c3d4a02": [
+    {
+      "funcionId": "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b007",
+      "offsetMinutos": 150,
+      "salaId": "5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c03",
+      "salaNombre": "Sala 3",
+      "precioEntrada": { "monto": "4800.00", "moneda": "ARS" }
+    }
+  ]
+}

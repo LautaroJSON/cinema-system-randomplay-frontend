@@ -1,0 +1,22 @@
+.pie {
+  border-top: var(--borde) solid var(--line);
+  color: var(--paper-muted);
+  font-size: var(--fs-small);
+}
+
+.fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding-block: 1.25rem;
+}
+
+.enlace {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--paper);
+  text-underline-offset: 4px;
+}

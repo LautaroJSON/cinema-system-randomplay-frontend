@@ -1,0 +1,15 @@
+/* Rectángulo de papel con borde recto y una leve inclinación (DESIGN.md §6.2). */
+.etiqueta {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radio);
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Rojo telón solo como relleno, para un estado que pide atención. */
+.alerta {
+  background: var(--telon);
+  color: var(--paper);
+}

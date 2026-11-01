@@ -1,0 +1,62 @@
+.encabezado {
+  border-bottom: var(--borde) solid var(--line);
+}
+
+.fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 64px;
+}
+
+/* Marca y eslogan: en fila desde 600 px, apilados en el teléfono. */
+.identidad {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 1rem;
+}
+
+.eslogan {
+  margin-top: -0.625rem;
+  padding-bottom: 0.5rem;
+  color: var(--paper-muted);
+}
+
+@media (min-width: 600px) {
+  .eslogan {
+    margin-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+/* La marca es texto en la tipografía del cartel; no hay logo confirmado (R-23). */
+.marca {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 1.75rem;
+  font-weight: 800;
+  font-stretch: 70%;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.marca:hover {
+  color: var(--oro);
+}
+
+.enlace {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 0.5rem;
+  text-decoration: none;
+  text-underline-offset: 4px;
+}
+
+.enlace:hover {
+  text-decoration: underline;
+}

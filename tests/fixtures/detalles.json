@@ -1,0 +1,47 @@
+{
+  "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a01": {
+    "id": "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a01",
+    "titulo": "La noche del videoclub",
+    "duracionMinutos": "118",
+    "clasificacion": "Mas13",
+    "imagenUrl": null,
+    "sinopsis": "Faltan diez minutos para cerrar y el dueño de un videoclub de barrio descubre que una cinta devuelta no figura en ningún registro. Esa noche, cada cliente que entra trae una pista distinta sobre quién la grabó.",
+    "sinFuncionesDisponibles": false
+  },
+  "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a02": {
+    "id": "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a02",
+    "titulo": "Rebobinar",
+    "duracionMinutos": 95,
+    "clasificacion": "ATP",
+    "imagenUrl": null,
+    "sinopsis": "Dos hermanos heredan una videocasetera que solo reproduce hacia atrás y la usan para entender el último verano de su abuela.",
+    "sinFuncionesDisponibles": true
+  },
+  "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a03": {
+    "id": "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a03",
+    "titulo": "Cinta perdida",
+    "duracionMinutos": 104,
+    "clasificacion": "Mas21",
+    "imagenUrl": null,
+    "sinopsis": "   ",
+    "sinFuncionesDisponibles": false
+  },
+  "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a04": {
+    "id": "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a04",
+    "titulo": "Crónica de una persiana a medio bajar en la última noche del verano en el barrio",
+    "duracionMinutos": 132,
+    "clasificacion": "Mas16",
+    "imagenUrl": null,
+    "sinopsis": "Una vecina registra con una cámara prestada la última noche de un local que cierra después de treinta años. Lo que empieza como despedida termina en asamblea en la vereda, con la persiana a medio bajar y nadie dispuesto a irse.",
+    "sinFuncionesDisponibles": false
+  },
+  "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a05": {
+    "id": "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a05",
+    "titulo": "Señal débil",
+    "duracionMinutos": 88,
+    "clasificacion": "Mas18",
+    "imagenUrl": null,
+    "sinopsis": "Una radio pirata transmite desde una terraza y cada madrugada alguien llama para contar un crimen que todavía no ocurrió.",
+    "sinFuncionesDisponibles": false
+  }
+}

@@ -1,0 +1,23 @@
+.saltar {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 10;
+  padding: 0.75rem 1rem;
+  background: var(--oro);
+  color: var(--oro-ink);
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.saltar:focus-visible {
+  transform: none;
+}
+
+.principal {
+  padding-block: 1.5rem 3rem;
+}
+
+.principal:focus {
+  outline: none;
+}

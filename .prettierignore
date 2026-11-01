@@ -1,0 +1,15 @@
+node_modules/
+.next/
+src/api/schema.d.ts
+docs/openapi.json
+package-lock.json
+playwright-report/
+test-results/
+specs/
+.specify/
+.claude/
+docs/
+CLAUDE.md
+AGENTS.md
+DESIGN.md
+scripts/mock-data/

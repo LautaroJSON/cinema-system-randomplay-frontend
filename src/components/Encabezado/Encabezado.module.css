@@ -5,8 +5,6 @@
 .fila {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
   min-height: 64px;
 }
 
@@ -46,17 +44,4 @@
 
 .marca:hover {
   color: var(--oro);
-}
-
-.enlace {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  padding-inline: 0.5rem;
-  text-decoration: none;
-  text-underline-offset: 4px;
-}
-
-.enlace:hover {
-  text-decoration: underline;
 }

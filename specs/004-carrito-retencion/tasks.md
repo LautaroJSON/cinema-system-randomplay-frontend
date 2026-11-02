@@ -344,8 +344,8 @@ desconocido y la red, tiene su manejo, y la cinta de peligro marca la falta de c
 - [X] T058 Revisar todo el copy visible nuevo con `antislop-copywriting` y DESIGN.md §10: voseo, verbos al frente, sin humor en errores, sin "compra" ni "orden", cada aviso dice qué pasó y qué hacer. Ajustar la redacción sin cambiar qué dicen los textos de research C5, C9, C10 y C11, y actualizar los tests que los consultan
 - [X] T059 Correr la Delivery Gate de antislop sobre `PantallaCarrito`, `CambioButacas`, `CuentaRegresiva` y `.cinta-peligro`: un solo botón rojo por vista, cinta solo en vencido y sin conexión, contrastes de research C6, foco visible, dial 1/1/1
 - [X] T060 Correr `npm run gen:api` (sin diff), `npm run typecheck`, `npm run lint`, `npm test`, `npm run test:e2e` y `npm run build`, y corregir lo que falle (puertas de CI 1–4)
-- [ ] T061 Recorrer la sección 1 de `quickstart.md` contra el backend real (recorridos 1–19) y anotar en el PR cualquier diferencia. En particular, confirmar que el proxy entrega el header `Date` del backend (recorrido 2)
-- [ ] T062 Abrir el PR: describir qué principios toca y cómo, documentar las dos desviaciones de Complexity Tracking de `plan.md` (Principio III, cierre de pestaña; Principio VIII, mapa del cambio desde el navegador) y sumar `estadoActual` al reporte de la discrepancia de `ProblemDetails` para el backend
+- [X] T061 Recorrer la sección 1 de `quickstart.md` contra el backend real (recorridos 1–19) y anotar en el PR cualquier diferencia. En particular, confirmar que el proxy entrega el header `Date` del backend (recorrido 2)
+- [X] T062 Abrir el PR: describir qué principios toca y cómo, documentar las dos desviaciones de Complexity Tracking de `plan.md` (Principio III, cierre de pestaña; Principio VIII, mapa del cambio desde el navegador) y sumar `estadoActual` al reporte de la discrepancia de `ProblemDetails` para el backend
 
 ---
 

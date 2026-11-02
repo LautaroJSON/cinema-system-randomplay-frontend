@@ -20,13 +20,15 @@ type CarritoApi = components["schemas"]["CarritoResponse"];
 const AHORA = new Date("2026-11-01T17:00:00-03:00");
 const MIN = 60_000;
 
-/** Responde el GET del carrito con este cuerpo y un header `Date` opcional. */
+/**
+ * Responde el GET del carrito con este cuerpo y, si se pasa `fecha`, un header `Date`. Sin `fecha`
+ * no se manda: el header no tiene milisegundos y, con el reloj corriendo, mediría un desfase de
+ * hasta un segundo que corre los cambios de tramo.
+ */
 function responderCarrito(carrito: CarritoApi, fecha?: Date) {
   server.use(
     http.get("*/api/carritos/:carritoId", () =>
-      HttpResponse.json(carrito, {
-        headers: { Date: (fecha ?? new Date()).toUTCString() },
-      }),
+      HttpResponse.json(carrito, fecha && { headers: { Date: fecha.toUTCString() } }),
     ),
   );
 }

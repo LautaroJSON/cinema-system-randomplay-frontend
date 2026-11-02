@@ -16,7 +16,8 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "gen:api": "openapi-typescript docs/openapi.json -o src/api/schema.d.ts",
-    "mock:api": "node scripts/mock-api.mjs"
+    "mock:api": "node scripts/mock-api.mjs",
+    "test:e2e:api-real": "playwright test -c playwright.api-real.config.ts"
   },
   "dependencies": {
     "next": "16.4",

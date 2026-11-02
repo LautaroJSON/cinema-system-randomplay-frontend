@@ -5,6 +5,7 @@ import {
   carritoCreado,
   carritosEstados,
   conHoraInicio,
+  conVencimiento,
   detalles,
   horarios,
   ID_CARRITO,
@@ -70,8 +71,9 @@ export const handlers = [
   }),
   http.put("*/api/carritos/:carritoId/email-entrega", async ({ request, params }) => {
     const { email } = (await request.clone().json()) as { email: string };
+    // Vencimiento relativo a ahora: el del fixture es fijo y la pantalla lo tomaría como vencido.
     return conCredencial(request, params, () => ({
-      ...carritosEstados.activo,
+      ...conVencimiento(carritosEstados.activo, 4 * 60_000),
       emailEntrega: email,
     }));
   }),

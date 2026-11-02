@@ -377,7 +377,10 @@ describe("PantallaCarrito: email de entrega", () => {
     const cuerpos = capturarEmails();
     responderEmail(async () => {
       await new Promise((resolver) => setTimeout(resolver, 100));
-      return HttpResponse.json({ ...carritosEstados.activo, emailEntrega: "a@b.co" });
+      return HttpResponse.json({
+        ...conVencimiento(carritosEstados.activo, 4 * MIN),
+        emailEntrega: "a@b.co",
+      });
     });
     await usuario.type(campo(), "a@b.co");
     await usuario.dblClick(guardar());
@@ -397,7 +400,10 @@ describe("PantallaCarrito: email de entrega", () => {
     expect(campo()).toHaveValue("alguien@ejemplo.com");
 
     responderEmail(() =>
-      HttpResponse.json({ ...carritosEstados.activo, emailEntrega: "alguien@ejemplo.com" }),
+      HttpResponse.json({
+        ...conVencimiento(carritosEstados.activo, 4 * MIN),
+        emailEntrega: "alguien@ejemplo.com",
+      }),
     );
     await usuario.click(screen.getByRole("button", { name: "Reintentar" }));
     expect(await screen.findByRole("region", { name: "Qué sigue" })).toBeInTheDocument();
@@ -656,7 +662,10 @@ describe("PantallaCarrito: errores y credencial", () => {
 
     server.use(
       http.put("*/api/carritos/:carritoId/email-entrega", () =>
-        HttpResponse.json({ ...carritosEstados.activo, emailEntrega: "a@b.co" }),
+        HttpResponse.json({
+          ...conVencimiento(carritosEstados.activo, 4 * MIN),
+          emailEntrega: "a@b.co",
+        }),
       ),
     );
     await usuario.click(screen.getByRole("button", { name: "Reintentar" }));

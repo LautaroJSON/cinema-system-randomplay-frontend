@@ -104,11 +104,10 @@ describe("CambioButacas", () => {
     );
   });
 
-  it("sin cambios no deja guardar; con cambios envía la selección completa", async () => {
+  it("sin cambios no muestra guardar; con cambios envía la selección completa", async () => {
     responderMapa();
     const { carrito, usuario } = await abrir();
-    expect(guardar()).toHaveAccessibleName("Guardar 2 butacas");
-    expect(guardar()).toBeDisabled();
+    expect(screen.queryByRole("button", { name: /^Guardar/ })).not.toBeInTheDocument();
 
     // Como la API: reemplaza las butacas y no toca el vencimiento.
     let cuerpo: unknown;
@@ -129,6 +128,24 @@ describe("CambioButacas", () => {
     expect(leerSesion()?.carrito.asientos).toEqual([F8, F10]);
     expect(leerSesion()?.carrito.venceEn).toBe(carrito.venceEn);
     expect(leerSesion()?.token).not.toBeNull();
+  });
+
+  it("sin cambios ofrece volver al carrito en lugar de guardar", async () => {
+    responderMapa();
+    const { usuario } = await abrir();
+    const dejar = () => screen.queryByRole("link", { name: "Dejar las butacas como están" });
+    const botonGuardar = () => screen.queryByRole("button", { name: /^Guardar/ });
+    expect(dejar()).toHaveAttribute("href", `/carritos/${ID_CARRITO}`);
+    expect(botonGuardar()).not.toBeInTheDocument();
+
+    await usuario.click(butaca("Fila F, butaca 10, libre"));
+    expect(dejar()).not.toBeInTheDocument();
+    expect(botonGuardar()).toHaveAccessibleName("Guardar 3 butacas");
+
+    // Volver a la selección original cambia el botón de nuevo.
+    await usuario.click(butaca("Fila F, butaca 10, seleccionada"));
+    expect(dejar()).toBeInTheDocument();
+    expect(botonGuardar()).not.toBeInTheDocument();
   });
 
   it("sin butacas no deja guardar y sugiere abandonar el carrito", async () => {

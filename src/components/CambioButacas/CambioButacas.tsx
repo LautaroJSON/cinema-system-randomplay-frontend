@@ -176,15 +176,24 @@ export function CambioButacas({ carritoId }: { carritoId: string }) {
           textoError="No pudimos guardar el cambio. Tus butacas siguen como estaban; probá de nuevo."
           cintaSinConexion
           salidaFuncionCerrada={{ href: "/", texto: "Ver la cartelera" }}
-          deshabilitar={(seleccion) => mismaSeleccion(seleccion, carrito.asientos)}
-          ayuda={(seleccion) =>
-            seleccion.length === 0 && (
-              <p className={estilos.ayuda}>
-                Para no quedarte con ninguna butaca, abandoná el carrito.{" "}
-                <Link href={rutaCarrito}>Ir al carrito</Link>
-              </p>
-            )
-          }
+          ocultarConfirmacion={(seleccion) => mismaSeleccion(seleccion, carrito.asientos)}
+          ayuda={(seleccion) => {
+            if (seleccion.length === 0)
+              return (
+                <p className={estilos.ayuda}>
+                  Para no quedarte con ninguna butaca, abandoná el carrito.{" "}
+                  <Link href={rutaCarrito}>Ir al carrito</Link>
+                </p>
+              );
+            // Sin cambios no hay nada que guardar: en lugar del botón queda la salida al carrito.
+            if (mismaSeleccion(seleccion, carrito.asientos))
+              return (
+                <Link href={rutaCarrito} className="boton-primario">
+                  Dejar las butacas como están
+                </Link>
+              );
+            return null;
+          }}
           confirmar={confirmar}
         />
       )}

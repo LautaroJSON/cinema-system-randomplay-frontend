@@ -271,6 +271,7 @@ button:disabled {
   font-stretch: 85%;
   text-transform: uppercase;
   letter-spacing: 0.02em;
+  text-decoration: none;
   transition: transform var(--transicion);
 }
 

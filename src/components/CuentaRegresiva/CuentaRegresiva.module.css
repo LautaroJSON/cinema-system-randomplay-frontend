@@ -1,0 +1,24 @@
+/* El contador es el foco de la pantalla: dorado de etiqueta mientras hay tiempo, rojo legible
+   en los últimos 2 minutos. El cambio es instantáneo: sin transición ni parpadeo (FR-013). */
+.contador {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.rotulo {
+  color: var(--paper-muted);
+}
+
+.display {
+  color: var(--oro);
+}
+
+.display[data-tramo="final"] {
+  color: var(--telon-ink);
+}
+
+/* El contador es la lectura principal del carrito: un paso más grande que el `counter` común. */
+.display :global(.counter) {
+  font-size: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+  line-height: 1;
+}

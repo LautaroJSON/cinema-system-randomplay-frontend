@@ -26,6 +26,8 @@ export type Problema = {
   errors: Record<string, string[]>;
   /** Solo en `demasiados-pedidos`: segundos a esperar antes de reintentar. */
   retryAfterSegundos?: number;
+  /** Solo en `carrito-no-activo`: `Abandonado`, `Expirado` u otro texto de la API. */
+  estadoActual?: string;
 };
 
 const RETRY_AFTER_POR_DEFECTO = 60;
@@ -102,6 +104,9 @@ export async function leerProblema(respuesta: Response): Promise<Problema> {
   problema.errors = leerErrors(cuerpo.errors);
   if (problema.tipo === "demasiados-pedidos") {
     problema.retryAfterSegundos = leerRetryAfter(respuesta.headers.get("Retry-After"));
+  }
+  if (problema.tipo === "carrito-no-activo" && typeof cuerpo.estadoActual === "string") {
+    problema.estadoActual = cuerpo.estadoActual;
   }
   return problema;
 }

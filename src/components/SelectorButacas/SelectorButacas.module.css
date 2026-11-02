@@ -48,7 +48,7 @@
   color: var(--paper);
 }
 
-.aviso > p:first-child,
+.aviso > p:first-of-type,
 .mensajes {
   color: var(--telon-ink);
   font-weight: 600;
@@ -86,4 +86,10 @@
   .acciones {
     justify-items: start;
   }
+}
+
+/* Cinta de peligro pegada al borde del aviso cuando el cambio de un carrito falló sin conexión. */
+.cinta {
+  justify-self: stretch;
+  margin: -0.875rem -1rem 0;
 }

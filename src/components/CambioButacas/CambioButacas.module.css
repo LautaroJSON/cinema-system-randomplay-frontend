@@ -1,0 +1,27 @@
+/* Mismo orden que la página de la función (spec 003) más el contador: una sola columna. */
+.cambio {
+  display: grid;
+  gap: 1.25rem;
+  min-width: 0;
+}
+
+.volver {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  min-height: 44px;
+  text-underline-offset: 4px;
+}
+
+.carga {
+  color: var(--paper-muted);
+}
+
+.ayuda {
+  max-width: 60ch;
+  color: var(--paper-muted);
+}
+
+.ayuda a {
+  color: var(--paper);
+}

@@ -78,6 +78,24 @@ describe("leerProblema", () => {
     expect(problema.errors).toEqual({ asientos: ["Máximo 10"] });
   });
 
+  it("conserva estadoActual solo en carrito-no-activo y si es texto", async () => {
+    const noActivo = await leerProblema(
+      problem({ codigo: "carrito-no-activo", estadoActual: "Expirado" }),
+    );
+    expect(noActivo.estadoActual).toBe("Expirado");
+    const raro = await leerProblema(problem({ codigo: "carrito-no-activo", estadoActual: 3 }));
+    expect(raro.estadoActual).toBeUndefined();
+    const otro = await leerProblema(
+      problem({ codigo: "funcion-sin-cupo", estadoActual: "Activo" }),
+    );
+    expect(otro.estadoActual).toBeUndefined();
+  });
+
+  it("un 401 sin cuerpo queda desconocido con su status", async () => {
+    const problema = await leerProblema(new Response(null, { status: 401 }));
+    expect(problema).toMatchObject({ tipo: "desconocido", status: 401 });
+  });
+
   it("nunca expone title ni detail", async () => {
     const problema = await leerProblema(
       problem({ codigo: "funcion-sin-cupo", title: "Texto", detail: "Más texto" }),

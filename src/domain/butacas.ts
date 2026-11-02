@@ -72,8 +72,29 @@ export function maximoEfectivo(estado: EstadoSelector): number {
   return Math.min(MAX_BUTACAS_POR_COMPRA, contarLibres(estado.filas));
 }
 
-export function estadoInicial(filas: Fila[]): EstadoSelector {
-  return { filas, seleccion: [], limiteAlcanzado: false, quitadas: [] };
+/** La selección inicial (las butacas de un carrito al cambiarlas) se limita a las libres. */
+export function estadoInicial(filas: Fila[], seleccionInicial: Asiento[] = []): EstadoSelector {
+  const { conservadas } = conservarLibres(seleccionInicial, filas);
+  return { filas, seleccion: conservadas, limiteAlcanzado: false, quitadas: [] };
+}
+
+/**
+ * Las butacas que retiene el propio carrito la API las informa ocupadas: para cambiarlas, se
+ * muestran libres (y seleccionadas). Las que no existen en el mapa se ignoran.
+ */
+export function marcarPropias(filas: Fila[], propias: Asiento[]): Fila[] {
+  if (propias.length === 0) return filas;
+  return filas.map((fila) => ({
+    ...fila,
+    butacas: fila.butacas.map((b) =>
+      propias.some((p) => mismaButaca(p, b)) ? { ...b, libre: true } : b,
+    ),
+  }));
+}
+
+/** Mismas butacas, sin importar el orden. */
+export function mismaSeleccion(a: Asiento[], b: Asiento[]): boolean {
+  return a.length === b.length && a.every((x) => b.some((y) => mismaButaca(x, y)));
 }
 
 /** Saca de la selección lo que ya no existe o ya no está libre en `filas`. */

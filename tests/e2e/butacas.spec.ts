@@ -65,9 +65,7 @@ test.describe("de la ficha al carrito", () => {
     await page.getByRole("button", { name: "Confirmar 2 butacas" }).click();
 
     await expect(page).toHaveURL(/\/carritos\/[0-9a-f-]{36}$/);
-    await expect(
-      page.getByRole("heading", { level: 1, name: "Tu carrito quedó creado" }),
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: "Tu carrito" })).toBeVisible();
     await expect(page.getByRole("listitem")).toHaveCount(2);
 
     const html = await (await page.request.get(page.url())).text();

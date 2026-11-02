@@ -10,8 +10,11 @@ de la 001.
 | `/funciones/{funcionId}` (función vigente) | 200 | dinámica, sin caché (`private, no-store`) | **no** (`noindex, nofollow`) | no | "Elegí tus butacas" |
 | `/funciones/{funcionId}` ya comenzada (mapa 410) | 200 (B12) | dinámica | no | no | "Esta función ya empezó" |
 | `/funciones/{funcionId}` inexistente o id no GUID | 404 | — | no | no | el de la 404 de la marca |
-| `/carritos/{carritoId}` con sesión de ese id en la pestaña | 200 | dinámica (el contenido sale del navegador) | no | no | "Tu carrito quedó creado" |
+| `/carritos/{carritoId}` | 200 | dinámica (el contenido sale del navegador) | no | no | según el estado: ver [la 004](../../004-carrito-retencion/contracts/routes.md) |
 | `/carritos/{carritoId}` sin sesión de ese id | 200 | dinámica | no | no | "No hay un carrito activo en esta pestaña" |
+
+La pantalla provisoria de esta spec ("Tu carrito quedó creado") la reemplazó la pantalla del
+carrito de la spec 004, en la misma dirección.
 
 `robots.txt` no cambia: ya tiene `Disallow: /funciones/` y `Disallow: /carritos/`.
 `sitemap.xml` no cambia.

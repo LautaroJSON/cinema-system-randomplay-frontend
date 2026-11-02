@@ -6,9 +6,10 @@ Sitio de compra de entradas de cine en Next.js (App Router), React y TypeScript.
 [`DESIGN.md`](DESIGN.md).
 
 Hoy incluye las páginas públicas e indexables (la cartelera en `/` y la ficha de cada película con
-sus horarios del día por sucursal en `/peliculas/{id}`) y el comienzo del flujo privado: la
-elección de butacas de una función (`/funciones/{funcionId}`), que retiene los asientos en un
-carrito.
+sus horarios del día por sucursal en `/peliculas/{id}`) y el flujo privado hasta donde llega la
+API: la elección de butacas de una función (`/funciones/{funcionId}`), que retiene los asientos
+en un carrito, y el carrito (`/carritos/{carritoId}`), con la cuenta regresiva, el cambio de
+butacas, el email de entrega y el abandono. El pago todavía no existe en el backend.
 
 ## Requisitos
 
@@ -45,6 +46,10 @@ La guía de validación completa está en
 | `npm test`                    | Tests unitarios y de componentes (Vitest + MSW)                                 |
 | `npm run test:e2e`            | Playwright: levanta el mock, hace el build y prueba con y sin JavaScript        |
 | `npm run mock:api`            | Mock de la API en `http://127.0.0.1:4010` con los fixtures de `tests/fixtures/` |
+| `npm run test:e2e:api-real`   | Playwright contra el backend real en `API_REAL_URL` (por defecto el 8080)       |
+
+`test:e2e:api-real` no corre en CI: necesita el backend levantado con los datos sembrados, usa el
+puerto 3100 y crea 7 de los 10 carritos que la API permite por IP cada 10 minutos.
 
 ## Variables de entorno
 
@@ -62,5 +67,7 @@ Ninguna lleva el prefijo `NEXT_PUBLIC_`: no llegan al navegador.
 - Cada horario enlaza a `/funciones/{funcionId}`, la selección de butacas. Esa página pide el
   mapa sin caché en cada visita y crea el carrito desde el navegador por el proxy `/api`, así
   que el servidor de producción también tiene que llegar a `API_URL`. Después de confirmar, el
-  comprador pasa a `/carritos/{carritoId}`, que por ahora solo confirma que el carrito se creó
-  (la pantalla completa del carrito es la spec 004).
+  comprador pasa a `/carritos/{carritoId}`. Esa página no se cachea y todos sus pedidos salen
+  del navegador por el proxy, con el token de `sessionStorage`. La cuenta regresiva corrige el
+  reloj del dispositivo con el header `Date` del backend, así que el proxy tiene que dejarlo
+  pasar.

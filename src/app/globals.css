@@ -195,6 +195,14 @@ button:disabled {
   background-size: 6px 6px;
 }
 
+/* Cinta de peligro: solo carrito vencido o sin conexión (DESIGN.md §6.5). Rayas de dos tintas
+   con paradas duras, no un degradé de color a color. */
+.cinta-peligro {
+  display: block;
+  height: 8px;
+  background: repeating-linear-gradient(-45deg, var(--telon) 0 10px, var(--ink) 10px 20px);
+}
+
 .visualmente-oculto {
   position: absolute;
   width: 1px;

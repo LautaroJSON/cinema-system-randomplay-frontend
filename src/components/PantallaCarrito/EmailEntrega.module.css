@@ -1,0 +1,63 @@
+.seccion {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+}
+
+.formulario {
+  display: grid;
+  justify-items: start;
+  gap: 0.5rem;
+  max-width: 32rem;
+}
+
+.etiqueta {
+  font-weight: 600;
+}
+
+/* Borde --line-strong (3.1:1 sobre la tinta, WCAG 1.4.11) y 48 px de alto para el dedo. */
+.campo {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.625rem 0.75rem;
+  border: var(--borde) solid var(--line-strong);
+  border-radius: var(--radio);
+  background: var(--surface);
+  color: var(--paper);
+  font: inherit;
+}
+
+.campo[aria-invalid="true"] {
+  border-color: var(--telon-ink);
+}
+
+/* El error es texto, no solo el borde rojo. */
+.error {
+  color: var(--telon-ink);
+  font-weight: 600;
+}
+
+.formulario > :global(.boton-primario) {
+  margin-top: 0.5rem;
+}
+
+.queSigue {
+  display: grid;
+  justify-items: start;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  border-radius: var(--radio);
+  background: var(--surface);
+}
+
+.queSigue h3 {
+  color: var(--oro);
+}
+
+.queSigue p {
+  max-width: 60ch;
+}
+
+.email {
+  overflow-wrap: anywhere;
+}

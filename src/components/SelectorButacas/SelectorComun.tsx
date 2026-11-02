@@ -71,8 +71,8 @@ export type PropsSelectorComun = {
   cintaSinConexion?: boolean;
   /** Adónde ir cuando la función ya no se puede comprar. */
   salidaFuncionCerrada?: { href: string; texto: string };
-  /** Deshabilita la confirmación además de los casos comunes (por ejemplo, sin cambios). */
-  deshabilitar?: (seleccion: Asiento[]) => boolean;
+  /** Saca el botón de confirmar (por ejemplo, sin cambios); `ayuda` ofrece la salida. */
+  ocultarConfirmacion?: (seleccion: Asiento[]) => boolean;
   /** Contenido debajo del botón según la selección. */
   ayuda?: (seleccion: Asiento[]) => ReactNode;
   confirmar: (seleccion: Asiento[]) => Promise<ResultadoConfirmacion>;
@@ -86,7 +86,7 @@ export function SelectorComun({
   textoError,
   cintaSinConexion = false,
   salidaFuncionCerrada,
-  deshabilitar,
+  ocultarConfirmacion,
   ayuda,
   confirmar,
 }: PropsSelectorComun) {
@@ -254,11 +254,8 @@ export function SelectorComun({
       ? "Ya podés volver a intentar."
       : "";
   const botonDeshabilitado =
-    seleccion.length === 0 ||
-    confirmacion.tipo === "enviando" ||
-    esperando ||
-    cerrada ||
-    (deshabilitar?.(seleccion) ?? false);
+    seleccion.length === 0 || confirmacion.tipo === "enviando" || esperando || cerrada;
+  const sinConfirmacion = ocultarConfirmacion?.(seleccion) ?? false;
 
   return (
     <div className={estilos.selector}>
@@ -318,15 +315,17 @@ export function SelectorComun({
             />
 
             <div className={estilos.acciones}>
-              <button
-                type="button"
-                className="boton-primario"
-                disabled={botonDeshabilitado}
-                aria-describedby={esperando ? "espera-reintento" : undefined}
-                onClick={alConfirmar}
-              >
-                {confirmacion.tipo === "enviando" ? textoEnviando : textoBoton(seleccion.length)}
-              </button>
+              {!sinConfirmacion && (
+                <button
+                  type="button"
+                  className="boton-primario"
+                  disabled={botonDeshabilitado}
+                  aria-describedby={esperando ? "espera-reintento" : undefined}
+                  onClick={alConfirmar}
+                >
+                  {confirmacion.tipo === "enviando" ? textoEnviando : textoBoton(seleccion.length)}
+                </button>
+              )}
               {confirmacion.tipo === "esperando" && (
                 <p id="espera-reintento" className={estilos.espera}>
                   Podés volver a intentar en{" "}

@@ -17,7 +17,9 @@ import {
 } from "./api";
 
 // Flujo del comprador contra la API real (docs/api.md). Cada prueba crea como mucho dos
-// carritos: la corrida completa usa 7 de los 10 permitidos por IP cada 10 minutos.
+// carritos: la corrida completa usa 8 de los 10 permitidos por IP cada 10 minutos. El pago usa
+// la pasarela simulada del backend (MercadoPago__Modo=Simulado en su docker-compose) y deja las
+// butacas de ese carrito ocupadas para siempre, como cualquier compra.
 
 let funcion: Horario;
 /** Carritos creados en la prueba en curso, para liberarlos aunque falle. */
@@ -98,7 +100,8 @@ test("camino feliz: de la cartelera al carrito con email", async ({ page, reques
   for (const { fila, numero } of asientos) {
     await expect(page.getByText(`Fila ${fila}, butaca ${numero}`, { exact: true })).toBeVisible();
   }
-  await expect(page.getByText(montoVisible(totalEsperado))).toBeVisible();
+  // En el talón: el total también figura en el botón "Pagar".
+  await expect(page.locator("dd", { hasText: montoVisible(totalEsperado) })).toBeVisible();
   await expect(page.getByRole("timer")).toHaveText(/0[45]:\d\d/);
 
   const email = "comprador@randomplay.test";
@@ -118,6 +121,42 @@ test("camino feliz: de la cartelera al carrito con email", async ({ page, reques
     ).toBeVisible();
   }
   await otro.close();
+});
+
+test("pago: pagar con la pasarela simulada y ver las entradas (spec 005)", async ({
+  page,
+  request,
+}) => {
+  const asientos = await elegirLibres(request, funcion.funcionId, "D", 2);
+  await page.goto(`/funciones/${funcion.funcionId}`);
+  const { id, token } = await confirmarCarrito(page, asientos);
+
+  await page
+    .getByRole("textbox", { name: "Email para recibir las entradas" })
+    .fill("comprador@randomplay.test");
+  await page.getByRole("button", { name: "Guardar email" }).click();
+  await expect(page.getByRole("region", { name: "Qué sigue" })).toBeVisible();
+
+  const inicio = page.waitForResponse(
+    (r) => r.request().method() === "POST" && r.url().endsWith(`/carritos/${id}/pago`),
+  );
+  await page.getByRole("button", { name: /^Pagar \$/ }).click();
+  expect((await inicio).status()).toBe(200);
+  await expect(page).toHaveURL(`/carritos/${id}/pago-simulado`);
+  expect((await carritoEnApi(request, id, token)).estado).toBe("Pagando");
+
+  await page.getByRole("button", { name: "Aprobar pago" }).click();
+  await expect(page).toHaveURL(`/carritos/${id}/pago`);
+  await expect(page.getByRole("heading", { level: 1, name: "¡Listo!" })).toBeVisible();
+  const entradas = page.getByRole("listitem").filter({ hasText: "Código" });
+  await expect(entradas).toHaveCount(2);
+  for (const entrada of await entradas.all()) {
+    await expect(entrada).toContainText(/[A-Z0-9]{5}-[A-Z0-9]{5}/);
+  }
+
+  const pagado = await obtenerConToken<{ estado: string; entradas: unknown[] }>(request, id, token);
+  expect(pagado.estado).toBe("Pagado");
+  expect(pagado.entradas).toHaveLength(2);
 });
 
 test("cambiar la selección libera las anteriores y no extiende el plazo", async ({
@@ -303,3 +342,16 @@ test("expiración: a los 5 minutos el carrito vence y no admite cambios", async 
   expect((await carritoEnApi(request, id, token)).estado).toBe("Expirado");
   expect(await estaLibre(request, funcion.funcionId, asientos[0])).toBe(true);
 });
+
+/** GET del carrito con su credencial, para leer los campos del pago. */
+async function obtenerConToken<T>(
+  request: Parameters<typeof carritoEnApi>[0],
+  id: string,
+  token: string,
+): Promise<T> {
+  const respuesta = await request.get(`${API_URL}/api/carritos/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  expect(respuesta.ok()).toBe(true);
+  return (await respuesta.json()) as T;
+}

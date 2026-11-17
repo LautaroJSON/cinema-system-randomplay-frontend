@@ -5,15 +5,35 @@ import type { components, paths } from "./schema";
 
 type CarritoApi = components["schemas"]["CarritoResponse"];
 type CarritoCreadoApi = components["schemas"]["CarritoCreadoResponse"];
+type PagoIniciadoApi = components["schemas"]["PagoIniciadoResponse"];
+type EntradaApi = components["schemas"]["EntradaResponse"];
 type CrearCarritoApi = NonNullable<
   paths["/api/funciones/{funcionId}/carritos"]["post"]["requestBody"]
 >["content"]["application/json"];
 type ReemplazarAsientosApi = components["schemas"]["ReemplazarAsientosRequest"];
 type EmailEntregaApi = components["schemas"]["EmailEntregaRequest"];
 
+/** Pago iniciado en Mercado Pago. `urlPago` se valida con `destinoPago` antes de seguirla. */
+export type Pago = {
+  urlPago: string;
+  iniciadoEn: string;
+  pagadoEn: string | null;
+};
+
+/** Entrada emitida al pagar; los datos de la función quedan copiados como estaban al pagar. */
+export type Entrada = {
+  codigo: string;
+  pelicula: string;
+  sucursal: string;
+  sala: string;
+  horaInicio: string;
+  asiento: Asiento;
+  precioUnitario: Dinero;
+};
+
 export type Carrito = {
   id: string;
-  /** `Activo`, `Abandonado` o `Expirado`; se traduce en `domain/carrito.ts`. */
+  /** `Activo`, `Pagando`, `Pagado`, `Expirado` o `Abandonado`; se traduce en `domain/carrito.ts`. */
   estado: string;
   venceEn: string;
   abandonadoEn: string | null;
@@ -29,6 +49,10 @@ export type Carrito = {
   precioUnitario: Dinero;
   total: Dinero;
   emailEntrega: string | null;
+  /** `null` mientras no se inició el pago. */
+  pago: Pago | null;
+  /** Vacío salvo en `Pagado`. */
+  entradas: Entrada[];
 };
 
 export type CarritoCreado = {
@@ -38,7 +62,20 @@ export type CarritoCreado = {
   carrito: Carrito;
 };
 
+function mapearEntrada({ asiento, precioUnitario, ...entrada }: EntradaApi): Entrada {
+  return {
+    codigo: entrada.codigo,
+    pelicula: entrada.pelicula,
+    sucursal: entrada.sucursal,
+    sala: entrada.sala,
+    horaInicio: entrada.horaInicio,
+    asiento: { fila: asiento.fila, numero: Number(asiento.numero) },
+    precioUnitario: { monto: precioUnitario.monto, moneda: precioUnitario.moneda },
+  };
+}
+
 export function mapearCarrito(carrito: CarritoApi): Carrito {
+  const { pago } = carrito;
   const { funcion } = carrito;
   return {
     id: carrito.id,
@@ -57,6 +94,10 @@ export function mapearCarrito(carrito: CarritoApi): Carrito {
     precioUnitario: { monto: carrito.precioUnitario.monto, moneda: carrito.precioUnitario.moneda },
     total: { monto: carrito.total.monto, moneda: carrito.total.moneda },
     emailEntrega: carrito.emailEntrega ?? null,
+    pago: pago
+      ? { urlPago: pago.urlPago, iniciadoEn: pago.iniciadoEn, pagadoEn: pago.pagadoEn ?? null }
+      : null,
+    entradas: carrito.entradas.map(mapearEntrada),
   };
 }
 
@@ -137,5 +178,24 @@ export async function abandonarCarrito(
       timeoutMs,
     }),
     mapearCarrito,
+  );
+}
+
+export type PagoIniciado = { urlPago: string; carrito: Carrito };
+
+/**
+ * Inicia el pago (el carrito pasa a `Pagando` y gana un minuto) o, si ya estaba en `Pagando`,
+ * devuelve la misma `urlPago` sin tocar el vencimiento: sirve para volver a la página de pago.
+ */
+export async function iniciarPago(
+  carritoId: string,
+  token: string,
+): Promise<Resultado<PagoIniciado>> {
+  return mapearResultado(
+    await pedirDesdeNavegador<PagoIniciadoApi>(`${rutaCarrito(carritoId)}/pago`, {
+      metodo: "POST",
+      token,
+    }),
+    ({ urlPago, carrito }) => ({ urlPago, carrito: mapearCarrito(carrito) }),
   );
 }

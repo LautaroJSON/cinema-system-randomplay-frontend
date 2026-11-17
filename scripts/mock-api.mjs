@@ -146,10 +146,14 @@ function crearCarrito(funcionId, cuerpo) {
   return [201, creado];
 }
 
-/** Estado actual: un carrito activo con `venceEn` pasado figura como expirado. */
+/**
+ * Estado actual: un carrito activo o en pago con `venceEn` pasado figura como expirado (como el
+ * backend cuando no hay un pago aprobado).
+ */
 function vigente(entrada) {
   const { carrito } = entrada;
-  if (carrito.estado === "Activo" && Date.parse(carrito.venceEn) <= Date.now()) {
+  const retiene = carrito.estado === "Activo" || carrito.estado === "Pagando";
+  if (retiene && Date.parse(carrito.venceEn) <= Date.now()) {
     entrada.carrito = { ...carrito, estado: "Expirado" };
   }
   return entrada.carrito;
@@ -166,6 +170,10 @@ function operarCarrito(req, carritoId, operacion, cuerpo) {
   }
   const carrito = vigente(entrada);
   if (operacion === "consultar") return [200, carrito];
+  if (operacion === "pagar") return iniciarPago(entrada);
+  if (carrito.estado === "Pagando") {
+    return [409, { ...problema(409, "Hay un pago en curso."), codigo: "carrito-en-pago" }];
+  }
   if (carrito.estado !== "Activo") {
     return [
       409,
@@ -211,6 +219,79 @@ function operarCarrito(req, carritoId, operacion, cuerpo) {
     entrada.carrito = { ...carrito, emailEntrega: email };
   }
   return [200, entrada.carrito];
+}
+
+// Pago (spec 005, backend 008) con la pasarela simulada: la `urlPago` es la ruta de desarrollo.
+let pagosIniciados = 0;
+let pagosSimulados = 0;
+const PAGO_EXTRA_MS = 60 * 1000;
+
+function iniciarPago(entrada) {
+  const { carrito } = entrada;
+  if (carrito.estado === "Pagando") return [200, { urlPago: carrito.pago.urlPago, carrito }];
+  if (carrito.estado !== "Activo") {
+    return [
+      409,
+      {
+        ...problema(409, "El carrito no está activo."),
+        codigo: "carrito-no-activo",
+        estadoActual: carrito.estado,
+      },
+    ];
+  }
+  if (!carrito.emailEntrega) {
+    return [
+      409,
+      { ...problema(409, "Falta el email de entrega."), codigo: "email-entrega-faltante" },
+    ];
+  }
+  pagosIniciados += 1;
+  entrada.carrito = {
+    ...carrito,
+    estado: "Pagando",
+    venceEn: isoArgentina(new Date(Date.parse(carrito.venceEn) + PAGO_EXTRA_MS)),
+    pago: {
+      urlPago: `/api/dev/pagos-simulados/pref-${pagosIniciados}`,
+      iniciadoEn: isoArgentina(new Date()),
+      pagadoEn: null,
+    },
+  };
+  return [200, { urlPago: entrada.carrito.pago.urlPago, carrito: entrada.carrito }];
+}
+
+const LETRAS_CODIGO = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+const parteCodigo = () =>
+  Array.from(
+    { length: 5 },
+    () => LETRAS_CODIGO[Math.floor(Math.random() * LETRAS_CODIGO.length)],
+  ).join("");
+
+/** Público, como en el backend: aprobado por el total paga el carrito; el resto no lo cambia. */
+function simularPago(cuerpo) {
+  const entrada = carritos.get(cuerpo?.carritoId);
+  if (!entrada) return [404, problema(404, "Not Found")];
+  const carrito = vigente(entrada);
+  const total = Number(carrito.total.monto);
+  const monto = typeof cuerpo.monto === "number" ? cuerpo.monto : total;
+  pagosSimulados += 1;
+  if (cuerpo.estado === "Aprobado" && monto === total && carrito.estado === "Pagando") {
+    const { funcion } = carrito;
+    entrada.carrito = {
+      ...carrito,
+      estado: "Pagado",
+      pago: { ...carrito.pago, pagadoEn: isoArgentina(new Date()) },
+      entradas: carrito.asientos.map((asiento) => ({
+        codigo: `${parteCodigo()}-${parteCodigo()}`,
+        pelicula: funcion.peliculaTitulo,
+        sucursal: funcion.sucursalNombre,
+        sala: funcion.salaNombre,
+        horaInicio: funcion.horaInicio,
+        asiento,
+        precioUnitario: carrito.precioUnitario,
+      })),
+    };
+  }
+  return [200, { pagoId: `sim-${pagosSimulados}`, estadoCarrito: entrada.carrito.estado }];
 }
 
 const ID_HORARIOS_FALLAN = "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a05";
@@ -299,6 +380,11 @@ function resolverPost(ruta, cuerpo, req) {
 
   m = ruta.match(/^\/api\/carritos\/([^/]+)\/abandono$/);
   if (m) return operarCarrito(req, m[1], "abandonar");
+
+  m = ruta.match(/^\/api\/carritos\/([^/]+)\/pago$/);
+  if (m) return operarCarrito(req, m[1], "pagar");
+
+  if (ruta === "/api/dev/pagos-simulados") return simularPago(cuerpo);
 
   return [404, problema(404, "Ruta inexistente.")];
 }

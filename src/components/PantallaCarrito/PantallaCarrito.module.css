@@ -15,3 +15,29 @@
   max-width: 60ch;
   color: var(--paper-muted);
 }
+
+.email {
+  color: var(--paper);
+  overflow-wrap: anywhere;
+}
+
+.entradas {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* Pago en curso: aviso informativo, no error. Borde dorado (estado del carrito, DESIGN.md §4) y
+   el texto siempre presente. */
+.enPago {
+  justify-self: stretch;
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.875rem 1rem;
+  border: var(--borde) solid var(--oro);
+  border-radius: var(--radio);
+}
+
+.enPago strong {
+  color: var(--oro);
+}

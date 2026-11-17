@@ -16,6 +16,7 @@ import {
   problemaCarrito,
   sucursales,
   TOKEN_PRUEBA,
+  URL_PAGO_SIMULADA,
 } from "../fixtures";
 
 export const API = "http://api.test";
@@ -80,7 +81,31 @@ export const handlers = [
   http.post("*/api/carritos/:carritoId/abandono", ({ request, params }) =>
     conCredencial(request, params, () => carritosEstados.abandonado),
   ),
+  http.post("*/api/carritos/:carritoId/pago", ({ request, params }) =>
+    conCredencial(request, params, () => ({
+      urlPago: URL_PAGO_SIMULADA,
+      carrito: conVencimiento(carritosEstados.pagando, 5 * 60_000),
+    })),
+  ),
+  // Público: si llega con `Authorization`, el token se filtró a donde no debía (Principio III).
+  http.post("*/api/dev/pagos-simulados", ({ request }) =>
+    request.headers.has("Authorization")
+      ? new HttpResponse(null, { status: 401 })
+      : HttpResponse.json({ pagoId: "sim-1", estadoCarrito: "Pagado" }),
+  ),
 ];
+
+/** Error de negocio `application/problem+json` con su `codigo`, para `server.use(...)`. */
+export function respuestaProblema(
+  status: number,
+  codigo: string,
+  extras: Record<string, unknown> = {},
+) {
+  return HttpResponse.json(problemaCarrito(status, codigo, extras), {
+    status,
+    headers: { "Content-Type": "application/problem+json", ...conFecha() },
+  });
+}
 
 /** Header `Date` con la hora actual (la simulada, si los timers son falsos). */
 export const conFecha = () => ({ Date: new Date().toUTCString() });

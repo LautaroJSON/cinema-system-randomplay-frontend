@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Ref } from "react";
 import type { Carrito } from "@/api/carritos";
+import { ListaEntradas } from "@/components/ListaEntradas/ListaEntradas";
 import { etiquetaLectura, type MotivoLectura } from "@/domain/carrito";
 import { AvisoOperacion } from "./AvisoOperacion";
 import { ResumenCarrito } from "./ResumenCarrito";
@@ -91,5 +92,51 @@ export function VistaLectura({
       <ResumenCarrito carrito={carrito} estado={etiquetaLectura(motivo, carrito)} />
       <EnlaceEmpezarDeNuevo peliculaId={carrito.funcion.peliculaId} />
     </div>
+  );
+}
+
+/**
+ * Compra cerrada: se muestra igual aunque haya pasado `venceEn`, sin contador ni acciones
+ * (FR-029). Las entradas salen de la pestaña: la credencial ya no hace falta.
+ */
+export function VistaPagado({ tituloRef, carrito }: ConTitulo & { carrito: Carrito }) {
+  return (
+    <div className={estilos.vista}>
+      <h1 ref={tituloRef} tabIndex={-1} className="h2">
+        Tu compra
+      </h1>
+      <TextoEntradasPorEmail email={carrito.emailEntrega} />
+      <ResumenCarrito carrito={carrito} estado="Pagado" />
+      <SeccionEntradas carrito={carrito} />
+      <Link href="/" className="boton-secundario">
+        Ver la cartelera
+      </Link>
+    </div>
+  );
+}
+
+/** Dónde llegan las entradas. Sin email guardado (no debería pasar) no se nombra ninguno. */
+export function TextoEntradasPorEmail({ email }: { email: string | null }) {
+  return (
+    <p className={estilos.texto}>
+      {email ? (
+        <>
+          También te mandamos las entradas a <strong className={estilos.email}>{email}</strong>.
+        </>
+      ) : (
+        "También te mandamos las entradas al email que indicaste."
+      )}
+    </p>
+  );
+}
+
+export function SeccionEntradas({ carrito }: { carrito: Carrito }) {
+  return (
+    <section aria-labelledby="titulo-entradas" className={estilos.entradas}>
+      <h2 id="titulo-entradas" className="h3">
+        {carrito.entradas.length === 1 ? "Tu entrada" : "Tus entradas"}
+      </h2>
+      <ListaEntradas entradas={carrito.entradas} />
+    </section>
   );
 }

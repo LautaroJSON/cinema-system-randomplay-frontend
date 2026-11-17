@@ -217,6 +217,11 @@ export function SelectorComun({
       case "desafio-rechazado":
       case "carrito-no-encontrado":
       case "carrito-no-activo":
+      // Del pago (spec 005): en el cambio de butacas, `carrito-en-pago` lo resuelve antes la pantalla.
+      case "email-entrega-faltante":
+      case "carrito-en-pago":
+      case "carrito-modificado":
+      case "pago-no-disponible":
       case "desconocido":
       case "red":
         setConfirmacion({ tipo: "errorGenerico", sinConexion: tipo === "red" });

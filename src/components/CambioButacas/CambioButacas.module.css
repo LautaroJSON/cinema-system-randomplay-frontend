@@ -25,3 +25,9 @@
 .ayuda a {
   color: var(--paper);
 }
+
+.bloqueado {
+  display: grid;
+  justify-items: start;
+  gap: 1.25rem;
+}

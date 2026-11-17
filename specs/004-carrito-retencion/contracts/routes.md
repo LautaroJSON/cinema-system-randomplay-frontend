@@ -11,8 +11,13 @@ Esta spec reemplaza el contenido de `/carritos/{carritoId}` que dejó la 003 y a
 | `/carritos/{carritoId}` con carrito vencido (por la API o por el contador) | 200 | dinámica | no | no | "Se terminó el tiempo" |
 | `/carritos/{carritoId}` con `401` o `carrito-no-encontrado` | 200 | dinámica | no | no | "No pudimos recuperar tu carrito" |
 | `/carritos/{carritoId}` sin sesión de ese id | 200 | dinámica | no | no | "No hay un carrito activo en esta pestaña" (como en la 003) |
+| `/carritos/{carritoId}` con carrito en pago (spec 005) | 200 | dinámica | no | no | "Tu carrito" (estado "Pago en curso", acciones bloqueadas) |
+| `/carritos/{carritoId}` con carrito pagado (spec 005) | 200 | dinámica | no | no | "Tu compra" |
 | `/carritos/{carritoId}/butacas` con carrito activo | 200 | dinámica | no | no | "Cambiá tus butacas" |
 | `/carritos/{carritoId}/butacas` sin sesión o con carrito cerrado | 200 | dinámica | no | no | el de la vista equivalente del carrito |
+
+Las rutas del pago (`/carritos/{carritoId}/pago` y `/pago-simulado`) están en
+[specs/005-pagar-carrito/contracts/routes.md](../../005-pagar-carrito/contracts/routes.md).
 
 Todas responden 200 porque el servidor no tiene forma de saber el estado: la credencial está en
 la pestaña. El estado se decide en el navegador.

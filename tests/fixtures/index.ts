@@ -33,6 +33,12 @@ export const ID_CARRITO = carritoCreado.carrito.id;
 export const ID_CARRITO_AJENO = "c4a7e2b1-3d5f-4c6e-9a8b-7f6e5d4c3bff";
 export const TOKEN_PRUEBA = carritoCreado.token;
 
+/** `urlPago` simulada del fixture `pagando`, como la devuelve el backend en desarrollo. */
+export const URL_PAGO_SIMULADA = carritosEstados.pagando.pago.urlPago;
+/** `urlPago` real de Mercado Pago (sandbox). */
+export const URL_PAGO_REAL =
+  "https://sandbox.mercadopago.com.ar/checkout/v1/redirect?pref_id=prueba";
+
 /** Sesión v2 de la pestaña con un carrito de `carritosEstados` ya mapeado. */
 export function sesionDePrueba(
   carrito: Schemas["CarritoResponse"] = carritosEstados.activo,

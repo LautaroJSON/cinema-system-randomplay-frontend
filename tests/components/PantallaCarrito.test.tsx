@@ -17,6 +17,8 @@ import { server } from "../msw/setup";
 
 type CarritoApi = components["schemas"]["CarritoResponse"];
 
+vi.mock("next/navigation", () => ({ useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }) }));
+
 const AHORA = new Date("2026-11-01T17:00:00-03:00");
 const MIN = 60_000;
 
@@ -119,7 +121,8 @@ describe("PantallaCarrito: vistas y cuenta regresiva", () => {
     expect(screen.getByText("Fila F, butaca 8")).toBeInTheDocument();
     expect(screen.getByText("Fila F, butaca 9")).toBeInTheDocument();
     expect(screen.getByText(/4\.500,00/)).toBeInTheDocument();
-    expect(screen.getByText(/9\.000,00/)).toBeInTheDocument();
+    // El total también figura en el botón "Pagar": acá se mira el del talón.
+    expect(screen.getByText(/9\.000,00/, { selector: "dd" })).toBeInTheDocument();
     expect(screen.getByText("Activo")).toBeInTheDocument();
   });
 
@@ -349,7 +352,7 @@ describe("PantallaCarrito: email de entrega", () => {
     expect(campo()).not.toHaveAttribute("aria-invalid", "true");
   });
 
-  it("al guardarlo explica qué sigue, sin simular una compra", async () => {
+  it("al guardarlo explica qué sigue: las entradas llegan ahí cuando pague", async () => {
     const usuario = await abrir();
     const cuerpos = capturarEmails();
     await usuario.type(campo(), "  comprador@ejemplo.com ");
@@ -358,10 +361,9 @@ describe("PantallaCarrito: email de entrega", () => {
     const queSigue = await screen.findByRole("region", { name: "Qué sigue" });
     expect(cuerpos).toEqual([{ email: "comprador@ejemplo.com" }]);
     expect(queSigue).toHaveTextContent("comprador@ejemplo.com");
-    expect(queSigue).toHaveTextContent("El pago todavía no está disponible");
-    expect(queSigue).toHaveTextContent("no se emiten ni envían entradas");
+    expect(queSigue).toHaveTextContent("Ahí te mandamos las entradas cuando pagues.");
     expect(screen.getByRole("heading", { level: 3, name: "Qué sigue" })).toHaveFocus();
-    expect(document.body).not.toHaveTextContent(/compra confirmada|número de orden|pagar/i);
+    expect(document.body).not.toHaveTextContent(/compra confirmada|número de orden/i);
     expect(leerSesion()?.carrito.emailEntrega).toBe("comprador@ejemplo.com");
   });
 

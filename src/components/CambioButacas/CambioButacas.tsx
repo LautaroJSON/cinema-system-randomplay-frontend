@@ -16,7 +16,8 @@ import {
   SelectorComun,
   type ResultadoConfirmacion,
 } from "@/components/SelectorButacas/SelectorComun";
-import { resolverProblemaCarrito, vistaPantalla } from "@/domain/carrito";
+import { estaActivo, estaPagando, resolverProblemaCarrito, vistaPantalla } from "@/domain/carrito";
+import { rutaVuelta } from "@/domain/pago";
 import { mismaSeleccion, type Asiento } from "@/domain/butacas";
 import { medirDesfase } from "@/domain/cuenta-regresiva";
 import {
@@ -65,7 +66,14 @@ export function CambioButacas({ carritoId }: { carritoId: string }) {
   const rutaCarrito = `/carritos/${carritoId}`;
 
   // El cambio no extiende el vencimiento: si el contador llega a cero acá, se vuelve al carrito.
-  useAlVencer(venceEn, desfaseMs, propia?.token != null, () => {
+  // Con el pago en curso no se declara vencido: se espera la respuesta de la API en la página de
+  // vuelta (spec 005, research P7).
+  const retiene = propia !== null && (estaActivo(propia.carrito) || estaPagando(propia.carrito));
+  useAlVencer(venceEn, desfaseMs, propia?.token != null && retiene, () => {
+    if (propia && estaPagando(propia.carrito)) {
+      router.push(rutaVuelta(carritoId));
+      return;
+    }
     cerrarSesion();
     router.push(rutaCarrito);
   });
@@ -122,6 +130,11 @@ export function CambioButacas({ carritoId }: { carritoId: string }) {
       router.push(rutaCarrito);
       return { tipo: "hecho" };
     }
+    // Hay un pago en curso: el carrito lo muestra bloqueado y se relee al abrirlo (FR-032).
+    if (transicion.tipo === "enPago") {
+      router.push(rutaCarrito);
+      return { tipo: "hecho" };
+    }
     return null;
   }
 
@@ -130,6 +143,19 @@ export function CambioButacas({ carritoId }: { carritoId: string }) {
   if (vista.tipo === "perdido") return <VistaPerdido peliculaId={vista.peliculaId} />;
   if (vista.tipo === "lectura")
     return <VistaLectura motivo={vista.motivo} carrito={vista.carrito} />;
+  // Con el pago en curso o la compra cerrada no se cambia nada (FR-026).
+  if (vista.tipo === "pagado" || vista.tipo === "pagando")
+    return (
+      <div className={estilos.bloqueado}>
+        <h1 className="h2">No podés cambiar las butacas</h1>
+        <p className={estilos.ayuda}>
+          {vista.tipo === "pagando" ? "Hay un pago en curso." : "Esta compra ya está pagada."}
+        </p>
+        <Link href={rutaCarrito} className="boton-secundario">
+          Volver al carrito
+        </Link>
+      </div>
+    );
 
   const { carrito } = vista.sesion;
   return (

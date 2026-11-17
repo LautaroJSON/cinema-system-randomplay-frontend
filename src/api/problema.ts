@@ -12,6 +12,11 @@ const CODIGOS = [
   "funcion-no-disponible",
   "asientos-inexistentes",
   "demasiados-pedidos",
+  // Pago (backend 008, contracts/pagos-api.md): todavía no figuran en docs/api.md.
+  "email-entrega-faltante",
+  "carrito-en-pago",
+  "carrito-modificado",
+  "pago-no-disponible",
 ] as const;
 
 export type CodigoCarrito = (typeof CODIGOS)[number];
@@ -26,7 +31,7 @@ export type Problema = {
   errors: Record<string, string[]>;
   /** Solo en `demasiados-pedidos`: segundos a esperar antes de reintentar. */
   retryAfterSegundos?: number;
-  /** Solo en `carrito-no-activo`: `Abandonado`, `Expirado` u otro texto de la API. */
+  /** Solo en `carrito-no-activo`: `Abandonado`, `Expirado`, `Pagado` u otro texto de la API. */
   estadoActual?: string;
 };
 

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { mapearCarrito } from "@/api/carritos";
 import type { Problema } from "@/api/problema";
 import {
+  cierraSesion,
   credencialPerdida,
   esModificable,
   etiquetaEstado,
@@ -31,7 +32,9 @@ describe("etiquetaEstado", () => {
     expect(etiquetaEstado("Activo")).toBe("Activo");
     expect(etiquetaEstado("Abandonado")).toBe("Abandonado");
     expect(etiquetaEstado("Expirado")).toBe("Vencido");
-    expect(etiquetaEstado("Pagado")).toBe("Estado desconocido");
+    expect(etiquetaEstado("Pagando")).toBe("Pago en curso");
+    expect(etiquetaEstado("Pagado")).toBe("Pagado");
+    expect(etiquetaEstado("Reembolsado")).toBe("Estado desconocido");
   });
 });
 
@@ -92,10 +95,34 @@ describe("vistaPantalla", () => {
       tipo: "lectura",
       motivo: "noActivo",
     });
-    expect(lectura(sesionDePrueba({ ...carritosEstados.activo, estado: "Pagado" }))).toMatchObject({
+    expect(lectura(sesionDePrueba({ ...carritosEstados.activo, estado: "Otro" }))).toMatchObject({
       tipo: "lectura",
       motivo: "noActivo",
     });
+  });
+
+  it("un carrito pagado es una compra cerrada, con o sin token y aunque haya vencido", () => {
+    for (const cambios of [{}, { token: null, tokenVenceEn: null }]) {
+      for (const tramo of ["normal", "vencido"] as const) {
+        expect(
+          vistaPantalla({
+            ...base,
+            tramo,
+            sesion: sesionDePrueba(carritosEstados.pagado, cambios),
+          }),
+        ).toMatchObject({ tipo: "pagado", carrito: { estado: "Pagado" } });
+      }
+    }
+  });
+
+  it("un carrito en pago con token está pagando, aunque el contador haya llegado a cero", () => {
+    for (const tramo of ["normal", "vencido"] as const) {
+      expect(
+        vistaPantalla({ ...base, tramo, sesion: sesionDePrueba(carritosEstados.pagando) }),
+      ).toMatchObject({ tipo: "pagando", sesion: { token: TOKEN_PRUEBA } });
+    }
+    const sinToken = sesionDePrueba(carritosEstados.pagando, { token: null });
+    expect(vistaPantalla({ ...base, sesion: sinToken })).toMatchObject({ tipo: "lectura" });
   });
 
   it("una sesión cerrada nunca vuelve a activo", () => {
@@ -115,7 +142,7 @@ describe("etiquetaLectura", () => {
     expect(etiquetaLectura("vencido", activo)).toBe("Vencido");
     expect(etiquetaLectura("abandonado", activo)).toBe("Abandonado");
     expect(etiquetaLectura("noActivo", activo)).toBe("No activo");
-    expect(etiquetaLectura("noActivo", { ...activo, estado: "Pagado" })).toBe("Estado desconocido");
+    expect(etiquetaLectura("noActivo", { ...activo, estado: "Otro" })).toBe("Estado desconocido");
   });
 });
 
@@ -135,8 +162,19 @@ describe("repartirErrores", () => {
   });
 });
 
+describe("cierraSesion", () => {
+  it("solo Activo y Pagando conservan la credencial", () => {
+    const con = (estado: string) => mapearCarrito({ ...carritosEstados.activo, estado });
+    expect(cierraSesion(con("Activo"))).toBe(false);
+    expect(cierraSesion(con("Pagando"))).toBe(false);
+    for (const estado of ["Pagado", "Expirado", "Abandonado", "Otro"]) {
+      expect(cierraSesion(con(estado))).toBe(true);
+    }
+  });
+});
+
 describe("resolverProblemaCarrito", () => {
-  const OPERACIONES = ["obtener", "cambiar", "email", "abandonar"] as const;
+  const OPERACIONES = ["obtener", "cambiar", "email", "abandonar", "pagar"] as const;
 
   it.each(OPERACIONES)("en %s, un 401 o carrito-no-encontrado pierden la credencial", (op) => {
     expect(resolverProblemaCarrito(problema({ status: 401 }), op)).toEqual({ tipo: "perdido" });
@@ -200,5 +238,61 @@ describe("resolverProblemaCarrito", () => {
         sinConexion: false,
       });
     }
+  });
+});
+
+describe("resolverProblemaCarrito al pagar", () => {
+  it("email-entrega-faltante pide el email", () => {
+    const faltante = problema({ tipo: "email-entrega-faltante", status: 409 });
+    expect(resolverProblemaCarrito(faltante, "pagar")).toEqual({ tipo: "pedirEmail" });
+  });
+
+  it("carrito-no-activo cierra con el estado actual, también Pagado", () => {
+    for (const estadoActual of ["Expirado", "Abandonado", "Pagado"]) {
+      const noActivo = problema({ tipo: "carrito-no-activo", status: 409, estadoActual });
+      expect(resolverProblemaCarrito(noActivo, "pagar")).toEqual({
+        tipo: "cerrar",
+        estadoActual,
+        aviso: true,
+      });
+    }
+  });
+
+  it("carrito-modificado pide releer el carrito", () => {
+    const modificado = problema({ tipo: "carrito-modificado", status: 409 });
+    expect(resolverProblemaCarrito(modificado, "pagar")).toEqual({ tipo: "releer" });
+  });
+
+  it("pago-no-disponible es un error propio", () => {
+    const noDisponible = problema({ tipo: "pago-no-disponible", status: 503 });
+    expect(resolverProblemaCarrito(noDisponible, "pagar")).toEqual({
+      tipo: "error",
+      sinConexion: false,
+      pagoNoDisponible: true,
+    });
+  });
+
+  it.each(["cambiar", "email", "abandonar"] as const)(
+    "carrito-en-pago en %s lleva al modo pago en curso",
+    (op) => {
+      const enPago = problema({ tipo: "carrito-en-pago", status: 409 });
+      expect(resolverProblemaCarrito(enPago, op)).toEqual({ tipo: "enPago" });
+    },
+  );
+
+  it("los códigos del pago fuera de su operación son un error genérico", () => {
+    for (const tipo of [
+      "email-entrega-faltante",
+      "carrito-modificado",
+      "pago-no-disponible",
+    ] as const) {
+      expect(resolverProblemaCarrito(problema({ tipo, status: 409 }), "email")).toEqual({
+        tipo: "error",
+        sinConexion: false,
+      });
+    }
+    expect(
+      resolverProblemaCarrito(problema({ tipo: "carrito-en-pago", status: 409 }), "pagar"),
+    ).toEqual({ tipo: "error", sinConexion: false });
   });
 });

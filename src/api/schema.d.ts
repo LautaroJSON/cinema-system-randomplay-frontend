@@ -4,6 +4,66 @@
  */
 
 export interface paths {
+    "/api/pagos/mercadopago/avisos": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Recibe un aviso de Mercado Pago (webhook).
+         * @description Lo llama Mercado Pago. Valida la firma `x-signature` con la clave secreta del webhook y consulta el pago a Mercado Pago
+         *     antes de hacer nada. Procesar el mismo pago más de una vez no repite entradas, emails ni devoluciones.
+         */
+        post: {
+            parameters: {
+                query?: {
+                    "data.id"?: string;
+                    /** @description Tipo de recurso avisado; solo se procesa `payment`. */
+                    type?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Aviso recibido (procesado o sin efecto). */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description Firma ausente o inválida: no se procesó. */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["ProblemDetails"];
+                        "application/json": components["schemas"]["ProblemDetails"];
+                        "text/json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description Mercado Pago no respondió al consultar el pago; Mercado Pago reintenta el aviso. */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/funciones/peliculas/{peliculaId}/sucursales-hoy": {
         parameters: {
             query?: never;
@@ -384,7 +444,10 @@ export interface paths {
         };
         /**
          * Obtiene el carrito del token.
-         * @description Sirve para refrescar el estado y el vencimiento; un carrito abandonado o expirado se sigue pudiendo consultar.
+         * @description Sirve para refrescar el estado y el vencimiento; un carrito abandonado o expirado se sigue pudiendo consultar. Con el carrito
+         *     en `Pagando`, antes de responder verifica con Mercado Pago si hay un pago aprobado que todavía no se avisó; si Mercado
+         *     Pago no responde, devuelve el estado conocido. Al volver de la página de pago, consultar cada 2 segundos mientras el estado
+         *     sea `Pagando`.
          */
         get: {
             parameters: {
@@ -502,7 +565,7 @@ export interface paths {
                         "application/problem+json": components["schemas"]["ProblemDetails"];
                     };
                 };
-                /** @description `asientos-no-disponibles` (ver `asientos`), `funcion-sin-cupo` o `carrito-no-activo` (ver `estadoActual`). */
+                /** @description `asientos-no-disponibles` (ver `asientos`), `funcion-sin-cupo`, `carrito-no-activo` (ver `estadoActual`) o `carrito-en-pago`. */
                 409: {
                     headers: {
                         [name: string]: unknown;
@@ -587,7 +650,7 @@ export interface paths {
                         "application/problem+json": components["schemas"]["ProblemDetails"];
                     };
                 };
-                /** @description `carrito-no-activo`: ya estaba abandonado o expirado (ver `estadoActual`). */
+                /** @description `carrito-no-activo`: ya estaba abandonado, expirado o pagado (ver `estadoActual`); `carrito-en-pago`: el pago está en curso. */
                 409: {
                     headers: {
                         [name: string]: unknown;
@@ -668,7 +731,7 @@ export interface paths {
                         "application/problem+json": components["schemas"]["ProblemDetails"];
                     };
                 };
-                /** @description `carrito-no-activo`: el carrito está abandonado o expirado (ver `estadoActual`). */
+                /** @description `carrito-no-activo`: el carrito está abandonado, expirado o pagado (ver `estadoActual`); `carrito-en-pago`: el pago está en curso y el email quedó fijo. */
                 409: {
                     headers: {
                         [name: string]: unknown;
@@ -680,6 +743,87 @@ export interface paths {
             };
         };
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/carritos/{carritoId}/pago": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Inicia el pago del carrito en Mercado Pago y devuelve la URL de pago.
+         * @description Exige un carrito activo con email de entrega. El carrito pasa a `Pagando` y su vencimiento gana un minuto, sin pasar
+         *     del inicio de la función; la página de pago deja de aceptar pagos en ese mismo momento. Mientras está en `Pagando` no
+         *     se pueden cambiar los asientos ni el email, ni abandonarlo. Llamarlo de nuevo devuelve la misma URL sin extender otra vez el
+         *     vencimiento. Se paga en la página de Mercado Pago: esta API nunca recibe datos de tarjeta.
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Carrito del token. */
+                    carritoId: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description URL de pago y carrito en `Pagando`. */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/plain": components["schemas"]["PagoIniciadoResponse"];
+                        "application/json": components["schemas"]["PagoIniciadoResponse"];
+                        "text/json": components["schemas"]["PagoIniciadoResponse"];
+                    };
+                };
+                /** @description Falta el token o no es válido (vencido, mal firmado o de otro tipo). */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description `carrito-no-encontrado`: no existe o el token es de otro carrito. */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description `email-entrega-faltante`, `carrito-no-activo` (expirado, abandonado o pagado; ver `estadoActual`) o `carrito-modificado`: la selección cambió mientras se creaba el pago; reintentar. */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+                /** @description `pago-no-disponible`: Mercado Pago no respondió; el carrito no cambió. */
+                503: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/problem+json": components["schemas"]["ProblemDetails"];
+                    };
+                };
+            };
+        };
         delete?: never;
         options?: never;
         head?: never;
@@ -724,7 +868,10 @@ export interface components {
         CarritoResponse: {
             /** Format: uuid */
             id: string;
-            /** @description `Activo`, `Abandonado` o `Expirado`. Solo un carrito activo retiene asientos y admite cambios. */
+            /**
+             * @description `Activo`, `Pagando`, `Pagado`, `Expirado` o `Abandonado`. Activo y Pagando retienen asientos hasta
+             *     `venceEn`; Pagado, para siempre. Solo un carrito activo admite cambios.
+             */
             estado: string;
             /**
              * Format: date-time
@@ -733,7 +880,7 @@ export interface components {
             creadoEn: string;
             /**
              * Format: date-time
-             * @description Hasta cuándo se retienen los asientos; pasado ese momento el carrito expira.
+             * @description Hasta cuándo se retienen los asientos si no se pagan; pasado ese momento el carrito expira. Gana un minuto al iniciar el pago.
              */
             venceEn: string;
             /**
@@ -751,6 +898,9 @@ export interface components {
             total: components["schemas"]["DineroResponse"];
             /** @description Email al que se enviarán las entradas; `null` hasta que se indique. */
             emailEntrega: null | string;
+            pago: null | components["schemas"]["PagoResponse"];
+            /** @description Una por asiento; vacío salvo en `Pagado`. */
+            entradas: components["schemas"]["EntradaResponse"][];
         };
         CrearCarritoRequest: {
             /** @description Asientos elegidos: al menos uno, hasta el máximo por carrito (10 por defecto), sin repetir. */
@@ -768,6 +918,18 @@ export interface components {
         EmailEntregaRequest: {
             /** @description Email al que se enviarán las entradas. */
             email: null | string;
+        };
+        /** @description Entrada emitida al pagar. Los datos de la función quedan copiados tal como estaban al pagar. */
+        EntradaResponse: {
+            /** @description Código único de la entrada, con formato `XXXXX-XXXXX`. */
+            codigo: string;
+            pelicula: string;
+            sucursal: string;
+            sala: string;
+            /** Format: date-time */
+            horaInicio: string;
+            asiento: components["schemas"]["AsientoResponse"];
+            precioUnitario: components["schemas"]["DineroResponse"];
         };
         FilaMapaResponse: {
             /** @description Letra de la fila. */
@@ -843,6 +1005,27 @@ export interface components {
             filas: components["schemas"]["FilaMapaResponse"][];
             /** @description Precio de una entrada. */
             precioEntrada: components["schemas"]["DineroResponse"];
+        };
+        /** @description Respuesta de iniciar el pago. */
+        PagoIniciadoResponse: {
+            /** @description Página de pago de Mercado Pago a la que se redirige al comprador. */
+            urlPago: string;
+            /** @description El carrito, en estado `Pagando`. */
+            carrito: components["schemas"]["CarritoResponse"];
+        };
+        PagoResponse: {
+            /** @description Página de pago de Mercado Pago; sirve para volver a ella mientras el carrito esté en `Pagando`. */
+            urlPago: string;
+            /**
+             * Format: date-time
+             * @description Momento en que se inició el pago.
+             */
+            iniciadoEn: string;
+            /**
+             * Format: date-time
+             * @description Momento en que se confirmó el pago; `null` hasta entonces.
+             */
+            pagadoEn: null | string;
         };
         PeliculaDetalleResponse: {
             /** Format: uuid */

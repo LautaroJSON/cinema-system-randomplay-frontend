@@ -231,4 +231,5 @@ la claridad pesa más que la marca (R-31).
 - Personajes, mascotas, logos o assets de juegos o marcas existentes.
 - Ruido VHS animado permanente o "glitch" sobre texto (daña legibilidad y accesibilidad).
 - Más de un acento compitiendo por vista; rojo como texto sobre fondo oscuro.
-- Simular un paso de pago (no existe en la API; ver la constitución).
+- Simular un pago como si fuera real. La página de pago simulado existe solo en desarrollo y
+  pruebas, y dice que es una simulación (constitución 1.2.0).

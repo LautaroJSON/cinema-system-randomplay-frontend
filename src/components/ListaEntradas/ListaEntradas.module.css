@@ -1,0 +1,61 @@
+/* Talones en una sola columna (flujo privado, dial 1/1/1): en 360 px cada uno usa todo el ancho
+   y nada obliga a desplazar de costado. */
+.lista {
+  display: grid;
+  gap: 1.25rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Papel pegado, como el talón de la reserva (DESIGN.md §6.4). */
+.entrada {
+  padding: 1.25rem;
+  border-radius: var(--radio);
+  background: var(--surface);
+}
+
+.datos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.25rem;
+  margin: 0;
+}
+
+.datos dt {
+  margin-bottom: 0.25rem;
+  color: var(--paper-muted);
+}
+
+.datos dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.ancho {
+  grid-column: 1 / -1;
+}
+
+/* El único acento de la tarjeta: el código en el dorado de etiqueta (DESIGN.md §4). Es lo que
+   se muestra en la puerta de la sala. */
+.codigo {
+  color: var(--oro);
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
+  letter-spacing: 0.04em;
+}
+
+.pelicula {
+  font-size: var(--fs-h3);
+  font-weight: 650;
+  font-stretch: 90%;
+  line-height: 1.2;
+}
+
+.fecha {
+  display: block;
+}
+
+.fecha::first-letter {
+  text-transform: uppercase;
+}

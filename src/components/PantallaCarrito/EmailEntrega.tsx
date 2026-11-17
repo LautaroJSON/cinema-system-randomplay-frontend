@@ -1,6 +1,14 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import {
+  useEffect,
+  useId,
+  useImperativeHandle,
+  useRef,
+  useState,
+  type FormEvent,
+  type Ref,
+} from "react";
 import { validarEmail } from "@/domain/email";
 import { AvisoOperacion } from "./AvisoOperacion";
 import estilos from "./EmailEntrega.module.css";
@@ -13,9 +21,17 @@ export type ResultadoEmail =
   /** La pantalla cambió de vista (credencial perdida, carrito cerrado): no hay nada que mostrar. */
   | { tipo: "resuelto" };
 
+/** Para que la pantalla lleve al comprador al campo cuando falta el email (research P10). */
+export type ControlEmail = { editar: () => void };
+
 type Props = {
   emailGuardado: string | null;
   guardar: (email: string) => Promise<ResultadoEmail>;
+  controlRef?: Ref<ControlEmail>;
+  /** Con el pago en curso el email queda fijo (FR-025). */
+  soloLectura?: boolean;
+  /** Avisa si el formulario está abierto, para que "Pagar" no compita con "Guardar email". */
+  alCambiarEdicion?: (editando: boolean) => void;
 };
 
 type Envio =
@@ -24,7 +40,13 @@ type Envio =
   | { tipo: "invalido"; campo: string[]; generales: string[] }
   | { tipo: "fallo"; sinConexion: boolean };
 
-export function EmailEntrega({ emailGuardado, guardar }: Props) {
+export function EmailEntrega({
+  emailGuardado,
+  guardar,
+  controlRef,
+  soloLectura = false,
+  alCambiarEdicion,
+}: Props) {
   const [texto, setTexto] = useState(emailGuardado ?? "");
   const [editando, setEditando] = useState(emailGuardado === null);
   const [envio, setEnvio] = useState<Envio>({ tipo: "listo" });
@@ -35,6 +57,27 @@ export function EmailEntrega({ emailGuardado, guardar }: Props) {
   const idTitulo = useId();
   const idTituloQueSigue = useId();
   const idError = useId();
+  const [pedidosFoco, setPedidosFoco] = useState(0);
+
+  useImperativeHandle(controlRef, () => ({
+    editar() {
+      if (emailGuardado !== null && !editando) {
+        setTexto(emailGuardado);
+        setEditando(true);
+      }
+      setPedidosFoco((n) => n + 1);
+    },
+  }));
+
+  const formularioAbierto = !soloLectura && (emailGuardado === null || editando);
+  useEffect(() => {
+    alCambiarEdicion?.(formularioAbierto);
+  }, [formularioAbierto, alCambiarEdicion]);
+
+  // El campo puede no existir todavía al pedir el foco: se enfoca después de mostrarlo.
+  useEffect(() => {
+    if (pedidosFoco > 0) campo.current?.focus();
+  }, [pedidosFoco]);
 
   // Después de guardar, el foco va a "Qué sigue": el formulario que lo tenía desapareció.
   useEffect(() => {
@@ -77,6 +120,19 @@ export function EmailEntrega({ emailGuardado, guardar }: Props) {
   const mensajesCampo = envio.tipo === "invalido" ? envio.campo : [];
   const guardando = envio.tipo === "guardando";
 
+  if (soloLectura) {
+    return (
+      <section aria-labelledby={idTitulo} className={estilos.seccion}>
+        <h2 id={idTitulo} className="h3">
+          Email de entrega
+        </h2>
+        <p>
+          Te mandamos las entradas a <strong className={estilos.email}>{emailGuardado}</strong>.
+        </p>
+      </section>
+    );
+  }
+
   return (
     <section aria-labelledby={idTitulo} className={estilos.seccion}>
       <h2 id={idTitulo} className="h3">
@@ -89,11 +145,8 @@ export function EmailEntrega({ emailGuardado, guardar }: Props) {
             Qué sigue
           </h3>
           <p>
-            Guardamos tu email: <strong className={estilos.email}>{emailGuardado}</strong>.
-          </p>
-          <p>
-            El pago todavía no está disponible, así que no se emiten ni envían entradas. Tus butacas
-            siguen reservadas hasta que termine el contador.
+            Guardamos tu email: <strong className={estilos.email}>{emailGuardado}</strong>. Ahí te
+            mandamos las entradas cuando pagues.
           </p>
           <button
             type="button"

@@ -21,7 +21,9 @@
     },
     "precioUnitario": { "monto": "4500.00", "moneda": "ARS" },
     "total": { "monto": "9000.00", "moneda": "ARS" },
-    "emailEntrega": null
+    "emailEntrega": null,
+    "pago": null,
+    "entradas": []
   },
   "token": "token-de-prueba-no-real",
   "tokenVenceEn": "2026-11-01T18:00:00-03:00"

@@ -1,0 +1,19 @@
+/* Mismo corte que el abandono: una línea arriba separa las acciones de la reserva. */
+.seccion {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+  width: 100%;
+  padding-top: 1.25rem;
+  border-top: var(--borde) solid var(--line);
+}
+
+.texto {
+  max-width: 60ch;
+  color: var(--paper-muted);
+}
+
+/* Indicación, no error: va en papel con peso, sin el rojo de los errores. */
+.faltaEmail {
+  font-weight: 600;
+}

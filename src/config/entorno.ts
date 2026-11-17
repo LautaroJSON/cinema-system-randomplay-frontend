@@ -24,4 +24,12 @@ export const entorno = {
   get usarDatosMock() {
     return process.env.API_MOCK === "1";
   },
+  /**
+   * Página de pago simulado (`/carritos/{id}/pago-simulado`): con `next dev`, o con
+   * PAGO_SIMULADO=1 para los e2e, que corren con `next start`. La leen solo Server Components y la
+   * pasan como prop; no es un secreto (research P3).
+   */
+  get pagoSimulado() {
+    return process.env.NODE_ENV === "development" || process.env.PAGO_SIMULADO === "1";
+  },
 };

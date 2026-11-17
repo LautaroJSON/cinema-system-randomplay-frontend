@@ -28,6 +28,23 @@ describe("sesión del carrito", () => {
     vi.restoreAllMocks();
   });
 
+  it("completa pago y entradas en una sesión guardada antes del pago", () => {
+    const sesion = sesionDePrueba();
+    const carritoViejo: Partial<typeof sesion.carrito> = { ...sesion.carrito };
+    delete carritoViejo.pago;
+    delete carritoViejo.entradas;
+    sessionStorage.setItem(CLAVE, JSON.stringify({ ...sesion, carrito: carritoViejo }));
+    expect(leerSesion()).toEqual(sesion);
+  });
+
+  it("cerrarSesion con un carrito pagado borra la credencial y conserva las entradas", () => {
+    guardarSesion(sesionDePrueba(carritosEstados.pagando));
+    const pagado = mapearCarrito(carritosEstados.pagado);
+    cerrarSesion(pagado);
+    expect(leerSesion()).toMatchObject({ token: null, tokenVenceEn: null, carrito: pagado });
+    expect(leerSesion()?.carrito.entradas).toHaveLength(2);
+  });
+
   it("guarda y lee la sesión v2", () => {
     const sesion = sesionDePrueba();
     guardarSesion(sesion);

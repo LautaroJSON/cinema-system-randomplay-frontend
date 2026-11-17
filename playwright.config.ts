@@ -40,7 +40,7 @@ export default defineConfig({
       timeout: 240_000,
       reuseExistingServer: false,
       // Los e2e piden siempre al mock de la API, aunque .env.local active el catálogo local.
-      env: { API_URL, SITE_URL, API_MOCK: "0" },
+      env: { API_URL, SITE_URL, API_MOCK: "0", PAGO_SIMULADO: "1" },
     },
   ],
 });

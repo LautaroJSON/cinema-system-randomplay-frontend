@@ -1,0 +1,73 @@
+/* Una columna, como el flujo privado. La etiqueta pegada roja marca que no es la pasarela real:
+   el rojo es alerta (DESIGN.md §4) y la palabra lo dice, no solo el color. */
+.vista {
+  display: grid;
+  justify-items: start;
+  gap: 1.25rem;
+}
+
+.texto {
+  max-width: 60ch;
+  color: var(--paper-muted);
+}
+
+.total {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.total :global(.label) {
+  color: var(--paper-muted);
+}
+
+.opciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* El tercer caso pide un dato: va aparte, con su campo y su botón. */
+.otroMonto {
+  display: grid;
+  justify-items: start;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 32rem;
+  padding-top: 1.25rem;
+  border-top: var(--borde) solid var(--line);
+}
+
+.etiqueta {
+  font-weight: 600;
+}
+
+.ayuda {
+  color: var(--paper-muted);
+}
+
+/* Igual que el campo del email: borde --line-strong (3.1:1) y 48 px de alto. */
+.campo {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.625rem 0.75rem;
+  border: var(--borde) solid var(--line-strong);
+  border-radius: var(--radio);
+  background: var(--surface);
+  color: var(--paper);
+  font: inherit;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.campo[aria-invalid="true"] {
+  border-color: var(--telon-ink);
+}
+
+.error {
+  color: var(--telon-ink);
+  font-weight: 600;
+}
+
+.otroMonto > :global(.boton-secundario) {
+  margin-top: 0.5rem;
+}

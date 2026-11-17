@@ -6,6 +6,8 @@ import type { SesionCarrito } from "./sesion-carrito";
 
 const ETIQUETAS: Record<string, string> = {
   Activo: "Activo",
+  Pagando: "Pago en curso",
+  Pagado: "Pagado",
   Abandonado: "Abandonado",
   Expirado: "Vencido",
 };
@@ -15,8 +17,20 @@ export function etiquetaEstado(estado: string): string {
   return ETIQUETAS[estado] ?? "Estado desconocido";
 }
 
-/** Según la API, el carrito todavía retiene sus butacas. */
+/** Según la API, el carrito todavía retiene sus butacas y admite cambios. */
 export const estaActivo = (carrito: Carrito) => carrito.estado === "Activo";
+
+/** Hay un pago en curso: las butacas siguen retenidas, pero nada se puede cambiar. */
+export const estaPagando = (carrito: Carrito) => carrito.estado === "Pagando";
+
+/** Compra cerrada: se muestra siempre con sus entradas, aunque haya pasado `venceEn`. */
+export const estaPagado = (carrito: Carrito) => carrito.estado === "Pagado";
+
+/**
+ * La credencial ya no hace falta: solo `Activo` y `Pagando` la conservan. Un carrito `Pagado`
+ * queda guardado con sus entradas, sin token (research P5).
+ */
+export const cierraSesion = (carrito: Carrito) => !estaActivo(carrito) && !estaPagando(carrito);
 
 /** Solo un carrito `Activo` con tiempo restante admite cambios (FR-011, FR-014). */
 export function esModificable(carrito: Carrito, tramoActual: Tramo | null): boolean {
@@ -33,6 +47,8 @@ export type MotivoLectura = "abandonado" | "vencido" | "noActivo";
 export type VistaPantalla =
   | { tipo: "sinLeer" }
   | { tipo: "sinSesion" }
+  | { tipo: "pagado"; carrito: Carrito }
+  | { tipo: "pagando"; sesion: SesionCarrito & { token: string } }
   | { tipo: "activo"; sesion: SesionCarrito & { token: string } }
   | { tipo: "lectura"; motivo: MotivoLectura; carrito: Carrito }
   | { tipo: "perdido"; peliculaId: string | null };
@@ -71,6 +87,10 @@ export function vistaPantalla({
   if (perdido) return { tipo: "perdido", peliculaId: perdido.peliculaId };
   if (sesion?.carritoId !== carritoId) return { tipo: "sinSesion" };
   const { token, carrito } = sesion;
+  // Antes que el contador: un carrito pagado o en pago no vence en el cliente (research P6, P7).
+  if (estaPagado(carrito)) return { tipo: "pagado", carrito };
+  if (token !== null && estaPagando(carrito))
+    return { tipo: "pagando", sesion: { ...sesion, token } };
   if (token !== null && esModificable(carrito, tramoActual)) {
     return { tipo: "activo", sesion: { ...sesion, token } };
   }
@@ -96,7 +116,7 @@ export function repartirErrores(
   return { campo: delCampo, generales };
 }
 
-export type OperacionCarrito = "obtener" | "cambiar" | "email" | "abandonar";
+export type OperacionCarrito = "obtener" | "cambiar" | "email" | "abandonar" | "pagar";
 
 /** Qué hace la interfaz con el error de una operación del carrito (research C10). */
 export type TransicionError =
@@ -108,8 +128,17 @@ export type TransicionError =
   | { tipo: "invalido" }
   /** Códigos de butacas o de la función: los resuelve el selector, como en la creación. */
   | { tipo: "butacas" }
-  /** Error genérico recuperable; sin conexión lleva la cinta de peligro (FR-040, FR-041). */
-  | { tipo: "error"; sinConexion: boolean };
+  /** `email-entrega-faltante` al pagar: se pide el email (spec 005, FR-031). */
+  | { tipo: "pedirEmail" }
+  /** `carrito-modificado` al pagar: se relee el carrito y se pide tocar "Pagar" de nuevo. */
+  | { tipo: "releer" }
+  /** `carrito-en-pago`: se relee el carrito y la pantalla pasa a "Pago en curso" (FR-032). */
+  | { tipo: "enPago" }
+  /**
+   * Error genérico recuperable; sin conexión lleva la cinta de peligro (FR-040, FR-041).
+   * `pagoNoDisponible`: Mercado Pago no respondió al iniciar el pago.
+   */
+  | { tipo: "error"; sinConexion: boolean; pagoNoDisponible?: true };
 
 export function resolverProblemaCarrito(
   problema: Problema,
@@ -135,6 +164,18 @@ export function resolverProblemaCarrito(
     case "funcion-no-disponible":
     case "funcion-no-encontrada":
       return operacion === "cambiar" ? { tipo: "butacas" } : { tipo: "error", sinConexion: false };
+    case "email-entrega-faltante":
+      return operacion === "pagar" ? { tipo: "pedirEmail" } : { tipo: "error", sinConexion: false };
+    case "carrito-modificado":
+      return operacion === "pagar" ? { tipo: "releer" } : { tipo: "error", sinConexion: false };
+    case "pago-no-disponible":
+      return operacion === "pagar"
+        ? { tipo: "error", sinConexion: false, pagoNoDisponible: true }
+        : { tipo: "error", sinConexion: false };
+    case "carrito-en-pago":
+      return operacion === "cambiar" || operacion === "email" || operacion === "abandonar"
+        ? { tipo: "enPago" }
+        : { tipo: "error", sinConexion: false };
     case "red":
       return { tipo: "error", sinConexion: true };
     case "carrito-no-encontrado":

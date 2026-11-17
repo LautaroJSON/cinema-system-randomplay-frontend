@@ -84,7 +84,7 @@ test.describe("pantalla del carrito", () => {
     await guardar.click();
     const queSigue = page.getByRole("region", { name: "Qué sigue" });
     await expect(queSigue).toContainText("comprador@ejemplo.com");
-    await expect(queSigue).toContainText("El pago todavía no está disponible");
+    await expect(queSigue).toContainText("Ahí te mandamos las entradas cuando pagues.");
 
     await page.reload();
     await expect(page.getByRole("region", { name: "Qué sigue" })).toContainText(

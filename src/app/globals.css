@@ -113,7 +113,8 @@ summary {
   cursor: pointer;
 }
 
-button:disabled {
+button:disabled,
+button[aria-disabled="true"] {
   cursor: not-allowed;
 }
 
@@ -247,9 +248,20 @@ button:disabled {
   transform: translate(2px, 2px);
 }
 
-.boton-secundario:disabled {
+.boton-secundario:disabled,
+.boton-secundario[aria-disabled="true"] {
   border-color: var(--line);
   color: var(--paper-muted);
+}
+
+/* Bloqueado pero enfocable (pago en curso): no reacciona al hover ni al presionarlo. */
+.boton-secundario[aria-disabled="true"]:hover {
+  background: transparent;
+  border-color: var(--line);
+}
+
+.boton-secundario[aria-disabled="true"]:active {
+  transform: none;
 }
 
 /* Botón primario: relleno telón, una esquina cortada a 45° y sombra dura (DESIGN.md §7).

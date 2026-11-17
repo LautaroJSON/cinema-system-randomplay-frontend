@@ -4,6 +4,7 @@ import {
   abandonarCarrito,
   crearCarrito,
   indicarEmail,
+  iniciarPago,
   mapearCarrito,
   obtenerCarrito,
   reemplazarAsientos,
@@ -15,6 +16,7 @@ import {
   ID_CARRITO,
   ID_FUNCION_8X12,
   TOKEN_PRUEBA,
+  URL_PAGO_SIMULADA,
 } from "../../fixtures";
 import { server } from "../../msw/setup";
 
@@ -42,6 +44,11 @@ function carritoEsperado(api: components["schemas"]["CarritoResponse"]) {
     precioUnitario: api.precioUnitario,
     total: api.total,
     emailEntrega: api.emailEntrega,
+    pago: api.pago ?? null,
+    entradas: api.entradas.map(({ asiento, ...entrada }) => ({
+      ...entrada,
+      asiento: { fila: asiento.fila, numero: Number(asiento.numero) },
+    })),
   };
 }
 
@@ -52,6 +59,22 @@ describe("mapearCarrito", () => {
       asientos: [{ fila: "F", numero: "8" }],
     };
     expect(mapearCarrito(api)).toEqual({ ...carritoEsperado(api), asientos: [F8] });
+  });
+
+  it("mapea el pago y las entradas, con el número de asiento como número", () => {
+    const pagado = carritosEstados.pagado;
+    const api: components["schemas"]["CarritoResponse"] = {
+      ...pagado,
+      entradas: pagado.entradas.map((entrada) => ({
+        ...entrada,
+        asiento: { fila: entrada.asiento.fila, numero: String(entrada.asiento.numero) },
+      })),
+    };
+    const carrito = mapearCarrito(api);
+    expect(carrito.pago).toEqual(pagado.pago);
+    expect(carrito.entradas).toEqual(pagado.entradas);
+    expect(carrito.entradas[0]?.asiento).toEqual(F8);
+    expect(mapearCarrito(carritosEstados.activo).pago).toBeNull();
   });
 });
 
@@ -148,5 +171,27 @@ describe("operaciones con token", () => {
     expect(ruta).toBe("/api/carritos/a%2Fb");
     expect(resultado).toMatchObject({ ok: false, problema: { status: 401 } });
     expect(JSON.stringify(resultado)).not.toContain(TOKEN_PRUEBA);
+  });
+
+  it("iniciarPago hace POST sin cuerpo con Bearer y devuelve la dirección y el carrito", async () => {
+    let pedido: Request | undefined;
+    let cuerpo = "";
+    server.use(
+      http.post("*/api/carritos/:carritoId/pago", async ({ request }) => {
+        pedido = request;
+        cuerpo = await request.text();
+        return HttpResponse.json({ urlPago: URL_PAGO_SIMULADA, carrito: carritosEstados.pagando });
+      }),
+    );
+    const resultado = await iniciarPago(ID_CARRITO, TOKEN_PRUEBA);
+
+    expect(new URL(pedido?.url ?? "").pathname).toBe(`/api/carritos/${ID_CARRITO}/pago`);
+    expect(pedido?.method).toBe("POST");
+    expect(pedido?.headers.get("Authorization")).toBe(`Bearer ${TOKEN_PRUEBA}`);
+    expect(cuerpo).toBe("");
+    expect(resultado).toMatchObject({
+      ok: true,
+      datos: { urlPago: URL_PAGO_SIMULADA, carrito: carritoEsperado(carritosEstados.pagando) },
+    });
   });
 });

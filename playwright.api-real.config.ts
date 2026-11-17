@@ -23,6 +23,6 @@ export default defineConfig({
     url: SITE_URL,
     timeout: 240_000,
     reuseExistingServer: false,
-    env: { API_URL, SITE_URL, API_MOCK: "0" },
+    env: { API_URL, SITE_URL, API_MOCK: "0", PAGO_SIMULADO: "1" },
   },
 });

@@ -18,6 +18,10 @@ const CODIGOS = [
   "funcion-no-disponible",
   "asientos-inexistentes",
   "demasiados-pedidos",
+  "email-entrega-faltante",
+  "carrito-en-pago",
+  "carrito-modificado",
+  "pago-no-disponible",
 ];
 
 describe("leerProblema", () => {
@@ -136,5 +140,12 @@ describe("leerProblema", () => {
       );
       expect(problema.retryAfterSegundos).toBeUndefined();
     });
+  });
+
+  it("conserva estadoActual Pagado en carrito-no-activo", async () => {
+    const problema = await leerProblema(
+      problem({ codigo: "carrito-no-activo", estadoActual: "Pagado" }),
+    );
+    expect(problema.estadoActual).toBe("Pagado");
   });
 });

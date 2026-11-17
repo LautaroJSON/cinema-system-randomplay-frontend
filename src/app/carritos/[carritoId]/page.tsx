@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PantallaCarrito } from "@/components/PantallaCarrito/PantallaCarrito";
+import { entorno } from "@/config/entorno";
 import estilos from "./page.module.css";
 
 // Todo el contenido sale de la pestaña: el servidor nunca recibe datos del carrito (Principio III).
@@ -19,7 +20,7 @@ export default async function PaginaCarrito({ params }: Props) {
       <noscript>
         <p>Para ver tu carrito necesitás tener JavaScript activado en el navegador.</p>
       </noscript>
-      <PantallaCarrito carritoId={carritoId} />
+      <PantallaCarrito carritoId={carritoId} pagoSimulado={entorno.pagoSimulado} />
     </div>
   );
 }

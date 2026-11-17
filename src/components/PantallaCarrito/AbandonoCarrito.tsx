@@ -17,7 +17,14 @@ type Paso =
  * La única salida explícita del flujo (FR-030, FR-033). La confirmación aparece en el lugar, sin
  * diálogo modal: no hay trampa de foco y la página sigue en una sola columna (research C11).
  */
-export function AbandonoCarrito({ abandonar }: { abandonar: () => Promise<ResultadoAbandono> }) {
+export function AbandonoCarrito({
+  abandonar,
+  bloqueadoPor,
+}: {
+  abandonar: () => Promise<ResultadoAbandono>;
+  /** Id del texto que explica por qué no se puede abandonar (pago en curso, FR-025). */
+  bloqueadoPor?: string;
+}) {
   const [paso, setPaso] = useState<Paso>({ tipo: "inactivo" });
   const enCurso = useRef(false);
   const botonAbandonar = useRef<HTMLButtonElement>(null);
@@ -105,11 +112,16 @@ export function AbandonoCarrito({ abandonar }: { abandonar: () => Promise<Result
               </p>
             </AvisoOperacion>
           )}
+          {/* aria-disabled y no disabled: sigue enfocable y el lector de pantalla lee el motivo. */}
           <button
             ref={botonAbandonar}
             type="button"
             className="boton-secundario"
-            onClick={() => setPaso({ tipo: "confirmando" })}
+            aria-disabled={bloqueadoPor ? true : undefined}
+            aria-describedby={bloqueadoPor}
+            onClick={() => {
+              if (!bloqueadoPor) setPaso({ tipo: "confirmando" });
+            }}
           >
             Abandonar carrito
           </button>

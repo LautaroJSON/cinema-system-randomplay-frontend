@@ -1,0 +1,32 @@
+/* Una sola columna, como el resto del flujo privado (DESIGN.md §6, dial 1/1/1). El título es el
+   foco de la pantalla; las acciones van debajo. */
+.vista {
+  display: grid;
+  justify-items: start;
+  gap: 1.25rem;
+}
+
+.vista > :global(.cinta-peligro) {
+  justify-self: stretch;
+}
+
+.texto {
+  max-width: 60ch;
+  color: var(--paper-muted);
+}
+
+/* Volver a la página de pago es la salida, no el foco: va separada por una línea. */
+.acciones {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+  width: 100%;
+  padding-top: 1.25rem;
+  border-top: var(--borde) solid var(--line);
+}
+
+.botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}

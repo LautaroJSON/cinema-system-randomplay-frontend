@@ -284,3 +284,56 @@ describe("CambioButacas: errores del carrito", () => {
     expect(aviso.querySelector(".cinta-peligro")).toBeNull();
   });
 });
+
+describe("CambioButacas: pago en curso o compra cerrada (spec 005)", () => {
+  beforeEach(() => {
+    push.mockClear();
+    sessionStorage.clear();
+  });
+  afterEach(() => {
+    vi.useRealTimers();
+    vi.restoreAllMocks();
+  });
+
+  it.each([
+    ["en pago", carritosEstados.pagando, {}, "Hay un pago en curso."],
+    ["pagado", carritosEstados.pagado, { token: null }, "Esta compra ya está pagada."],
+  ] as const)("%s no deja cambiar nada ni pide el mapa", async (_, carrito, cambios, texto) => {
+    const mapa = responderMapa();
+    guardarSesionDePrueba(conVencimiento(carrito, 4 * MIN), cambios);
+    render(<CambioButacas carritoId={ID_CARRITO} />);
+
+    expect(
+      await screen.findByRole("heading", { level: 1, name: "No podés cambiar las butacas" }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(texto)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Volver al carrito" })).toHaveAttribute(
+      "href",
+      `/carritos/${ID_CARRITO}`,
+    );
+    expect(screen.queryByRole("grid")).not.toBeInTheDocument();
+    expect(mapa.pedidos()).toBe(0);
+  });
+
+  it("carrito-en-pago al guardar vuelve al carrito sin descartar la credencial", async () => {
+    responderMapa();
+    responderCambio(() => problema(409, "carrito-en-pago"));
+    const { usuario } = await abrir();
+    await usuario.click(butaca("Fila F, butaca 10, libre"));
+    await usuario.click(guardar());
+
+    await waitFor(() => expect(push).toHaveBeenCalledWith(`/carritos/${ID_CARRITO}`));
+    expect(leerSesion()?.token).not.toBeNull();
+  });
+
+  it("con el pago en curso, al llegar a cero va a la página de vuelta", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true, toFake: ["setTimeout", "clearTimeout", "Date"] });
+    guardarSesionDePrueba(conVencimiento(carritosEstados.pagando, 3000));
+    render(<CambioButacas carritoId={ID_CARRITO} />);
+    await screen.findByRole("heading", { level: 1, name: "No podés cambiar las butacas" });
+
+    for (let i = 0; i < 4; i++) await act(() => vi.advanceTimersByTimeAsync(1000));
+    await waitFor(() => expect(push).toHaveBeenCalledWith(`/carritos/${ID_CARRITO}/pago`));
+    expect(leerSesion()?.token).not.toBeNull();
+  });
+});

@@ -73,7 +73,16 @@ export function parsearSesion(crudo: string | null): SesionCarrito | null {
       typeof valor.carrito === "object" &&
       valor.carrito !== null
     ) {
-      return valor as SesionCarrito;
+      const sesion = valor as SesionCarrito;
+      // Una sesión guardada antes del pago (spec 005) no trae `pago` ni `entradas`.
+      return {
+        ...sesion,
+        carrito: {
+          ...sesion.carrito,
+          pago: sesion.carrito.pago ?? null,
+          entradas: sesion.carrito.entradas ?? [],
+        },
+      };
     }
   } catch {
     // Un valor ilegible equivale a no tener sesión.
@@ -103,7 +112,10 @@ export function actualizarCarrito(carrito: Carrito, desfaseMs: number): void {
   guardarSesion({ ...sesion, carrito, desfaseMs });
 }
 
-/** Borra la credencial y conserva el último carrito para el modo lectura (FR-005). */
+/**
+ * Borra la credencial y conserva el último carrito para el modo lectura (FR-005). Con un carrito
+ * `Pagado` conserva sus entradas para volver a mostrarlas al recargar (spec 005, FR-030).
+ */
 export function cerrarSesion(carrito?: Carrito): void {
   const sesion = leerSesion();
   if (!sesion) return;

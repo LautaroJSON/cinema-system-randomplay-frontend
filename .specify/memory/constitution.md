@@ -1,30 +1,27 @@
 <!--
 Sync Impact Report
 ==================
-Version change: 1.0.0 → 1.1.0
-Rationale: MINOR — se agrega un principio nuevo (IX) y se amplía materialmente el VIII y las
-           puertas de calidad. No se elimina ni redefine de forma incompatible ningún principio.
+Version change: 1.1.0 → 1.2.0
+Rationale: MINOR — el flujo del comprador suma el pago (feature 005 del frontend, 008 del backend).
+           Se amplía materialmente una restricción; ningún principio se elimina ni se redefine de
+           forma incompatible.
 
-Modified principles:
-  - VIII. "Calidad de Código y Bordes Servidor/Cliente": las consultas públicas pasan de PUEDEN a
-    DEBEN resolverse en el servidor.
+Modified sections:
+  - Restricciones de Plataforma y Tecnología: el flujo llega hasta el pago en Mercado Pago y las
+    entradas; el frontend no maneja datos de tarjeta; la simulación de pago existe solo en
+    desarrollo y pruebas, se identifica como tal y responde 404 en producción.
+  - III. Token del Carrito: el token no viaja a la página de pago ni a endpoints públicos.
 
-Added sections:
-  - IX. Páginas Públicas Indexables (SEO): datos en el servidor, revalidación por ruta, Metadata
-    API, URLs canónicas, HTML semántico, JSON-LD, sitemap/robots, noindex en el flujo privado,
-    404 reales, next/image y Core Web Vitals.
-  - Flujo de Desarrollo: nueva puerta de CI 5 (metadata y contenido en el HTML inicial) y revisión
-    explícita del Principio IX.
-
+Added sections: ninguna
 Removed sections: ninguna
 
 Templates / archivos dependientes revisados:
-  ✅ .specify/templates/plan-template.md, spec-template.md, tasks-template.md — leen la
-     constitución en runtime; no requieren cambios.
+  ✅ .specify/templates/*.md — leen la constitución en runtime; no requieren cambios.
 
-Follow-up TODOs: ninguno. Nota: la API no expone slug ni póster; el Principio IX ya prevé ambos.
+Follow-up TODOs: ninguno.
 
-Historia: (plantilla) → 1.0.0 (2026-10-29): ratificación inicial con los Principios I–VIII.
+Historia: (plantilla) → 1.0.0 (2026-10-29): Principios I–VIII → 1.1.0 (2026-10-29): Principio IX
+(SEO) → 1.2.0 (2026-11-17): pago.
 -->
 
 # Sistema de Reserva de Entradas de Cine (Frontend) — Constitución
@@ -88,6 +85,8 @@ comprador anónimo y se entrega una sola vez.
   reportes de errores.
 - El token **DEBE** enviarse solo como `Authorization: Bearer {token}` y solo a los endpoints de
   ese carrito.
+  **NO DEBE** enviarse a la página de pago (`urlPago`) ni a endpoints públicos, como el de pago
+  simulado.
 - Ante `401` o `404 carrito-no-encontrado` el token guardado **DEBE** descartarse y el comprador
   **DEBE** poder empezar un carrito nuevo.
 - Al salir del flujo de forma explícita, el frontend **DEBE** llamar a `POST .../abandono` para
@@ -252,8 +251,12 @@ genera resultados rotos.
 - Mientras el backend no configure CORS, el acceso a la API desde el navegador **DEBE** hacerse
   a través de un proxy del mismo origen (por ejemplo, `rewrites` de Next.js). La URL del backend
   se configura por variable de entorno, nunca hardcodeada.
-- Solo existe el flujo del comprador (catálogo → función → asientos → carrito → email). El pago
-  todavía no existe en la API; ninguna pantalla **DEBE** simular un pago como si fuera real.
+- Solo existe el flujo del comprador (catálogo → función → asientos → carrito → email → pago en
+  Mercado Pago → entradas). El pago ocurre en la página de Mercado Pago: el frontend **NO DEBE**
+  pedir, mostrar ni transmitir datos de tarjeta.
+- La simulación de pago **DEBE** existir solo en desarrollo y pruebas, identificarse visiblemente
+  como simulación y responder `404` en producción. Ninguna pantalla **DEBE** simular un pago como
+  si fuera real.
 - Las dependencias nuevas **DEBEN** justificarse en el PR; se prefiere la plataforma (Web APIs,
   `Intl`, capacidades de Next.js) antes que una librería.
 
@@ -294,4 +297,4 @@ genera resultados rotos.
 - Para guía de desarrollo en runtime, los comandos de Spec Kit (`/speckit-plan`,
   `/speckit-tasks`, `/speckit-implement`) leen esta constitución como fuente de verdad.
 
-**Version**: 1.1.0 | **Ratified**: 2026-10-29 | **Last Amended**: 2026-10-29
+**Version**: 1.2.0 | **Ratified**: 2026-10-29 | **Last Amended**: 2026-11-17

@@ -9,7 +9,7 @@ Orden: `h1` "Tu carrito" → contador → resumen → "Cambiar butacas" → Emai
 Abandono.
 
 - Email guardado (FR-037), en una línea y sin recuadro: "Te mandamos las entradas a **{email}**
-  cuando pagues." + "Cambiar email". Al guardarlo se anuncia "Guardamos tu email." y el foco va al
+  cuando pagues." + "Me equivoqué, cambiar email" (texto subrayado al final de la frase). Al guardarlo se anuncia "Guardamos tu email." y el foco va al
   título "Pago", con la sección a la vista (rediseño del 2026-11-18: el recuadro competía con
   Pagar).
 - Sección `h2` "Pago" (el botón va antes que la nota de Mercado Pago):

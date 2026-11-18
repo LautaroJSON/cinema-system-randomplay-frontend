@@ -115,7 +115,7 @@ test.describe("pago del carrito", () => {
         "true",
       );
     }
-    await expect(page.getByRole("button", { name: "Cambiar email" })).toHaveCount(0);
+    await expect(page.getByRole("button", { name: "Me equivoqué, cambiar email" })).toHaveCount(0);
 
     await page.goto(`/carritos/${carritoId}/butacas`);
     await expect(

@@ -375,7 +375,7 @@ describe("PantallaCarrito: email de entrega", () => {
   it("con el email ya guardado lo muestra y deja cambiarlo", async () => {
     const usuario = await abrir(carritosEstados.conEmail);
     expect(await emailGuardado()).toHaveTextContent("comprador@ejemplo.com");
-    await usuario.click(screen.getByRole("button", { name: "Cambiar email" }));
+    await usuario.click(screen.getByRole("button", { name: "Me equivoqué, cambiar email" }));
     expect(campo()).toHaveValue("comprador@ejemplo.com");
   });
 

@@ -141,23 +141,22 @@ export function EmailEntrega({
       </h2>
 
       {emailGuardado !== null && !editando ? (
-        // Una línea, sin recuadro: el email ya está resuelto y la acción que sigue es Pagar.
-        <div className={estilos.guardado}>
-          <p>
-            Te mandamos las entradas a <strong className={estilos.email}>{emailGuardado}</strong>{" "}
-            cuando pagues.
-          </p>
+        // Una línea, sin recuadro ni botón: el email ya está resuelto y la acción que sigue es
+        // Pagar. Cambiarlo es la excepción, así que va como texto subrayado al final.
+        <p className={estilos.guardado}>
+          Te mandamos las entradas a <strong className={estilos.email}>{emailGuardado}</strong>{" "}
+          cuando pagues.{" "}
           <button
             type="button"
-            className="boton-secundario"
+            className={estilos.cambiar}
             onClick={() => {
               setTexto(emailGuardado);
               setEditando(true);
             }}
           >
-            Cambiar email
+            Me equivoqué, cambiar email
           </button>
-        </div>
+        </p>
       ) : (
         <form noValidate onSubmit={alEnviar} className={estilos.formulario}>
           <label htmlFor={`${idTitulo}-campo`} className={estilos.etiqueta}>

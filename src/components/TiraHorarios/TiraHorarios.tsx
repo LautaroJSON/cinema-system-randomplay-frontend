@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { formatearHora, formatearPrecio } from "@/domain/formato";
 import type { HorariosPorSucursal } from "@/domain/horarios";
+import { IndicadorCarga } from "./IndicadorCarga";
 import estilos from "./TiraHorarios.module.css";
 
-// Sin hooks: se renderiza igual en el servidor y dentro de la isla HorariosVigentes.
+// Sin hooks propios: se renderiza igual en el servidor y dentro de la isla HorariosVigentes.
+// Cada horario lleva una isla, `IndicadorCarga`, que avisa mientras se abre su función.
 export function TiraHorarios({ grupos }: { grupos: HorariosPorSucursal[] }) {
   return (
     <div className={estilos.grupos}>
@@ -32,7 +34,11 @@ export function TiraHorarios({ grupos }: { grupos: HorariosPorSucursal[] }) {
                     <span className="visualmente-oculto">, </span>
                     <span className="label">{horario.salaNombre}</span>
                     <span className="visualmente-oculto">, </span>
-                    <span className={estilos.precio}>{precio}</span>
+                    {/* Precio y "Cargando…" comparten celda: el horario no cambia de tamaño. */}
+                    <span className={estilos.celda}>
+                      <span className={estilos.precio}>{precio}</span>
+                      <IndicadorCarga hora={hora} sala={horario.salaNombre} />
+                    </span>
                   </Link>
                 </li>
               );

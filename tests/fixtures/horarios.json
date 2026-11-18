@@ -55,6 +55,13 @@
       "salaId": "5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c03",
       "salaNombre": "Sala 3",
       "precioEntrada": { "monto": "4800.00", "moneda": "ARS" }
+    },
+    {
+      "funcionId": "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b0a1",
+      "offsetMinutos": 210,
+      "salaId": "5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c03",
+      "salaNombre": "Sala 3",
+      "precioEntrada": { "monto": "4800.00", "moneda": "ARS" }
     }
   ]
 }

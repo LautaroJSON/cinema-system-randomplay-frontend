@@ -5,6 +5,7 @@ import {
   ID_FUNCION_8X12,
   ID_FUNCION_ANCHA,
   ID_FUNCION_COMENZADA,
+  ID_FUNCION_LENTA,
   ID_TITULO_LARGO,
 } from "../fixtures";
 
@@ -98,6 +99,35 @@ test.describe("accesibilidad y mobile-first", () => {
     const tarjeta = page.locator("article").first();
     await tarjeta.hover();
     await expect(tarjeta).toHaveCSS("transform", "none");
+  });
+
+  test("el aviso de carga de un horario no tiene violaciones de axe y no toma el foco", async ({
+    page,
+  }) => {
+    test.setTimeout(60_000);
+    for (const viewport of anchos) {
+      await page.setViewportSize(viewport);
+      await page.goto(`/peliculas/${ID_TITULO_LARGO}`);
+      // Con teclado: el foco queda en el horario activado mientras carga (spec 006, FR-010).
+      const lento = page.locator(`a[href="/funciones/${ID_FUNCION_LENTA}"]`);
+      await lento.focus();
+      await page.keyboard.press("Enter");
+      await expect(page.getByText(/^Cargando las butacas de las /).first()).toBeVisible();
+      await expect(lento).toBeFocused();
+
+      const { violations } = await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
+        .analyze();
+      expect(violations.map((v) => v.id)).toEqual([]);
+      const desborde = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      );
+      expect(desborde).toBe(0);
+
+      await expect(page).toHaveURL(new RegExp(`/funciones/${ID_FUNCION_LENTA}$`), {
+        timeout: 15_000,
+      });
+    }
   });
 
   const auditar = async (page: Page) => {

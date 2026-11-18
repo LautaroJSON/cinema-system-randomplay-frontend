@@ -1,8 +1,9 @@
 import { http, HttpResponse } from "msw";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { obtenerMapaDesdeNavegador } from "@/api/asientos";
 import { ApiError } from "@/api/client";
 import { obtenerMapa } from "@/api/asientos-servidor";
+import { ESPERA_LECTURA_MS } from "@/config/experiencia";
 import {
   ID_FUNCION_8X12,
   ID_FUNCION_COMENZADA,
@@ -38,6 +39,16 @@ describe("obtenerMapa (servidor)", () => {
     const error = (await obtenerMapa(ID_FUNCION_COMENZADA).catch((e: unknown) => e)) as ApiError;
     expect(error).toBeInstanceOf(ApiError);
     expect(error.status).toBe(410);
+  });
+
+  it("espera hasta ESPERA_LECTURA_MS: el backend dormido tarda ~30 s en despertar", async () => {
+    const timeout = vi.spyOn(AbortSignal, "timeout");
+    try {
+      await obtenerMapa(ID_FUNCION_8X12);
+      expect(timeout).toHaveBeenCalledWith(ESPERA_LECTURA_MS);
+    } finally {
+      timeout.mockRestore();
+    }
   });
 });
 

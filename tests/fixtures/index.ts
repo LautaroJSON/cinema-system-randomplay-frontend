@@ -86,6 +86,11 @@ export const ID_FUNCION_COMPLETA = "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b005";
 /** Sin mapa: la API responde 410 (la función ya comenzó). */
 export const ID_FUNCION_COMENZADA = "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b0f0";
 export const ID_FUNCION_INEXISTENTE = "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b0ff";
+/**
+ * Función de la película de título largo cuyo mapa el mock demora (`MOCK_DEMORA_MS`, 8 s por
+ * defecto): simula el backend dormido para el aviso de carga del horario (spec 006).
+ */
+export const ID_FUNCION_LENTA = "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b0a1";
 
 /** Cuerpo `application/problem+json` de un error de negocio con `codigo` y extensiones. */
 export function problemaCarrito(

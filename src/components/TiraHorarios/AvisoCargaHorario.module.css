@@ -1,0 +1,29 @@
+/* Barra de estado fija abajo, como la etiqueta de un mostrador (DESIGN.md §6). Sin animación:
+   aparece y desaparece de golpe (MOTION 1). No tapa toques: los atraviesa. */
+.aviso {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 10;
+  padding-block: 0.875rem calc(0.875rem + env(safe-area-inset-bottom));
+  border-top: var(--borde) solid var(--line-strong);
+  background: var(--surface);
+  pointer-events: none;
+}
+
+.contenido {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.texto {
+  margin: 0;
+  color: var(--paper);
+  font-weight: 600;
+}
+
+.demora {
+  margin: 0;
+  color: var(--paper-muted);
+  font-size: var(--fs-small);
+}

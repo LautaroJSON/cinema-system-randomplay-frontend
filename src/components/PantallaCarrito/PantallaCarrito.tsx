@@ -86,6 +86,14 @@ export function PantallaCarrito({
   const [rechazoEnPago, setRechazoEnPago] = useState(false);
   const [editandoEmail, setEditandoEmail] = useState(false);
   const controlEmail = useRef<ControlEmail>(null);
+  const tituloPago = useRef<HTMLHeadingElement>(null);
+  // Guardado el email, lo que sigue es pagar: el foco va al pago y la sección entra en pantalla
+  // con el botón visible, sin tener que bajar a buscarlo.
+  const irAlPago = useCallback(() => {
+    const titulo = tituloPago.current;
+    titulo?.focus({ preventScroll: true });
+    titulo?.closest("section")?.scrollIntoView?.({ block: "nearest" });
+  }, []);
   const idMotivoBloqueo = useId();
 
   const vista = vistaPantalla({ leida: crudo !== SIN_LEER, sesion, carritoId, tramo, perdido });
@@ -313,6 +321,7 @@ export function PantallaCarrito({
             guardar={guardarEmail}
             controlRef={controlEmail}
             alCambiarEdicion={setEditandoEmail}
+            alGuardar={irAlPago}
           />
           {/* Sin email guardado no hay pago: la sección aparece al guardarlo (FR-004). */}
           {activa.carrito.emailEntrega !== null && (
@@ -323,6 +332,7 @@ export function PantallaCarrito({
               iniciando={iniciando}
               aviso={avisoPago}
               onPagar={() => void pagar()}
+              tituloRef={tituloPago}
             />
           )}
           <AbandonoCarrito abandonar={abandonar} />

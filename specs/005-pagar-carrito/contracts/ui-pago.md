@@ -8,9 +8,11 @@ menos 24 × 24 px (WCAG 2.5.8), estilos y tokens de `DESIGN.md`.
 Orden: `h1` "Tu carrito" → contador → resumen → "Cambiar butacas" → Email de entrega → **Pago** →
 Abandono.
 
-- Bloque "Qué sigue" del email (FR-037): "Guardamos tu email: **{email}**. Ahí te mandamos las
-  entradas cuando pagues." + "Cambiar email".
-- Sección `h2` "Pago":
+- Email guardado (FR-037), en una línea y sin recuadro: "Te mandamos las entradas a **{email}**
+  cuando pagues." + "Cambiar email". Al guardarlo se anuncia "Guardamos tu email." y el foco va al
+  título "Pago", con la sección a la vista (rediseño del 2026-11-18: el recuadro competía con
+  Pagar).
+- Sección `h2` "Pago" (el botón va antes que la nota de Mercado Pago):
   - Botón primario "Pagar {total}" (por ejemplo "Pagar $ 9.000,00").
   - En curso: deshabilitado, "Iniciando el pago…".
   - Sin email guardado, la sección no se muestra. Mientras el formulario del email está abierto,

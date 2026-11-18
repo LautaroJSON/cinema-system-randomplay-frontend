@@ -41,21 +41,21 @@
   margin-top: 0.5rem;
 }
 
-.queSigue {
-  display: grid;
-  justify-items: start;
-  gap: 0.75rem;
-  padding: 1.25rem;
-  border-radius: var(--radio);
-  background: var(--surface);
+/* Email resuelto: texto y "Cambiar email" en una fila que se parte en pantallas angostas. */
+.guardado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
 }
 
-.queSigue h3 {
-  color: var(--oro);
-}
-
-.queSigue p {
+.guardado p {
   max-width: 60ch;
+  color: var(--paper-muted);
+}
+
+.guardado strong {
+  color: var(--paper);
 }
 
 .email {

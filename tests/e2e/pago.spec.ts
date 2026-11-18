@@ -20,7 +20,7 @@ async function pagarCarrito(page: Page) {
     .getByRole("textbox", { name: "Email para recibir las entradas" })
     .fill("comprador@ejemplo.com");
   await page.getByRole("button", { name: "Guardar email" }).click();
-  await expect(page.getByRole("region", { name: "Qué sigue" })).toBeVisible();
+  await expect(page.getByText(/^Te mandamos las entradas a/)).toBeVisible();
 
   await page.getByRole("button", { name: /^Pagar \$/ }).click();
   await expect(page).toHaveURL(`/carritos/${carritoId}/pago-simulado`);

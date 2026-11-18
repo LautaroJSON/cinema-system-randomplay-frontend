@@ -107,7 +107,7 @@ test("camino feliz: de la cartelera al carrito con email", async ({ page, reques
   const email = "comprador@randomplay.test";
   await page.getByRole("textbox", { name: "Email para recibir las entradas" }).fill(email);
   await page.getByRole("button", { name: "Guardar email" }).click();
-  await expect(page.getByRole("region", { name: "Qué sigue" })).toContainText(email);
+  await expect(page.getByText(/^Te mandamos las entradas a/)).toContainText(email);
 
   const carrito = await carritoEnApi(request, id, token);
   expect(carrito.estado).toBe("Activo");
@@ -135,7 +135,7 @@ test("pago: pagar con la pasarela simulada y ver las entradas (spec 005)", async
     .getByRole("textbox", { name: "Email para recibir las entradas" })
     .fill("comprador@randomplay.test");
   await page.getByRole("button", { name: "Guardar email" }).click();
-  await expect(page.getByRole("region", { name: "Qué sigue" })).toBeVisible();
+  await expect(page.getByText(/^Te mandamos las entradas a/)).toBeVisible();
 
   const inicio = page.waitForResponse(
     (r) => r.request().method() === "POST" && r.url().endsWith(`/carritos/${id}/pago`),

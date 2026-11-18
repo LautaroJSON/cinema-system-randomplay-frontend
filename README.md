@@ -6,10 +6,18 @@ Sitio de compra de entradas de cine en Next.js (App Router), React y TypeScript.
 [`DESIGN.md`](DESIGN.md).
 
 Hoy incluye las páginas públicas e indexables (la cartelera en `/` y la ficha de cada película con
-sus horarios del día por sucursal en `/peliculas/{id}`) y el flujo privado hasta donde llega la
-API: la elección de butacas de una función (`/funciones/{funcionId}`), que retiene los asientos
-en un carrito, y el carrito (`/carritos/{carritoId}`), con la cuenta regresiva, el cambio de
-butacas, el email de entrega y el abandono. El pago todavía no existe en el backend.
+sus horarios del día por sucursal en `/peliculas/{id}`) y el flujo privado de compra completo:
+
+1. `/funciones/{funcionId}`: elección de butacas. Retiene los asientos en un carrito.
+2. `/carritos/{carritoId}`: el carrito, con la cuenta regresiva, el email de entrega, el
+   abandono y el botón de pago. Desde ahí se vuelve a `/carritos/{carritoId}/butacas` para
+   cambiar de butacas.
+3. Pago en Mercado Pago. El sitio nunca pide datos de tarjeta. El comprador vuelve a
+   `/carritos/{carritoId}/pago`, que muestra el estado del pago y, si está aprobado, las
+   entradas como tickets con talón.
+
+`/carritos/{carritoId}/pago-simulado` reemplaza a la pasarela en desarrollo y en los e2e. En
+cualquier otro entorno responde 404.
 
 ## Requisitos
 
@@ -53,12 +61,16 @@ puerto 3100 y crea 7 de los 10 carritos que la API permite por IP cada 10 minuto
 
 ## Variables de entorno
 
-| Variable   | Uso                                                                   |
-| ---------- | --------------------------------------------------------------------- |
-| `API_URL`  | Base del backend. La usan los pedidos del servidor y el proxy `/api`. |
-| `SITE_URL` | Origen público del sitio, para canónicas, sitemap, robots y JSON-LD.  |
+| Variable              | Uso                                                                                                                                                                    |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `API_URL`             | Base del backend. La usan los pedidos del servidor y el proxy `/api`. Obligatoria.                                                                                     |
+| `SITE_URL`            | Origen público del sitio, para canónicas, sitemap, robots y JSON-LD. Obligatoria.                                                                                      |
+| `NEXT_PUBLIC_API_URL` | Opcional. Se fija al compilar. Con ella el navegador llama directo al backend, que tiene que aceptar el sitio por CORS. Sin ella usa el proxy `/api`. Solo producción. |
+| `API_MOCK`            | Temporal (spec 002). Con `1` el sitio usa el catálogo local de `scripts/mock-data/catalogo.json` en vez del backend.                                                   |
+| `PAGO_SIMULADO`       | Con `1` habilita la página de pago simulado fuera de `next dev`. La usan los e2e. Nunca en producción.                                                                 |
 
-Ninguna lleva el prefijo `NEXT_PUBLIC_`: no llegan al navegador.
+`API_URL`, `SITE_URL`, `API_MOCK` y `PAGO_SIMULADO` no llevan el prefijo `NEXT_PUBLIC_`, así que no
+llegan al navegador. `NEXT_PUBLIC_API_URL` sí llega: es la URL pública del backend.
 
 ## Despliegue
 
@@ -71,3 +83,7 @@ Ninguna lleva el prefijo `NEXT_PUBLIC_`: no llegan al navegador.
   del navegador por el proxy, con el token de `sessionStorage`. La cuenta regresiva corrige el
   reloj del dispositivo con el header `Date` del backend, así que el proxy tiene que dejarlo
   pasar.
+- Con `NEXT_PUBLIC_API_URL` el navegador no pasa por el proxy: el backend tiene que aceptar el
+  dominio del sitio por CORS y exponer el header `Date`. Los previews tienen otro dominio, así
+  que ahí se deja sin definir.
+- `PAGO_SIMULADO` no se define en producción.

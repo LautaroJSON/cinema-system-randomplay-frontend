@@ -1,19 +1,39 @@
-/* Mismo corte que el abandono: una línea arriba separa las acciones de la reserva. */
+/* La mesa de pago: el único recuadro de esta parte de la pantalla, para que la mirada vaya a
+   Pagar y no al email ya resuelto. Papel pegado con sombra dura (DESIGN.md §6.4). */
 .seccion {
   display: grid;
   justify-items: start;
   gap: 1rem;
   width: 100%;
-  padding-top: 1.25rem;
-  border-top: var(--borde) solid var(--line);
+  padding: 1.25rem;
+  border-color: var(--line-strong);
+  border-radius: var(--radio);
+  background: var(--surface);
+}
+
+.encabezado {
+  display: grid;
+  gap: 0.25rem;
+}
+
+/* Dónde está el comprador en la compra: dato real, no adorno. */
+.paso {
+  color: var(--oro);
 }
 
 .texto {
   max-width: 60ch;
   color: var(--paper-muted);
+  font-size: var(--fs-small);
 }
 
 /* Indicación, no error: va en papel con peso, sin el rojo de los errores. */
 .faltaEmail {
   font-weight: 600;
+}
+
+/* El título recibe el foco por código después de guardar el email. No es un control: sin el
+   anillo dorado, para que no parezca un botón al lado de Pagar. */
+.seccion h2[tabindex="-1"]:focus {
+  outline: none;
 }

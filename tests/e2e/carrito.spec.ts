@@ -82,12 +82,15 @@ test.describe("pantalla del carrito", () => {
 
     await campo.fill("comprador@ejemplo.com");
     await guardar.click();
-    const queSigue = page.getByRole("region", { name: "Qué sigue" });
-    await expect(queSigue).toContainText("comprador@ejemplo.com");
-    await expect(queSigue).toContainText("Ahí te mandamos las entradas cuando pagues.");
+    await expect(page.getByText(/^Te mandamos las entradas a/)).toHaveText(
+      "Te mandamos las entradas a comprador@ejemplo.com cuando pagues.",
+    );
+    // El paso que sigue queda enfocado y a la vista: el botón Pagar.
+    await expect(page.getByRole("heading", { level: 2, name: "Pago" })).toBeFocused();
+    await expect(page.getByRole("button", { name: /^Pagar \$/ })).toBeInViewport();
 
     await page.reload();
-    await expect(page.getByRole("region", { name: "Qué sigue" })).toContainText(
+    await expect(page.getByText(/^Te mandamos las entradas a/)).toContainText(
       "comprador@ejemplo.com",
     );
   });

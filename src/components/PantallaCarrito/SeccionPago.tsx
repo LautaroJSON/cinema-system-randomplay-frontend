@@ -1,6 +1,6 @@
 "use client";
 
-import { useId } from "react";
+import { useId, type Ref } from "react";
 import type { Dinero } from "@/domain/formato";
 import { formatearPrecio } from "@/domain/formato";
 import { AvisoOperacion } from "./AvisoOperacion";
@@ -23,6 +23,8 @@ type Props = {
   iniciando: boolean;
   aviso: AvisoPago | null;
   onPagar: () => void;
+  /** Para llevar el foco al pago después de guardar el email. */
+  tituloRef?: Ref<HTMLHeadingElement>;
 };
 
 /**
@@ -30,9 +32,18 @@ type Props = {
  * tarjeta (FR-034). Mientras se edita el email, "Pagar" no es la acción principal: el rojo queda para
  * "Guardar email" (DESIGN.md §4, un solo botón rojo por vista).
  */
-export function SeccionPago({ modo, total, principal, iniciando, aviso, onPagar }: Props) {
+export function SeccionPago({
+  modo,
+  total,
+  principal,
+  iniciando,
+  aviso,
+  onPagar,
+  tituloRef,
+}: Props) {
   const idTitulo = useId();
   const idAvisoEmail = useId();
+  const idNota = useId();
   const texto =
     modo === "pagar"
       ? iniciando
@@ -43,15 +54,13 @@ export function SeccionPago({ modo, total, principal, iniciando, aviso, onPagar 
         : "Volver a la página de pago";
 
   return (
-    <section aria-labelledby={idTitulo} className={estilos.seccion}>
-      <h2 id={idTitulo} className="h3">
-        Pago
-      </h2>
-      <p className={estilos.texto}>
-        {modo === "pagar"
-          ? "Pagás en la página de Mercado Pago. Acá no se cargan datos de tarjeta."
-          : "Si cerraste la página de pago o te rechazaron la tarjeta, podés volver a intentarlo mientras corre el contador."}
-      </p>
+    <section aria-labelledby={idTitulo} className={`sombra-dura ${estilos.seccion}`}>
+      <div className={estilos.encabezado}>
+        <p className={`label ${estilos.paso}`}>Último paso</p>
+        <h2 id={idTitulo} ref={tituloRef} tabIndex={-1} className="h3">
+          Pago
+        </h2>
+      </div>
 
       {aviso?.tipo === "faltaEmail" && (
         <p id={idAvisoEmail} role="status" className={estilos.faltaEmail}>
@@ -62,15 +71,21 @@ export function SeccionPago({ modo, total, principal, iniciando, aviso, onPagar 
         <AvisoInicioPago aviso={aviso} onReintentar={onPagar} />
       )}
 
+      {/* El botón va antes que la explicación: es lo primero que se busca en esta sección. */}
       <button
         type="button"
         className={principal ? "boton-primario" : "boton-secundario"}
         disabled={iniciando}
-        aria-describedby={aviso?.tipo === "faltaEmail" ? idAvisoEmail : undefined}
+        aria-describedby={aviso?.tipo === "faltaEmail" ? idAvisoEmail : idNota}
         onClick={onPagar}
       >
         {texto}
       </button>
+      <p id={idNota} className={estilos.texto}>
+        {modo === "pagar"
+          ? "Pagás en la página de Mercado Pago. Acá no se cargan datos de tarjeta."
+          : "Si cerraste la página de pago o te rechazaron la tarjeta, podés volver a intentarlo mientras corre el contador."}
+      </p>
     </section>
   );
 }

@@ -32,6 +32,8 @@ type Props = {
   soloLectura?: boolean;
   /** Avisa si el formulario está abierto, para que "Pagar" no compita con "Guardar email". */
   alCambiarEdicion?: (editando: boolean) => void;
+  /** Después de guardar, la pantalla lleva el foco al paso siguiente: el pago. */
+  alGuardar?: () => void;
 };
 
 type Envio =
@@ -46,6 +48,7 @@ export function EmailEntrega({
   controlRef,
   soloLectura = false,
   alCambiarEdicion,
+  alGuardar,
 }: Props) {
   const [texto, setTexto] = useState(emailGuardado ?? "");
   const [editando, setEditando] = useState(emailGuardado === null);
@@ -53,9 +56,7 @@ export function EmailEntrega({
   const [guardados, setGuardados] = useState(0);
   const enCurso = useRef(false);
   const campo = useRef<HTMLInputElement>(null);
-  const tituloQueSigue = useRef<HTMLHeadingElement>(null);
   const idTitulo = useId();
-  const idTituloQueSigue = useId();
   const idError = useId();
   const [pedidosFoco, setPedidosFoco] = useState(0);
 
@@ -79,10 +80,10 @@ export function EmailEntrega({
     if (pedidosFoco > 0) campo.current?.focus();
   }, [pedidosFoco]);
 
-  // Después de guardar, el foco va a "Qué sigue": el formulario que lo tenía desapareció.
+  // El formulario que tenía el foco desaparece: la pantalla lo lleva al pago.
   useEffect(() => {
-    if (guardados > 0) tituloQueSigue.current?.focus();
-  }, [guardados]);
+    if (guardados > 0) alGuardar?.();
+  }, [guardados, alGuardar]);
 
   async function enviar() {
     if (enCurso.current) return;
@@ -140,13 +141,11 @@ export function EmailEntrega({
       </h2>
 
       {emailGuardado !== null && !editando ? (
-        <section aria-labelledby={idTituloQueSigue} className={`sombra-dura ${estilos.queSigue}`}>
-          <h3 id={idTituloQueSigue} ref={tituloQueSigue} tabIndex={-1} className="label">
-            Qué sigue
-          </h3>
+        // Una línea, sin recuadro: el email ya está resuelto y la acción que sigue es Pagar.
+        <div className={estilos.guardado}>
           <p>
-            Guardamos tu email: <strong className={estilos.email}>{emailGuardado}</strong>. Ahí te
-            mandamos las entradas cuando pagues.
+            Te mandamos las entradas a <strong className={estilos.email}>{emailGuardado}</strong>{" "}
+            cuando pagues.
           </p>
           <button
             type="button"
@@ -158,7 +157,7 @@ export function EmailEntrega({
           >
             Cambiar email
           </button>
-        </section>
+        </div>
       ) : (
         <form noValidate onSubmit={alEnviar} className={estilos.formulario}>
           <label htmlFor={`${idTitulo}-campo`} className={estilos.etiqueta}>
@@ -204,6 +203,10 @@ export function EmailEntrega({
           </button>
         </form>
       )}
+      {/* Siempre montada, para que el aviso de guardado se anuncie. */}
+      <p role="status" className="visualmente-oculto">
+        {guardados > 0 && !editando ? "Guardamos tu email." : ""}
+      </p>
     </section>
   );
 }

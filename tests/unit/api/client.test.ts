@@ -90,4 +90,69 @@ describe("pedirSinCache", () => {
     expect(error.status).toBe(410);
     expect(error.codigo).toBeUndefined();
   });
+
+  describe("con reintentar", () => {
+    const reintentar = { pausaMs: 10 };
+
+    it.each([502, 503, 504])("reintenta un %i mientras el backend arranca", async (status) => {
+      let pedidos = 0;
+      server.use(
+        http.get(`${API}/api/x`, () =>
+          ++pedidos < 3 ? new HttpResponse(null, { status }) : HttpResponse.json({ ok: true }),
+        ),
+      );
+      await expect(pedirSinCache("/api/x", { timeoutMs: 1000, reintentar })).resolves.toEqual({
+        ok: true,
+      });
+      expect(pedidos).toBe(3);
+    });
+
+    it("reintenta un fallo de red", async () => {
+      let pedidos = 0;
+      server.use(
+        http.get(`${API}/api/x`, () =>
+          ++pedidos < 2 ? HttpResponse.error() : HttpResponse.json({ ok: true }),
+        ),
+      );
+      await expect(pedirSinCache("/api/x", { timeoutMs: 1000, reintentar })).resolves.toEqual({
+        ok: true,
+      });
+    });
+
+    it("no reintenta un 500 ni un 410", async () => {
+      let pedidos = 0;
+      server.use(
+        http.get(`${API}/api/x`, () => {
+          pedidos++;
+          return new HttpResponse(null, { status: 500 });
+        }),
+      );
+      const error = (await pedirSinCache("/api/x", { timeoutMs: 1000, reintentar }).catch(
+        (e: unknown) => e,
+      )) as ApiError;
+      expect(error.status).toBe(500);
+      expect(pedidos).toBe(1);
+    });
+
+    it("se rinde cuando se acaba el tiempo y lanza el último error", async () => {
+      server.use(http.get(`${API}/api/x`, () => new HttpResponse(null, { status: 503 })));
+      const error = (await pedirSinCache("/api/x", { timeoutMs: 100, reintentar }).catch(
+        (e: unknown) => e,
+      )) as ApiError;
+      expect(error).toBeInstanceOf(ApiError);
+      expect(error.status).toBe(503);
+    });
+
+    it("sin reintentar, un 503 falla al primer pedido", async () => {
+      let pedidos = 0;
+      server.use(
+        http.get(`${API}/api/x`, () => {
+          pedidos++;
+          return new HttpResponse(null, { status: 503 });
+        }),
+      );
+      await expect(pedirSinCache("/api/x")).rejects.toBeInstanceOf(ApiError);
+      expect(pedidos).toBe(1);
+    });
+  });
 });

@@ -17,7 +17,7 @@ los tests. El mapa del cambio de butacas sigue el
 | Cambiar butacas | `link` | "Cambiar butacas" |
 | Campo de email | `textbox` | "Email para recibir las entradas" (`<label>` visible). `aria-invalid="true"` con error. `aria-describedby` → mensaje. |
 | Guardar email | `button` | "Guardar email" / "Guardando…" (deshabilitado durante el envío) |
-| Qué sigue | `region` (`section` con `h3` "Qué sigue", dentro de "Email de entrega") | Email guardado + aviso de que no hay pago ni entradas todavía |
+| Email guardado | Párrafo dentro de "Email de entrega" (spec 005 lo rediseñó: sin recuadro) | "Te mandamos las entradas a {email} cuando pagues." |
 | Cambiar email | `button` | "Cambiar email" |
 | Abandonar | `button` | "Abandonar carrito" |
 | Confirmación del abandono | `group` con nombre | "Confirmar abandono"; botones "Sí, abandonar" y "Seguir con mi carrito" |
@@ -54,7 +54,7 @@ los tests. El mapa del cambio de butacas sigue el
 | Cerrar la confirmación | "Abandonar carrito" |
 | Pasar a `lectura`, `perdido` o vencido | `h1` de la vista nueva (si el foco no estaba en el campo de email, research C12) |
 | Volver del cambio de butacas | `h1` "Tu carrito" |
-| Guardar el email | Bloque "Qué sigue" (`h3`) |
+| Guardar el email | Título "Pago" (`h2`), ver spec 005 |
 
 ## Visual (DESIGN.md §6, §7 y §11, dial 1/1/1)
 

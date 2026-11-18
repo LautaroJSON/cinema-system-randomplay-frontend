@@ -1,19 +1,41 @@
-/* Talones en una sola columna (flujo privado, dial 1/1/1): en 360 px cada uno usa todo el ancho
-   y nada obliga a desplazar de costado. */
+/* Tickets en una columna (flujo privado, dial 1/1/1). Cada ticket decide su forma según el
+   ancho de la lista: talón abajo en el teléfono, a la derecha cuando hay lugar. */
 .lista {
+  container-type: inline-size;
   display: grid;
-  gap: 1.25rem;
+  gap: 1.5rem;
   width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
+  /* Las muescas giradas asoman por los costados; esa parte cae sobre el fondo y no se ve, pero
+     haría desplazar la página de costado en 360 px. */
+  overflow-x: clip;
 }
 
-/* Papel pegado, como el talón de la reserva (DESIGN.md §6.4). */
+/* Papel impreso (DESIGN.md §3). Sin overflow oculto: las muescas se dibujan sobre el borde. */
 .entrada {
-  padding: 1.25rem;
+  --muesca: 0.75rem;
+
+  display: grid;
+  border: var(--borde) solid var(--line);
   border-radius: var(--radio);
   background: var(--surface);
+}
+
+.cuerpo,
+.talon {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+/* Encabezado impreso del ticket: separa la marca de los datos con una línea fina. */
+.marca {
+  padding-bottom: 0.75rem;
+  border-bottom: var(--borde) solid var(--line);
+  color: var(--paper-muted);
 }
 
 .datos {
@@ -37,14 +59,6 @@
   grid-column: 1 / -1;
 }
 
-/* El único acento de la tarjeta: el código en el dorado de etiqueta (DESIGN.md §4). Es lo que
-   se muestra en la puerta de la sala. */
-.codigo {
-  color: var(--oro);
-  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
-  letter-spacing: 0.04em;
-}
-
 .pelicula {
   font-size: var(--fs-h3);
   font-weight: 650;
@@ -58,4 +72,93 @@
 
 .fecha::first-letter {
   text-transform: uppercase;
+}
+
+/* Talón: separado por el troquel (línea punteada) y con una muesca en cada punta. */
+.talon {
+  position: relative;
+  border-top: var(--borde) dashed var(--line-strong);
+  background: var(--surface-2);
+}
+
+/* El único acento del ticket: el código en el dorado de etiqueta (DESIGN.md §4). */
+.codigo {
+  color: var(--oro);
+  font-size: clamp(1.5rem, 1.3rem + 0.8vw, 1.75rem);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* Más chico que el código: en el teléfono comparte fila con la fecha y no se parte. */
+.precio {
+  font-size: 1.25rem;
+  white-space: nowrap;
+}
+
+.nota {
+  color: var(--paper-muted);
+  font-size: var(--fs-small);
+}
+
+/* Muescas: un círculo del color de la página centrado en el borde del ticket. Solo se pinta el
+   arco que cae dentro del ticket (dos lados del borde, girados 45°); afuera se confunde con el
+   fondo. */
+.talon::before,
+.talon::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  width: calc(var(--muesca) * 2);
+  height: calc(var(--muesca) * 2);
+  border: var(--borde) solid transparent;
+  border-radius: 50%;
+  background: var(--ink);
+  rotate: 45deg;
+}
+
+/* Teléfono: muescas a izquierda y derecha, sobre la línea punteada. */
+.talon::before {
+  top: calc(-1 * var(--muesca) - var(--borde) / 2);
+  left: calc(-1 * var(--muesca) - var(--borde));
+  border-top-color: var(--line);
+  border-right-color: var(--line);
+}
+
+.talon::after {
+  top: calc(-1 * var(--muesca) - var(--borde) / 2);
+  right: calc(-1 * var(--muesca) - var(--borde));
+  border-bottom-color: var(--line);
+  border-left-color: var(--line);
+}
+
+/* Con lugar, el talón pasa a la derecha y el troquel queda vertical. */
+@container (min-width: 36rem) {
+  .entrada {
+    grid-template-columns: minmax(0, 1fr) 19rem;
+  }
+
+  /* La letra chica queda al pie del talón. */
+  .talon {
+    align-content: space-between;
+    border-top: 0;
+    border-left: var(--borde) dashed var(--line-strong);
+  }
+
+  .talon::before {
+    top: calc(-1 * var(--muesca) - var(--borde));
+    left: calc(-1 * var(--muesca) - var(--borde) / 2);
+    border-color: transparent;
+    border-right-color: var(--line);
+    border-bottom-color: var(--line);
+  }
+
+  .talon::after {
+    top: auto;
+    right: auto;
+    bottom: calc(-1 * var(--muesca) - var(--borde));
+    left: calc(-1 * var(--muesca) - var(--borde) / 2);
+    border-color: transparent;
+    border-top-color: var(--line);
+    border-left-color: var(--line);
+  }
 }

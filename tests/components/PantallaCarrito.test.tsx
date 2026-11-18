@@ -46,6 +46,7 @@ function contarPedidosCarrito() {
 
 const contador = () => screen.getByRole("timer");
 const avisosTiempo = () => screen.getByRole("status", { name: "Avisos sobre el tiempo" });
+const emailGuardado = () => screen.findByText(/^Te mandamos las entradas a/);
 const avanzar = async (ms: number) => {
   for (let paso = 0; paso < ms; paso += 1000) {
     await act(() => vi.advanceTimersByTimeAsync(Math.min(1000, ms - paso)));
@@ -352,26 +353,28 @@ describe("PantallaCarrito: email de entrega", () => {
     expect(campo()).not.toHaveAttribute("aria-invalid", "true");
   });
 
-  it("al guardarlo explica qué sigue: las entradas llegan ahí cuando pague", async () => {
+  it("al guardarlo confirma el email en una línea y lleva el foco al pago", async () => {
     const usuario = await abrir();
     const cuerpos = capturarEmails();
     await usuario.type(campo(), "  comprador@ejemplo.com ");
     await usuario.click(guardar());
 
-    const queSigue = await screen.findByRole("region", { name: "Qué sigue" });
+    const guardado = await emailGuardado();
     expect(cuerpos).toEqual([{ email: "comprador@ejemplo.com" }]);
-    expect(queSigue).toHaveTextContent("comprador@ejemplo.com");
-    expect(queSigue).toHaveTextContent("Ahí te mandamos las entradas cuando pagues.");
-    expect(screen.getByRole("heading", { level: 3, name: "Qué sigue" })).toHaveFocus();
+    expect(guardado).toHaveTextContent(
+      "Te mandamos las entradas a comprador@ejemplo.com cuando pagues.",
+    );
+    expect(screen.getByText("Guardamos tu email.")).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.getByRole("heading", { level: 2, name: "Pago" })).toHaveFocus(),
+    );
     expect(document.body).not.toHaveTextContent(/compra confirmada|número de orden/i);
     expect(leerSesion()?.carrito.emailEntrega).toBe("comprador@ejemplo.com");
   });
 
-  it("con el email ya guardado muestra qué sigue y deja cambiarlo", async () => {
+  it("con el email ya guardado lo muestra y deja cambiarlo", async () => {
     const usuario = await abrir(carritosEstados.conEmail);
-    expect(screen.getByRole("region", { name: "Qué sigue" })).toHaveTextContent(
-      "comprador@ejemplo.com",
-    );
+    expect(await emailGuardado()).toHaveTextContent("comprador@ejemplo.com");
     await usuario.click(screen.getByRole("button", { name: "Cambiar email" }));
     expect(campo()).toHaveValue("comprador@ejemplo.com");
   });
@@ -389,7 +392,7 @@ describe("PantallaCarrito: email de entrega", () => {
     await usuario.type(campo(), "a@b.co");
     await usuario.dblClick(guardar());
 
-    await screen.findByRole("region", { name: "Qué sigue" });
+    await emailGuardado();
     expect(cuerpos).toHaveLength(1);
   });
 
@@ -410,7 +413,7 @@ describe("PantallaCarrito: email de entrega", () => {
       }),
     );
     await usuario.click(screen.getByRole("button", { name: "Reintentar" }));
-    expect(await screen.findByRole("region", { name: "Qué sigue" })).toBeInTheDocument();
+    expect(await emailGuardado()).toBeInTheDocument();
   });
 });
 
@@ -673,7 +676,7 @@ describe("PantallaCarrito: errores y credencial", () => {
       ),
     );
     await usuario.click(screen.getByRole("button", { name: "Reintentar" }));
-    await screen.findByRole("region", { name: "Qué sigue" });
+    await emailGuardado();
     expect(document.querySelector(".cinta-peligro")).toBeNull();
   });
 

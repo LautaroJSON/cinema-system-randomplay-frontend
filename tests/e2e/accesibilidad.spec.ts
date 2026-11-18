@@ -144,7 +144,7 @@ test.describe("accesibilidad y mobile-first", () => {
     await expect(page.getByRole("heading", { level: 1, name: "Tu carrito" })).toBeVisible();
   };
 
-  test("el carrito activo, con qué sigue y el cambio de butacas no tienen violaciones de axe", async ({
+  test("el carrito activo, con el email guardado y el cambio de butacas no tienen violaciones de axe", async ({
     page,
   }) => {
     for (const viewport of anchos) {
@@ -154,7 +154,7 @@ test.describe("accesibilidad y mobile-first", () => {
 
       await page.getByRole("textbox", { name: "Email para recibir las entradas" }).fill("a@b.co");
       await page.getByRole("button", { name: "Guardar email" }).click();
-      await expect(page.getByRole("region", { name: "Qué sigue" })).toBeVisible();
+      await expect(page.getByText(/^Te mandamos las entradas a/)).toBeVisible();
       await auditar(page);
 
       await page.getByRole("link", { name: "Cambiar butacas" }).click();

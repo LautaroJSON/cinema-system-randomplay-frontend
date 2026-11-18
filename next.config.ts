@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: HOSTS_DE_POSTERS.map((hostname) => ({ protocol: "https", hostname })),
   },
-  // Proxy del mismo origen para el navegador mientras el backend no configure CORS.
+  // Proxy del mismo origen para el navegador cuando no hay NEXT_PUBLIC_API_URL (ver src/api/navegador.ts).
   async rewrites() {
     return [{ source: "/api/:path*", destination: `${apiUrl}/api/:path*` }];
   },

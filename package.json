@@ -20,7 +20,7 @@
     "test:e2e:api-real": "playwright test -c playwright.api-real.config.ts"
   },
   "dependencies": {
-    "next": "16.4",
+    "next": "~16.4.6",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
@@ -41,7 +41,7 @@
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
     "eslint": "^9.39.5",
-    "eslint-config-next": "16.4",
+    "eslint-config-next": "~16.4.6",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "jsdom": "^29.1.1",
     "msw": "^3.0.3",

@@ -1,6 +1,8 @@
 // Mock de la API del backend para el build, los e2e y la validación manual, sin dependencias.
 // Datos: el catálogo generado en scripts/mock-data/catalogo.json si existe (temporal, ver
 // scripts/generar-mock-catalogo.mjs); si no, o con MOCK_DATOS=fixtures, los fixtures de los tests.
+// MOCK_DEMORA_MS: milisegundos que tarda el mapa de la función lenta de los fixtures (8000 por
+// defecto), para simular el backend dormido sin demorar ninguna otra ruta (spec 006).
 import { randomUUID } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { createServer } from "node:http";
@@ -297,6 +299,9 @@ function simularPago(cuerpo) {
 const ID_HORARIOS_FALLAN = "3f2b6c1e-8a4d-4e2f-9b1a-0c5d7e8f9a05";
 const puerto = Number(process.env.MOCK_PORT ?? 4010);
 const fallarTodo = process.env.MOCK_FALLAR === "todo";
+const ID_FUNCION_LENTA = "9e8d7c6b-5a49-4382-b1a0-f9e8d7c6b0a1";
+const demoraLenta = Number(process.env.MOCK_DEMORA_MS ?? 8000);
+const rutaLenta = `/api/funciones/${ID_FUNCION_LENTA}/asientos`;
 
 function isoArgentina(fecha) {
   const local = new Date(fecha.getTime() - 3 * 60 * 60 * 1000);
@@ -423,6 +428,7 @@ createServer(async (req, res) => {
         : req.method === "PUT"
           ? resolverPut(ruta, await leerCuerpo(req), req)
           : [405, problema(405, "Método no permitido.")];
+  if (ruta === rutaLenta) await new Promise((listo) => setTimeout(listo, demoraLenta));
   console.log(`${req.method} ${ruta} ${status}`);
   responder(res, status, cuerpo);
 }).listen(puerto, "127.0.0.1", () => {

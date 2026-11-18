@@ -50,6 +50,35 @@
   transition: color var(--transicion);
 }
 
+/* Mientras se abre la función (spec 006): borde dorado y "Cargando…" en lugar del precio.
+   El texto acompaña al color, que no es la única señal. */
+.horario:has([data-pendiente]) {
+  border-color: var(--oro);
+}
+
+.celda {
+  display: grid;
+}
+
+.celda > * {
+  grid-area: 1 / 1;
+}
+
+/* opacity y no visibility: el precio sigue en el nombre accesible del enlace. */
+.cargando {
+  align-self: center;
+  color: var(--oro);
+  opacity: 0;
+}
+
+.cargando[data-pendiente] {
+  opacity: 1;
+}
+
+.celda:has([data-pendiente]) .precio {
+  opacity: 0;
+}
+
 .precio {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-variant-numeric: tabular-nums;

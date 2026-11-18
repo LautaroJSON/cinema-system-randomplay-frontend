@@ -1,5 +1,9 @@
-// Solo navegador: llega a la API por el proxy de next.config.ts (URL relativa, mismo origen).
+// Solo navegador. Con NEXT_PUBLIC_API_URL llama directo al backend (CORS), que así ve la IP real
+// del comprador para su límite por origen. Sin ella usa el proxy de next.config.ts (URL relativa,
+// mismo origen): desarrollo, tests y previews.
 import { leerProblema, problemaDeRed, type Problema } from "./problema";
+
+const baseApi = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/+$/, "");
 
 /** Hora del servidor (header `Date`) y del dispositivo al recibir la respuesta, para el contador. */
 type Recepcion = { horaServidorMs: number | null; recibidoEnMs: number };
@@ -46,7 +50,7 @@ export async function pedirDesdeNavegador<T>(
 
   let respuesta: Response;
   try {
-    respuesta = await fetch(ruta, {
+    respuesta = await fetch(`${baseApi}${ruta}`, {
       method: metodo,
       headers,
       body: cuerpo === undefined ? undefined : JSON.stringify(cuerpo),

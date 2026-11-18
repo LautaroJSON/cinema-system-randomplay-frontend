@@ -151,7 +151,8 @@ describe("PantallaCarrito: pagar (US1)", () => {
     await usuario.click(screen.getByRole("button", { name: "Guardar email" }));
 
     expect(await screen.findByRole("region", { name: "Pago" })).toBeInTheDocument();
-    expect(botonPagar()).toHaveClass("boton-primario");
+    // El formulario avisa que se cerró en un efecto: Pagar pasa a principal un render después.
+    await waitFor(() => expect(botonPagar()).toHaveClass("boton-primario"));
   });
 
   it("mientras se cambia el email, Pagar no compite con Guardar email", async () => {

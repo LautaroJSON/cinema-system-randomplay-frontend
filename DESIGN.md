@@ -190,7 +190,11 @@ Dos familias, servidas con `next/font` (sin requests de terceros que bloqueen el
     izquierda cada 6 s, con un deslizamiento de 700 ms, como una cinta que avanza. Tiene
     botonera de videocasetera (Pausa/Play, anterior, contador `02 / 05` en `counter` dorado,
     siguiente), se detiene con el mouse o el foco encima y, con `prefers-reduced-motion`, no
-    avanza solo (WCAG 2.2.2). Es el único elemento que se mueve sin que la persona lo pida.
+    avanza solo (WCAG 2.2.2).
+  - **Barra de carga del aviso de horario** (aprobada el 2026-11-18): mientras se abre una
+    función, un tramo `--oro` recorre una pista `--line` de 4 px, sin fin. Solo existe mientras
+    la persona espera algo que pidió. Con `prefers-reduced-motion` no se muestra y queda el
+    texto del aviso.
 - La única animación "de marca" permitida es un barrido corto de líneas de tracking VHS
   (≤ 300 ms, una vez) al cambiar de página en el catálogo. Es opcional, y si no suma se quita.
 - `prefers-reduced-motion: reduce` elimina todo desplazamiento y deja solo cambios de color.

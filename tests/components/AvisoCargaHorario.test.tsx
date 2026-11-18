@@ -1,10 +1,11 @@
 import { act, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { AvisoCargaHorario } from "@/components/TiraHorarios/AvisoCargaHorario";
-import { AVISO_DEMORA_MS } from "@/config/experiencia";
+import { AVISO_CASI_MS, AVISO_DEMORA_MS } from "@/config/experiencia";
 
 const TEXTO_CARGA = "Cargando las butacas de las 20:30, Sala 2…";
 const TEXTO_DEMORA = "Esto puede tardar un poco más. No hace falta recargar la página.";
+const TEXTO_CASI = "Ya casi terminamos. No hace falta recargar la página.";
 
 describe("AvisoCargaHorario", () => {
   beforeEach(() => {
@@ -45,8 +46,26 @@ describe("AvisoCargaHorario", () => {
     expect(screen.getByText(TEXTO_DEMORA, { selector: "p:not([role])" })).toBeVisible();
     expect(estado).toHaveTextContent(`${TEXTO_CARGA} ${TEXTO_DEMORA}`);
 
-    await act(() => vi.advanceTimersByTimeAsync(60_000));
+    await act(() => vi.advanceTimersByTimeAsync(AVISO_CASI_MS - AVISO_DEMORA_MS - 1));
     expect(screen.getAllByText(TEXTO_DEMORA, { selector: "p:not([role])" })).toHaveLength(1);
+  });
+
+  it("a los 20 s cambia la línea de demora por la de casi listo", async () => {
+    render(<AvisoCargaHorario hora="20:30" sala="Sala 2" />);
+    const estado = screen.getByRole("status");
+
+    await act(() => vi.advanceTimersByTimeAsync(AVISO_CASI_MS));
+    expect(screen.getByText(TEXTO_CASI, { selector: "p:not([role])" })).toBeVisible();
+    expect(screen.queryByText(TEXTO_DEMORA, { selector: "p:not([role])" })).toBeNull();
+    expect(estado).toHaveTextContent(`${TEXTO_CARGA} ${TEXTO_CASI}`);
+
+    await act(() => vi.advanceTimersByTimeAsync(60_000));
+    expect(screen.getAllByText(TEXTO_CASI, { selector: "p:not([role])" })).toHaveLength(1);
+  });
+
+  it("muestra una barra de carga decorativa, oculta para lectores de pantalla", () => {
+    const { container } = render(<AvisoCargaHorario hora="20:30" sala="Sala 2" />);
+    expect(container.querySelector('[aria-hidden="true"]')).not.toBeNull();
   });
 
   it("limpia sus temporizadores al desmontarse antes de la demora", async () => {

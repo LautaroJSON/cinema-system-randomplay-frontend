@@ -10,6 +10,7 @@ import {
   ID_FUNCION_INEXISTENTE,
   mapas,
 } from "../../fixtures";
+import { API } from "../../msw/handlers";
 import { server } from "../../msw/setup";
 
 describe("obtenerMapa (servidor)", () => {
@@ -49,6 +50,21 @@ describe("obtenerMapa (servidor)", () => {
     } finally {
       timeout.mockRestore();
     }
+  });
+
+  it("reintenta mientras el backend arranca en lugar de mostrar el error", async () => {
+    let pedidos = 0;
+    server.use(
+      http.get(`${API}/api/funciones/${ID_FUNCION_8X12}/asientos`, () =>
+        ++pedidos < 2
+          ? new HttpResponse(null, { status: 503 })
+          : HttpResponse.json(mapas[ID_FUNCION_8X12]),
+      ),
+    );
+    await expect(obtenerMapa(ID_FUNCION_8X12)).resolves.toMatchObject({
+      funcionId: ID_FUNCION_8X12,
+    });
+    expect(pedidos).toBe(2);
   });
 });
 

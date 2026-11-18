@@ -131,6 +131,12 @@ página de la función, no en la de error.
 - **FR-005**: Si la carga supera 5 segundos, el aviso DEBE sumar una línea que explique que
   puede tardar un poco más e indique que no hace falta recargar. No DEBE culpar al visitante
   ni mencionar servidores, planes ni "despertar"; sigue la voz de DESIGN.md (voseo, frase corta).
+- **FR-005b**: A los 20 segundos, esa línea DEBE cambiar a "Ya casi terminamos. No hace falta
+  recargar la página.", para dar sensación de avance (el backend dormido tarda ~30 s).
+- **FR-005c**: Debajo del texto, el aviso DEBE mostrar una barra de carga sin fin, decorativa
+  (oculta para lectores de pantalla). Con `prefers-reduced-motion` no se muestra.
+- **FR-008b**: La lectura del mapa DEBE reintentar, mientras queden los 45 segundos, los fallos
+  de conexión y los 502/503/504 que responde el hosting mientras el backend arranca.
 - **FR-006**: El aviso DEBE desaparecer cuando termina la navegación (con éxito o con error) o
   cuando ningún horario está cargando.
 - **FR-007**: El aviso NO DEBE tapar contenido que el visitante necesite durante la espera ni

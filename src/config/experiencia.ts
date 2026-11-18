@@ -13,8 +13,17 @@ export const ESPERA_PAGO_MAXIMA_MS = 2 * 60 * 1000;
 /** Cuándo el aviso de carga de un horario suma la línea de demora (spec 006, FR-005). */
 export const AVISO_DEMORA_MS = 5000;
 
+/** Cuándo esa línea pasa a "Ya casi terminamos": el backend dormido tarda unos 30 s (spec 006). */
+export const AVISO_CASI_MS = 20_000;
+
 /**
  * Timeout de la lectura del mapa de la función en el servidor. El backend gratuito tarda unos
  * 30 s en despertar; con el corte de 5 s por defecto, la espera terminaba en error (spec 006).
  */
 export const ESPERA_LECTURA_MS = 45_000;
+
+/**
+ * Pausa entre reintentos de la lectura del mapa. Mientras el backend arranca, el proxy del
+ * hosting puede responder 502/503 o cortar la conexión al instante (spec 006).
+ */
+export const PAUSA_REINTENTO_MS = 2000;

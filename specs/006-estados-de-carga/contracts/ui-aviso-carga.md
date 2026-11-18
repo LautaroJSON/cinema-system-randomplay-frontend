@@ -20,6 +20,7 @@ entre comillas son el copy propuesto (DESIGN.md §10).
 |---|---|---|
 | Al activar | **"Cargando las butacas de las 20:30, Sala 2…"** | El mismo texto, una vez |
 | Desde los 5 s | Se suma **"Esto puede tardar un poco más. No hace falta recargar la página."** | La línea nueva, una vez |
+| Desde los 20 s | Esa línea cambia a **"Ya casi terminamos. No hace falta recargar la página."** | La línea nueva, una vez |
 | Navegación terminada | Desaparece | Nada |
 
 - Barra fija abajo, ancho del contenido con gutter de 16 px en móvil, fondo `--surface`, borde

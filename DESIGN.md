@@ -141,6 +141,9 @@ Dos familias, servidas con `next/font` (sin requests de terceros que bloqueen el
    grandes (R-12).
 5. **Cinta de peligro**: una franja diagonal rojo/tinta se reserva **solo** para el estado de
    carrito expirado o sin conexión. Si aparece en otro lado, deja de significar algo.
+6. **Ticket troquelado**: cada entrada comprada es un ticket con cuerpo (función) y talón
+   (código, fila y butaca), separados por una línea punteada con una muesca en cada punta. El
+   talón va abajo en el teléfono y a la derecha cuando hay lugar. Se reserva para las entradas.
 
 ### Bordes y radios
 

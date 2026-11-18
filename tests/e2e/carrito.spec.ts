@@ -83,7 +83,7 @@ test.describe("pantalla del carrito", () => {
     await campo.fill("comprador@ejemplo.com");
     await guardar.click();
     await expect(page.getByText(/^Te mandamos las entradas a/)).toHaveText(
-      "Te mandamos las entradas a comprador@ejemplo.com cuando pagues.",
+      "Te mandamos las entradas a comprador@ejemplo.com cuando pagues. Me equivoqué, cambiar email",
     );
     // El paso que sigue queda enfocado y a la vista: el botón Pagar.
     await expect(page.getByRole("heading", { level: 2, name: "Pago" })).toBeFocused();

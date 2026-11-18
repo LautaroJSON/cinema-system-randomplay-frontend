@@ -18,7 +18,7 @@ los tests. El mapa del cambio de butacas sigue el
 | Campo de email | `textbox` | "Email para recibir las entradas" (`<label>` visible). `aria-invalid="true"` con error. `aria-describedby` → mensaje. |
 | Guardar email | `button` | "Guardar email" / "Guardando…" (deshabilitado durante el envío) |
 | Email guardado | Párrafo dentro de "Email de entrega" (spec 005 lo rediseñó: sin recuadro) | "Te mandamos las entradas a {email} cuando pagues." |
-| Cambiar email | `button` | "Cambiar email" |
+| Cambiar email | `button` con aspecto de enlace (spec 005) | "Me equivoqué, cambiar email" |
 | Abandonar | `button` | "Abandonar carrito" |
 | Confirmación del abandono | `group` con nombre | "Confirmar abandono"; botones "Sí, abandonar" y "Seguir con mi carrito" |
 | Aviso de error de una operación | `alert` | Qué pasó y qué hacer (research C10) |
@@ -64,7 +64,7 @@ los tests. El mapa del cambio de butacas sigue el
 | Contador, tramo final (≤ 2 min) | `counter` en `--telon-ink`. Sin parpadeo, sin transición. |
 | Cinta de peligro | Franja de 8 px, rayas diagonales `--telon` / `--ink` de corte duro, solo en vencido y sin conexión |
 | Botón primario | "Guardar email" o "Guardar N butacas"; como máximo uno por vista |
-| Abandonar, Cambiar email, Reintentar | Botón secundario (contorno `--line-strong`) |
+| Abandonar, Reintentar | Botón secundario (contorno `--line-strong`) |
 | Resumen | `--surface` con sombra dura, una columna |
 
 Contrastes medidos (research C6): `--oro` sobre `--surface` 9.77:1; `--telon-ink` sobre

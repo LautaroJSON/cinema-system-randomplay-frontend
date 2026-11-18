@@ -158,7 +158,7 @@ describe("PantallaCarrito: pagar (US1)", () => {
   it("mientras se cambia el email, Pagar no compite con Guardar email", async () => {
     const usuario = await abrir();
     expect(botonPagar()).toHaveClass("boton-primario");
-    await usuario.click(screen.getByRole("button", { name: "Cambiar email" }));
+    await usuario.click(screen.getByRole("button", { name: "Me equivoqué, cambiar email" }));
     expect(botonPagar()).toHaveClass("boton-secundario");
     expect(screen.getByRole("button", { name: "Guardar email" })).toHaveClass("boton-primario");
   });
@@ -178,7 +178,9 @@ describe("PantallaCarrito: pago en curso (US3)", () => {
     }
     await usuario.click(abandonar);
     expect(screen.queryByRole("button", { name: "Sí, abandonar" })).not.toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "Cambiar email" })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "Me equivoqué, cambiar email" }),
+    ).not.toBeInTheDocument();
     expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
     expect(screen.getByText("comprador@ejemplo.com")).toBeInTheDocument();
 
@@ -204,7 +206,7 @@ describe("PantallaCarrito: pago en curso (US3)", () => {
       responderCarrito(conVencimiento(carritosEstados.pagando, 4 * MIN));
 
       if (accion === "guardar el email") {
-        await usuario.click(screen.getByRole("button", { name: "Cambiar email" }));
+        await usuario.click(screen.getByRole("button", { name: "Me equivoqué, cambiar email" }));
         await usuario.click(screen.getByRole("button", { name: "Guardar email" }));
       } else {
         await usuario.click(screen.getByRole("button", { name: "Abandonar carrito" }));

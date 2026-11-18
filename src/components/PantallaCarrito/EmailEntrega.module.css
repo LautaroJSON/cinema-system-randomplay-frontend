@@ -41,21 +41,33 @@
   margin-top: 0.5rem;
 }
 
-/* Email resuelto: texto y "Cambiar email" en una fila que se parte en pantallas angostas. */
+/* Email resuelto: una sola frase, con el cambio al final como un enlace de texto. */
 .guardado {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem 1.25rem;
-}
-
-.guardado p {
-  max-width: 60ch;
   color: var(--paper-muted);
 }
 
 .guardado strong {
   color: var(--paper);
+}
+
+/* Botón con aspecto de enlace: cambia el estado de la pantalla, no navega, pero no compite con
+   Pagar. Subrayado para que se lea como acción sin depender del color (WCAG 1.4.1). */
+.cambiar {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--paper);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: var(--borde);
+  text-underline-offset: 0.2em;
+  white-space: nowrap;
+}
+
+.cambiar:hover {
+  color: var(--oro);
 }
 
 .email {

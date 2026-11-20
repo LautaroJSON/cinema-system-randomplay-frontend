@@ -22,6 +22,8 @@ type OpcionesPedido = {
   revalidate: number;
   tags: string[];
   timeoutMs?: number;
+  /** Reintenta un fallo de red o un 502/503/504 mientras quede tiempo (backend arrancando). */
+  reintentar?: { pausaMs: number };
 };
 
 async function leerCodigo(respuesta: Response): Promise<string | undefined> {
@@ -44,9 +46,12 @@ export async function pedir<T>(ruta: string, opciones: OpcionesPedido): Promise<
     }
   }
 
-  return pedirConFetch<T>(ruta, opciones.timeoutMs, {
-    next: { revalidate: opciones.revalidate, tags: opciones.tags },
-  });
+  return pedirConFetch<T>(
+    ruta,
+    opciones.timeoutMs,
+    { next: { revalidate: opciones.revalidate, tags: opciones.tags } },
+    opciones.reintentar,
+  );
 }
 
 /**

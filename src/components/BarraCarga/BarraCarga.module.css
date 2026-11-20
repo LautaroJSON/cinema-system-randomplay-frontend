@@ -1,0 +1,35 @@
+/* Barra de carga sin fin: un tramo dorado que recorre la pista, como el contador de la
+   videocasetera. Excepción de movimiento aprobada por el dueño (DESIGN.md §8). Solo existe
+   mientras la persona espera algo que pidió. */
+.barra {
+  position: relative;
+  height: 4px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+  background: var(--line);
+}
+
+.tramo {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 30%;
+  background: var(--oro);
+  animation: recorrer 1.4s linear infinite;
+}
+
+@keyframes recorrer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(334%);
+  }
+}
+
+/* Sin desplazamiento: un tramo quieto se leería como progreso trabado. Queda el texto. */
+@media (prefers-reduced-motion: reduce) {
+  .barra {
+    display: none;
+  }
+}

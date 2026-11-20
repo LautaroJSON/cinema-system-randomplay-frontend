@@ -1,0 +1,58 @@
+/* Ocupa toda la ventana, como una página más: el fondo es la sala apagada (--ink). Aparece y
+   desaparece de golpe (MOTION 1); solo se mueve la barra. */
+.pantalla {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.pantalla::backdrop {
+  background: var(--ink);
+}
+
+.contenido {
+  display: grid;
+  justify-items: start;
+  align-content: center;
+  gap: 1.5rem;
+  min-height: 100%;
+  padding-block: 3rem;
+}
+
+.paso {
+  color: var(--oro);
+}
+
+/* El título de la cinta, como en la ficha: es lo que la persona tocó. */
+.titulo {
+  max-width: 20ch;
+  overflow-wrap: anywhere;
+}
+
+.titulo:focus {
+  outline: none;
+}
+
+.estado {
+  display: grid;
+  gap: 0.25rem;
+  width: min(100%, 32rem);
+}
+
+.texto {
+  font-weight: 600;
+}
+
+/* Dos renglones reservados: las frases de cada etapa tienen largos distintos y en un celular
+   ocupan uno o dos renglones. Así la barra no se mueve cuando cambia el texto. */
+.demora {
+  min-height: 2lh;
+  color: var(--paper-muted);
+  font-size: var(--fs-small);
+}

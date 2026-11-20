@@ -3,6 +3,7 @@ import type { PeliculaResumen } from "@/api/catalogo";
 import { Caratula } from "@/components/Caratula/Caratula";
 import { EtiquetaPegada } from "@/components/EtiquetaPegada/EtiquetaPegada";
 import { formatearDuracion } from "@/domain/formato";
+import { IndicadorCargaPelicula } from "./IndicadorCargaPelicula";
 import estilos from "./TarjetaPelicula.module.css";
 
 type Props = {
@@ -36,6 +37,7 @@ export function TarjetaPelicula({ pelicula, destacada = false, sinopsis, priorid
           <h3 className={destacada ? "display" : `h3 ${estilos.titulo}`}>
             <Link href={`/peliculas/${id}`} className={estilos.enlace}>
               {titulo}
+              <IndicadorCargaPelicula titulo={titulo} />
             </Link>
           </h3>
           {destacada && sinopsis && <p className={estilos.sinopsis}>{sinopsis}</p>}

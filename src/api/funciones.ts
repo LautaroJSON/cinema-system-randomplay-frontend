@@ -1,4 +1,5 @@
 import type { Dinero } from "@/domain/formato";
+import { ESPERA_LECTURA_MS, PAUSA_REINTENTO_MS } from "@/config/experiencia";
 import { pedir } from "./client";
 import type { paths } from "./schema";
 
@@ -17,8 +18,14 @@ export type Horario = {
   precio: Dinero;
 };
 
-// Los horarios del día se revalidan cada 60 s (Principio IX, FR-044).
-const opciones = (peliculaId: string) => ({ revalidate: 60, tags: [`horarios:${peliculaId}`] });
+// Los horarios del día se revalidan cada 60 s (Principio IX, FR-044). Como la ficha, esperan al
+// backend dormido y reintentan sus errores de arranque.
+const opciones = (peliculaId: string) => ({
+  revalidate: 60,
+  tags: [`horarios:${peliculaId}`],
+  timeoutMs: ESPERA_LECTURA_MS,
+  reintentar: { pausaMs: PAUSA_REINTENTO_MS },
+});
 
 export async function listarSucursalesHoy(peliculaId: string): Promise<Sucursal[] | null> {
   const lista = await pedir<SucursalesApi>(

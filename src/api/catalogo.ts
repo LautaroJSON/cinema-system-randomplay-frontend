@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { traducirClasificacion, type Clasificacion } from "@/domain/clasificacion";
 import { normalizarEntero } from "@/domain/formato";
+import { ESPERA_LECTURA_MS, PAUSA_REINTENTO_MS } from "@/config/experiencia";
 import { pedir } from "./client";
 import type { paths } from "./schema";
 
@@ -60,11 +61,15 @@ export function mapearDetalle(detalle: DetalleApi): PeliculaDetalle {
   return { ...mapearResumen(detalle), sinopsis: sinopsis || null };
 }
 
-// `cache` comparte el pedido entre generateMetadata y la página dentro del mismo render.
+// `cache` comparte el pedido entre generateMetadata y la página dentro del mismo render. Espera
+// al backend dormido y reintenta sus errores de arranque: la ficha se genera la primera vez que
+// alguien la abre, y esa persona está mirando la pantalla de carga.
 export const obtenerPelicula = cache(async (id: string): Promise<PeliculaDetalle | null> => {
   const detalle = await pedir<DetalleApi>(`/api/catalogo/peliculas/${encodeURIComponent(id)}`, {
     revalidate: 600,
     tags: [`pelicula:${id}`],
+    timeoutMs: ESPERA_LECTURA_MS,
+    reintentar: { pausaMs: PAUSA_REINTENTO_MS },
   });
   return detalle && mapearDetalle(detalle);
 });

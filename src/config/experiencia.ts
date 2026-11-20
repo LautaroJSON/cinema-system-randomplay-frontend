@@ -17,13 +17,14 @@ export const AVISO_DEMORA_MS = 5000;
 export const AVISO_CASI_MS = 20_000;
 
 /**
- * Timeout de la lectura del mapa de la función en el servidor. El backend gratuito tarda unos
- * 30 s en despertar; con el corte de 5 s por defecto, la espera terminaba en error (spec 006).
+ * Timeout de las lecturas que hacen esperar a quien abre una página: el mapa de la función, y
+ * la ficha y los horarios de una película. El backend gratuito tarda unos 30 s en despertar; con
+ * el corte de 5 s por defecto, la espera terminaba en error (spec 006).
  */
 export const ESPERA_LECTURA_MS = 45_000;
 
 /**
- * Pausa entre reintentos de la lectura del mapa. Mientras el backend arranca, el proxy del
+ * Pausa entre reintentos de esas lecturas. Mientras el backend arranca, el proxy del
  * hosting puede responder 502/503 o cortar la conexión al instante (spec 006).
  */
 export const PAUSA_REINTENTO_MS = 2000;

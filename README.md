@@ -38,7 +38,13 @@ En otra terminal:
 npm run dev
 ```
 
-Para usar el backend real, cambiá `API_URL` en `.env.local` (por ejemplo, `http://localhost:5165`).
+Para cambiar de backend, editá `BACKEND` en `.env.local` y reiniciá `npm run dev`:
+
+- `mock`: el mock de `npm run mock:api`, en `http://127.0.0.1:4010`.
+- `local`: tu backend en `http://localhost:8080`. Si usa otro puerto, definí `API_URL_LOCAL`.
+- `hosteado`: el backend de Render. Si estuvo inactivo, tarda unos 30 segundos en despertar.
+
+Al arrancar, la terminal muestra contra qué backend corre el sitio.
 La guía de validación completa está en
 [`specs/001-cartelera-publica/quickstart.md`](specs/001-cartelera-publica/quickstart.md).
 
@@ -63,22 +69,24 @@ puerto 3100 y crea 7 de los 10 carritos que la API permite por IP cada 10 minuto
 
 | Variable              | Uso                                                                                                                                                                    |
 | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `API_URL`             | Base del backend. La usan los pedidos del servidor y el proxy `/api`. Obligatoria.                                                                                     |
+| `BACKEND`             | Backend que usa el sitio: `local`, `hosteado` o `mock`. Lo usan los pedidos del servidor y el proxy `/api`. Obligatoria si no hay `API_URL`.                           |
+| `API_URL_LOCAL`       | Opcional. Otra URL para `BACKEND=local`, si el backend no usa el 8080.                                                                                                 |
+| `API_URL`             | Opcional. Una URL exacta del backend, que gana sobre `BACKEND`. La usan los despliegues y los e2e.                                                                     |
 | `SITE_URL`            | Origen público del sitio, para canónicas, sitemap, robots y JSON-LD. Obligatoria.                                                                                      |
 | `NEXT_PUBLIC_API_URL` | Opcional. Se fija al compilar. Con ella el navegador llama directo al backend, que tiene que aceptar el sitio por CORS. Sin ella usa el proxy `/api`. Solo producción. |
 | `API_MOCK`            | Temporal (spec 002). Con `1` el sitio usa el catálogo local de `scripts/mock-data/catalogo.json` en vez del backend.                                                   |
 | `PAGO_SIMULADO`       | Con `1` habilita la página de pago simulado fuera de `next dev`. La usan los e2e. Nunca en producción.                                                                 |
 
-`API_URL`, `SITE_URL`, `API_MOCK` y `PAGO_SIMULADO` no llevan el prefijo `NEXT_PUBLIC_`, así que no
+`BACKEND`, `API_URL_LOCAL`, `API_URL`, `SITE_URL`, `API_MOCK` y `PAGO_SIMULADO` no llevan el prefijo `NEXT_PUBLIC_`, así que no
 llegan al navegador. `NEXT_PUBLIC_API_URL` sí llega: es la URL pública del backend.
 
 ## Despliegue
 
-- El build genera la cartelera y el sitemap, así que el entorno de build tiene que llegar a
-  `API_URL`. Las fichas se generan al primer pedido y se revalidan cada 60 segundos.
+- El build genera la cartelera y el sitemap, así que el entorno de build tiene que llegar al
+  backend. En producción se define `API_URL` o `BACKEND=hosteado`. Las fichas se generan al primer pedido y se revalidan cada 60 segundos.
 - Cada horario enlaza a `/funciones/{funcionId}`, la selección de butacas. Esa página pide el
   mapa sin caché en cada visita y crea el carrito desde el navegador por el proxy `/api`, así
-  que el servidor de producción también tiene que llegar a `API_URL`. Después de confirmar, el
+  que el servidor de producción también tiene que llegar al backend. Después de confirmar, el
   comprador pasa a `/carritos/{carritoId}`. Esa página no se cachea y todos sus pedidos salen
   del navegador por el proxy, con el token de `sessionStorage`. La cuenta regresiva corrige el
   reloj del dispositivo con el header `Date` del backend, así que el proxy tiene que dejarlo

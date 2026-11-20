@@ -1,6 +1,7 @@
 // Variables de entorno del servidor. Ninguna lleva prefijo NEXT_PUBLIC_: no llegan al navegador.
+import { resolverBackend } from "./backend";
 
-function leerUrl(nombre: "API_URL" | "SITE_URL"): string {
+function leerUrl(nombre: "SITE_URL"): string {
   const valor = process.env[nombre];
   if (!valor) {
     throw new Error(`Falta la variable de entorno ${nombre}. Ver .env.example.`);
@@ -14,8 +15,9 @@ function leerUrl(nombre: "API_URL" | "SITE_URL"): string {
 }
 
 export const entorno = {
+  /** Sale de API_URL o de BACKEND (local, hosteado o mock). Ver src/config/backend.ts. */
   get apiUrl() {
-    return leerUrl("API_URL");
+    return resolverBackend(process.env).url;
   },
   get siteUrl() {
     return leerUrl("SITE_URL");

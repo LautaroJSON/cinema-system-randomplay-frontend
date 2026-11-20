@@ -4,7 +4,7 @@ import type { Clasificacion } from "@/domain/clasificacion";
 import { formatearDuracion } from "@/domain/formato";
 import estilos from "./Caratula.module.css";
 
-type Variante = "estante" | "destacada" | "ficha";
+type Variante = "estante" | "destacada";
 
 type Props = {
   titulo: string;
@@ -13,7 +13,7 @@ type Props = {
   duracionMinutos: number | null;
   clasificacion: Clasificacion;
   variante?: Variante;
-  /** Pedir el póster primero (LCP). Por defecto, la destacada y la ficha. */
+  /** Pedir el póster primero (LCP). Por defecto, la destacada. */
   prioridad?: boolean;
   /** El encabezado con el título: siempre texto, aunque haya póster (spec 002, FR-006). */
   children: React.ReactNode;
@@ -36,7 +36,6 @@ export function codigoImpreso({ codigoCinta, duracionMinutos, clasificacion }: D
 const TAMANIOS: Record<Variante, string> = {
   estante: "(min-width: 1024px) 260px, (min-width: 600px) 30vw, 45vw",
   destacada: "(min-width: 600px) 280px, 38vw",
-  ficha: "(min-width: 600px) 280px, 38vw",
 };
 
 /**
@@ -51,7 +50,7 @@ export function Caratula({
   children,
   ...datos
 }: Props) {
-  // La destacada y la ficha muestran el póster principal de la página: se pide primero (LCP).
+  // La destacada muestra el póster principal de la página: se pide primero (LCP).
   const principal = prioridad ?? variante !== "estante";
   const tipo = imagenUrl ? estilos.conPoster : `halftone ${estilos.tipografica}`;
 

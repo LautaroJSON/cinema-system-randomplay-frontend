@@ -11,35 +11,7 @@
   text-underline-offset: 4px;
 }
 
-/* Bloque 1: la ficha (carátula y sinopsis). Bloque 2: horarios por sucursal. */
-.ficha {
-  display: grid;
-  gap: clamp(1.5rem, 1rem + 2vw, 2.5rem);
-  border: var(--borde) solid var(--line);
-  box-shadow: 4px 4px 0 var(--ink);
-}
-
-.datos {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem 1rem;
-  color: var(--paper-muted);
-}
-
-.sinopsis {
-  display: grid;
-  gap: 1rem;
-  padding: 0 clamp(1.25rem, 0.75rem + 2.5vw, 2.5rem) clamp(1.25rem, 0.75rem + 2.5vw, 2.5rem);
-}
-
-.sinopsis h2 {
-  justify-self: start;
-}
-
-.sinopsis p {
-  max-width: 68ch;
-}
+/* Bloque 1: la ficha (FichaPelicula). Bloque 2: horarios por sucursal. */
 
 .horarios {
   display: grid;
@@ -52,7 +24,7 @@
 
 /* La barra de acción y el estado "sin funciones" son los dos botones rojos posibles:
    si los horarios vencen en el cliente aparece el estado vacío y la barra se va. */
-.pagina:has([data-sin-funciones]) .barraAccion {
+.pagina:has([data-sin-funciones]) [data-accion-horarios] {
   display: none;
 }
 

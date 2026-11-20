@@ -5,14 +5,12 @@ import { obtenerPelicula } from "@/api/catalogo";
 import { listarHorariosHoy, listarSucursalesHoy } from "@/api/funciones";
 import { BarraAccionHorarios } from "@/components/BarraAccionHorarios/BarraAccionHorarios";
 import { BotonReintentar } from "@/components/BotonReintentar/BotonReintentar";
-import { Caratula } from "@/components/Caratula/Caratula";
-import { EtiquetaPegada } from "@/components/EtiquetaPegada/EtiquetaPegada";
+import { FichaPelicula } from "@/components/FichaPelicula/FichaPelicula";
 import { HorariosVigentes } from "@/components/HorariosVigentes/HorariosVigentes";
 import { SinFunciones } from "@/components/SinFunciones/SinFunciones";
 import { entorno } from "@/config/entorno";
 import { openGraphBase } from "@/config/metadata";
 import { descripcionFicha } from "@/domain/descripcion";
-import { formatearDuracion } from "@/domain/formato";
 import { armarHorariosPorSucursal } from "@/domain/horarios";
 import { construirJsonLd, serializarJsonLd } from "@/domain/jsonld";
 import estilos from "./page.module.css";
@@ -51,14 +49,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function FichaPelicula({ params }: Props) {
+export default async function PaginaPelicula({ params }: Props) {
   const { id } = await params;
   // Los horarios se piden en paralelo con el detalle; un fallo en ellos no oculta la ficha.
   const [pelicula, horarios] = await Promise.all([
     cargarPelicula(id),
     GUID.test(id) ? armarHorariosPorSucursal(id, { listarSucursalesHoy, listarHorariosHoy }) : null,
   ]);
-  const { titulo, duracionMinutos, clasificacion, sinopsis } = pelicula;
   const grupos = horarios?.tipo === "ok" ? horarios.grupos : [];
   const jsonLd = construirJsonLd(pelicula, grupos, entorno.siteUrl);
 
@@ -68,28 +65,11 @@ export default async function FichaPelicula({ params }: Props) {
         Volver a la cartelera
       </Link>
 
-      <article className={estilos.ficha}>
-        <Caratula {...pelicula} variante="ficha">
-          <h1 className="display">{titulo}</h1>
-          <div className={estilos.datos}>
-            {duracionMinutos && (
-              <span className="counter">{formatearDuracion(duracionMinutos)}</span>
-            )}
-            <EtiquetaPegada titulo={clasificacion.descripcion} inclinacion={-1}>
-              {clasificacion.etiqueta}
-            </EtiquetaPegada>
-          </div>
-        </Caratula>
-
-        {sinopsis && (
-          <section aria-labelledby="titulo-sinopsis" className={estilos.sinopsis}>
-            <h2 id="titulo-sinopsis" className="h2 corte-diagonal">
-              Sinopsis
-            </h2>
-            <p>{sinopsis}</p>
-          </section>
-        )}
-      </article>
+      <FichaPelicula
+        {...pelicula}
+        conAccion={horarios?.tipo === "ok"}
+        destinoId="titulo-horarios"
+      />
 
       <section aria-labelledby="titulo-horarios" className={estilos.horarios}>
         <h2 id="titulo-horarios" className="h2 corte-diagonal">
@@ -108,7 +88,7 @@ export default async function FichaPelicula({ params }: Props) {
       </section>
 
       {horarios?.tipo === "ok" && (
-        <div className={estilos.barraAccion}>
+        <div data-accion-horarios className={estilos.barraAccion}>
           <BarraAccionHorarios destinoId="titulo-horarios" />
         </div>
       )}

@@ -13,7 +13,7 @@ const datos = {
 describe("Caratula", () => {
   it("muestra el póster con texto alternativo y el título como texto", () => {
     render(
-      <Caratula {...datos} imagenUrl="https://upload.wikimedia.org/poster.jpg" variante="ficha">
+      <Caratula {...datos} imagenUrl="https://upload.wikimedia.org/poster.jpg" variante="destacada">
         <h1>Interstellar</h1>
       </Caratula>,
     );

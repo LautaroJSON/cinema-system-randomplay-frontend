@@ -1,0 +1,109 @@
+/* Teléfono: el póster o el casete arriba, centrado, y todo lo demás debajo. */
+.ficha {
+  display: grid;
+  border-radius: var(--radio);
+}
+
+.media {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  border-bottom: var(--borde) solid var(--line);
+}
+
+.poster {
+  position: relative;
+  width: min(14rem, 60%);
+  aspect-ratio: 2 / 3; /* reserva el espacio desde el primer render (sin CLS) */
+  overflow: hidden;
+  border: var(--borde) solid var(--line);
+}
+
+.imagen {
+  object-fit: cover;
+}
+
+.casete {
+  width: min(15rem, 70%);
+  height: auto;
+  color: var(--paper-muted);
+}
+
+.codigo {
+  color: var(--paper-muted);
+  text-align: center;
+}
+
+.lado {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  min-width: 0;
+  padding: clamp(1.25rem, 0.75rem + 2.5vw, 2.5rem);
+}
+
+.titulo {
+  overflow-wrap: anywhere;
+}
+
+/* Ficha técnica como etiqueta impresa: rótulo a la izquierda, dato a la derecha, puntos guía. */
+.datos {
+  display: grid;
+  margin: 0;
+}
+
+.datos > div {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0;
+  border-bottom: var(--borde) dotted var(--line-strong);
+}
+
+.datos dt {
+  color: var(--paper-muted);
+}
+
+.datos dd {
+  margin: 0 0 0 auto;
+  text-align: right;
+}
+
+.sinopsis {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.sinopsis p {
+  max-width: 68ch;
+}
+
+/* En teléfono la acción es la barra fija: dos botones rojos a la vez rompen la regla de uno. */
+.accion {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .ficha {
+    grid-template-columns: clamp(220px, 28%, 300px) minmax(0, 1fr);
+  }
+
+  .media {
+    padding: clamp(1.25rem, 0.75rem + 2.5vw, 2.5rem);
+    border-bottom: 0;
+    border-right: var(--borde) solid var(--line);
+  }
+
+  .poster,
+  .casete {
+    width: 100%;
+  }
+
+  .accion {
+    display: block;
+    justify-self: start;
+    margin-top: 0.5rem;
+  }
+}

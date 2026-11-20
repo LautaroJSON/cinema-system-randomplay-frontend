@@ -56,8 +56,7 @@
   min-height: 220px;
 }
 
-.tipografica.destacada .texto,
-.tipografica.ficha .texto {
+.tipografica.destacada .texto {
   padding: clamp(1.25rem, 0.75rem + 2.5vw, 2.5rem);
 }
 
@@ -67,16 +66,14 @@
   padding: 0.75rem 1rem 0;
 }
 
-/* Destacada y ficha: póster al costado del título, como el frente de la caja de la cinta. */
-.conPoster.destacada,
-.conPoster.ficha {
+/* Destacada: póster al costado del título, como el frente de la caja de la cinta. */
+.conPoster.destacada {
   display: grid;
   grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
   background: var(--surface);
 }
 
-.conPoster.destacada .texto,
-.conPoster.ficha .texto {
+.conPoster.destacada .texto {
   justify-content: flex-end;
   padding: 1rem;
 }
@@ -91,13 +88,11 @@
     min-height: 320px;
   }
 
-  .conPoster.destacada,
-  .conPoster.ficha {
+  .conPoster.destacada {
     grid-template-columns: 280px minmax(0, 1fr);
   }
 
-  .conPoster.destacada .texto,
-  .conPoster.ficha .texto {
+  .conPoster.destacada .texto {
     padding: clamp(1.25rem, 0.75rem + 2.5vw, 2.5rem);
   }
 }

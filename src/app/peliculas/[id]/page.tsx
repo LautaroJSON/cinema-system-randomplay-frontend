@@ -3,10 +3,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { obtenerPelicula } from "@/api/catalogo";
 import { listarHorariosHoy, listarSucursalesHoy } from "@/api/funciones";
+import { BarraAccionHorarios } from "@/components/BarraAccionHorarios/BarraAccionHorarios";
 import { BotonReintentar } from "@/components/BotonReintentar/BotonReintentar";
 import { Caratula } from "@/components/Caratula/Caratula";
 import { EtiquetaPegada } from "@/components/EtiquetaPegada/EtiquetaPegada";
 import { HorariosVigentes } from "@/components/HorariosVigentes/HorariosVigentes";
+import { SinFunciones } from "@/components/SinFunciones/SinFunciones";
 import { entorno } from "@/config/entorno";
 import { openGraphBase } from "@/config/metadata";
 import { descripcionFicha } from "@/domain/descripcion";
@@ -95,7 +97,7 @@ export default async function FichaPelicula({ params }: Props) {
         </h2>
         {horarios?.tipo === "ok" && <HorariosVigentes grupos={horarios.grupos} />}
         {horarios?.tipo === "vacio" && (
-          <p className={estilos.aviso}>Hoy no hay funciones de esta película.</p>
+          <SinFunciones titulo="Hoy no hay funciones de esta película." />
         )}
         {horarios?.tipo === "error" && (
           <div className={estilos.error}>
@@ -104,6 +106,12 @@ export default async function FichaPelicula({ params }: Props) {
           </div>
         )}
       </section>
+
+      {horarios?.tipo === "ok" && (
+        <div className={estilos.barraAccion}>
+          <BarraAccionHorarios destinoId="titulo-horarios" />
+        </div>
+      )}
 
       <script
         type="application/ld+json"

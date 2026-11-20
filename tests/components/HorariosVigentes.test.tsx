@@ -67,5 +67,9 @@ describe("HorariosVigentes", () => {
     expect(screen.getByRole("status")).toHaveTextContent(
       "Hoy no hay más funciones de esta película.",
     );
+    expect(screen.getByRole("link", { name: "Ver la cartelera de hoy" })).toHaveAttribute(
+      "href",
+      "/",
+    );
   });
 });

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Casete } from "@/components/Casete/Casete";
 import { EtiquetaPegada } from "@/components/EtiquetaPegada/EtiquetaPegada";
 import estilos from "./SinFunciones.module.css";
 
@@ -12,7 +11,14 @@ import estilos from "./SinFunciones.module.css";
 export function SinFunciones({ titulo }: { titulo: string }) {
   return (
     <div data-sin-funciones className={`halftone sombra-dura ${estilos.vacio}`}>
-      <Casete className={estilos.casete} />
+      <svg viewBox="0 0 240 150" aria-hidden="true" focusable="false" className={estilos.casete}>
+        <rect x="10" y="10" width="220" height="120" />
+        <rect x="40" y="26" width="160" height="44" />
+        <circle cx="85" cy="48" r="13" />
+        <circle cx="155" cy="48" r="13" />
+        <path d="M85 41v14M78 48h14M155 41v14M148 48h14" />
+        <path d="M62 130l12-26h92l12 26" />
+      </svg>
       <EtiquetaPegada tono="alerta" inclinacion={-1}>
         Sin funciones hoy
       </EtiquetaPegada>

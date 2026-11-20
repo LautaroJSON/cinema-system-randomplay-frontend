@@ -7,10 +7,15 @@
   text-align: center;
 }
 
+/* Trazo de 2 px y esquinas rectas (DESIGN.md §9). */
 .casete {
   width: min(14rem, 60%);
   height: auto;
-  color: var(--paper-muted);
+  fill: none;
+  stroke: var(--paper-muted);
+  stroke-width: 2;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
 }
 
 .titulo {

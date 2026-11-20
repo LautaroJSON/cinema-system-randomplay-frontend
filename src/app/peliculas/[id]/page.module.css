@@ -50,8 +50,14 @@
   justify-self: start;
 }
 
-.aviso {
-  color: var(--paper-muted);
+/* La barra de acción y el estado "sin funciones" son los dos botones rojos posibles:
+   si los horarios vencen en el cliente aparece el estado vacío y la barra se va. */
+.pagina:has([data-sin-funciones]) .barraAccion {
+  display: none;
+}
+
+.barraAccion {
+  display: contents;
 }
 
 .error {

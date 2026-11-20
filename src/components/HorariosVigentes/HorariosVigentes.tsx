@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
+import { SinFunciones } from "@/components/SinFunciones/SinFunciones";
 import { TiraHorarios } from "@/components/TiraHorarios/TiraHorarios";
 import { filtrarVigentes, type HorariosPorSucursal } from "@/domain/horarios";
 import estilos from "./HorariosVigentes.module.css";
@@ -53,18 +54,17 @@ export function HorariosVigentes({ grupos }: { grupos: HorariosPorSucursal[] }) 
     return () => clearTimeout(plazo);
   }, [refrescoPedido]);
 
-  const aviso = sinFunciones
-    ? "Hoy no hay más funciones de esta película."
-    : vencieronTodos
-      ? "Actualizando horarios…"
-      : "";
-
   return (
     <>
       {!vencieronTodos && <TiraHorarios grupos={visibles} />}
-      <p role="status" className={aviso ? estilos.aviso : "visualmente-oculto"}>
-        {aviso}
-      </p>
+      {/* La región existe siempre para que el lector de pantalla anuncie el cambio. */}
+      <div role="status" className={vencieronTodos ? undefined : "visualmente-oculto"}>
+        {sinFunciones ? (
+          <SinFunciones titulo="Hoy no hay más funciones de esta película." />
+        ) : vencieronTodos ? (
+          <p className={estilos.aviso}>Actualizando horarios…</p>
+        ) : null}
+      </div>
     </>
   );
 }

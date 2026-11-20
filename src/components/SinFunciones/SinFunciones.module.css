@@ -1,0 +1,32 @@
+.vacio {
+  display: grid;
+  justify-items: center;
+  gap: 0.875rem;
+  padding: clamp(1.5rem, 1rem + 3vw, 3rem) clamp(1rem, 0.5rem + 3vw, 2.5rem);
+  border-radius: var(--radio);
+  text-align: center;
+}
+
+/* Trazo de 2 px y esquinas rectas (DESIGN.md §9). */
+.casete {
+  width: min(14rem, 60%);
+  height: auto;
+  fill: none;
+  stroke: var(--paper-muted);
+  stroke-width: 2;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+.titulo {
+  max-width: 28ch;
+}
+
+.detalle {
+  max-width: 46ch;
+  color: var(--paper-muted);
+}
+
+.vacio > :global(.boton-primario) {
+  margin-top: 0.5rem;
+}

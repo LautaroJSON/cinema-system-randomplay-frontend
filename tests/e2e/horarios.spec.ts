@@ -39,6 +39,10 @@ test.describe("horarios de hoy en el HTML inicial", () => {
     await page.goto(`/peliculas/${ID_SIN_FUNCIONES}`);
     await expect(page.getByText("Hoy no hay funciones de esta película.")).toBeVisible();
     await expect(page.getByRole("heading", { level: 3 })).toHaveCount(0);
+    await expect(page.getByRole("link", { name: "Ver la cartelera de hoy" })).toHaveAttribute(
+      "href",
+      "/",
+    );
   });
 
   test("un fallo en los horarios no oculta la ficha", async ({ page }) => {
@@ -64,6 +68,6 @@ test.describe("horarios vencidos en una versión en caché", () => {
 
     await page.clock.runFor(2_000);
     await page.clock.runFor(8_000);
-    await expect(estado).toHaveText("Hoy no hay más funciones de esta película.");
+    await expect(estado).toContainText("Hoy no hay más funciones de esta película.");
   });
 });

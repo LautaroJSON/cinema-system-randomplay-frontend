@@ -1,10 +1,10 @@
 import type { NextConfig } from "next";
+import { resolverBackend } from "./src/config/backend";
 import { HOSTS_DE_POSTERS } from "./src/config/imagenes";
 
-const apiUrl = process.env.API_URL;
-if (!apiUrl) {
-  throw new Error("Falta la variable de entorno API_URL (base del backend). Ver .env.example.");
-}
+const { url: apiUrl, origen } = resolverBackend(process.env);
+// Una línea al arrancar, para saber contra qué backend corre el sitio sin abrir el .env.
+console.log(`Backend: ${apiUrl} (${origen})`);
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
